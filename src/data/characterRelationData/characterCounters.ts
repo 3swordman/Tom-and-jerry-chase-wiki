@@ -2494,6 +2494,7 @@ export const characterRelationCharacterCounterTraits: CharacterRelationTrait[] =
       kind: 'counters',
       subject: { name: '剑客杰瑞', type: 'character' },
       target: { name: '莱特宁', type: 'character' },
+      tags: [{ counters: '免疫', counteredBy: '怕免疫' }],
       isMinor: false,
     },
   },

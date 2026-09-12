@@ -2,6 +2,15 @@ import type { CharacterRelationTrait } from '@/data/types';
 
 export const characterRelationModeTraits: CharacterRelationTrait[] = [
   {
+    description: '罗宾拿到钥匙后难以拦截抓捕。',
+    relation: {
+      kind: 'advantageModes',
+      subject: { name: '罗宾汉杰瑞', type: 'character' },
+      target: { name: '黄金钥匙赛', type: 'mode' },
+      isMinor: false,
+    },
+  },
+  {
     description: '米特在得分高时增加伤害和受到伤害，胡椒粉极易毒死自己。',
     relation: {
       kind: 'disadvantageModes',

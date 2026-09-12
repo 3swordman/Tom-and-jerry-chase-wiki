@@ -2,6 +2,71 @@ import type { CharacterRelationTrait } from '@/data/types';
 
 export const characterRelationMapTraits: CharacterRelationTrait[] = [
   {
+    description: '房间横向连接居多且房间较矮，罗宾跳跃力强的特点难以发挥作用。',
+    relation: {
+      kind: 'disadvantageMaps',
+      subject: { name: '罗宾汉杰瑞', type: 'character' },
+      target: { name: '经典之家II', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description: '同经典2。该地图房间封闭度高，罗宾支援困难',
+    relation: {
+      kind: 'disadvantageMaps',
+      subject: { name: '罗宾汉杰瑞', type: 'character' },
+      target: { name: '经典之家III', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description:
+      '太空1的科研舱、领航厅，太空2的休闲仓、领航厅，太空3的科研舱、走廊等多处洞口可死守。罗宾破局能力差，推入这些洞口的奶酪较为吃力。但太空堡垒系列的平台分布有利于罗宾和队友开二段跳撤退。',
+    relation: {
+      kind: 'disadvantageMaps',
+      subject: { name: '罗宾汉杰瑞', type: 'character' },
+      target: { name: '太空堡垒I', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description: '便于搬奶酪',
+    relation: {
+      kind: 'advantageMaps',
+      subject: { name: '剑客莉莉', type: 'character' },
+      target: { name: '太空堡垒I', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description: '便于搬奶酪，剑气可大范围释放',
+    relation: {
+      kind: 'advantageMaps',
+      subject: { name: '剑客莉莉', type: 'character' },
+      target: { name: '游乐场', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description: '便于搬奶酪',
+    relation: {
+      kind: 'advantageMaps',
+      subject: { name: '剑客莉莉', type: 'character' },
+      target: { name: '天宫', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
+    description:
+      '码头、甲板均能利用花洒快速破墙，同时该地图大部分奶酪点位为[上下结构](码头和甲板，电影院和船长室，甲板和餐厅)，能够在确保自身安全的情况下，利用{爱心之吻}的远程治疗进行破局强推',
+    relation: {
+      kind: 'advantageMaps',
+      subject: { name: '雪梨', type: 'character' },
+      target: { name: '夏日游轮I', type: 'map' },
+      isMinor: false,
+    },
+  },
+  {
     description: '地图体积大，整体跨度大，不利于泰菲移动',
     relation: {
       kind: 'disadvantageMaps',

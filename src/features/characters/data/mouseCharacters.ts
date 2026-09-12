@@ -1577,7 +1577,7 @@ const mouseCharacterDefinitions = {
         skillLevels: [
           {
             level: 1,
-            description: '吃{食物(组合)}更快；{牛奶}加速生效期间，暂时提升25Hp上限。',
+            description: '吃{食物（组合）}更快；{牛奶}加速生效期间，暂时提升25Hp上限。',
             detailedDescription:
               '吃{食物(组合)}速度在基础值上提升3%；{牛奶}加速生效期间，暂时提升25Hp上限。',
           },
