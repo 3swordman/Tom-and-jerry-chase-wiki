@@ -30,6 +30,10 @@ npm run inspect:game-data-actions -- --date=2026-07-24
 # Approved, public actions for an inclusive Beijing range, optionally limited to one actor root
 npm run inspect:game-data-actions -- --from=2026-07-24 --to=2026-07-26 --actor=Tom
 
+# Compact whole-row inventory pages; continue until nextCursor is null
+npm run inspect:game-data-actions -- --date=2026-07-24 --page-size=25
+npm run inspect:game-data-actions -- --date=2026-07-24 --page-size=25 --cursor=<nextCursor>
+
 # Exact rows, with small values and optional overlapping history
 npm run inspect:game-data-actions -- --ids=<comma-separated UUIDs> --values
 npm run inspect:game-data-actions -- --ids=<comma-separated UUIDs> --include-history
@@ -43,7 +47,14 @@ The command is read-only and uses the same service-key credential convention and
 adapter as `npm run audit:game-data-actions`. It decodes single, array, and nested-array entries;
 projects legacy paths; compares each action with current source; groups dependent rows; and checks
 same-path old/new chains. Date scopes perform the Beijing-to-UTC conversion and return inventory
-without complete values. Exact-ID scopes accept at most 25 IDs. `--values` returns complete values
+without complete values. For oversized days, use `--page-size=1..100` (cursor-only requests default
+to 25). Each page contains compact metadata per whole database row, inspected action counts, and
+dependency group indexes/sizes computed over the entire scope. Groups may span pages; export the full
+scope to inspect group membership and chain details. Keep the same date/actor scope with `--cursor`;
+a changed row snapshot requires restarting discovery. Pages shrink if needed to stay within the
+50,000-byte output cap. This paginates output, still fetching/analyzing the complete scope per call;
+it is not an atomic database snapshot. Pagination cannot be combined with exact IDs or `--output`.
+Exact-ID scopes accept at most 25 IDs. `--values` returns complete values
 only for payloads at or below 10,000 serialized bytes; larger payloads always return bounded
 structural summaries/diffs. With `--output=<new ignored path>`, stdout contains only counts and a file
 receipt. The JSON file contains the report plus complete stored `rows` and matching `historyRows`,

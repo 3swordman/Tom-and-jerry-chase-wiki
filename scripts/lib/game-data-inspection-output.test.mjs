@@ -5,7 +5,73 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 
-import { writeInspectionEvidence } from './game-data-inspection-output.mjs';
+import { createInventoryPage, writeInspectionEvidence } from './game-data-inspection-output.mjs';
+
+test('pages whole inventory rows with cross-page groups and rejects changed snapshots', () => {
+  const rows = Array.from({ length: 4 }, (_, i) => ({
+    id: `row-${i}`,
+    created_at: '2026-08-07T00:00:00Z',
+    entity_type: 'characters',
+    status: 'approved',
+    is_public: true,
+    entry: '大'.repeat(30_000),
+  }));
+  const output = {
+    target: 'test',
+    scope: { kind: 'beijing-date-range', actor: null },
+    report: {
+      rows: [{ rowId: 'row-0' }, { rowId: 'row-0' }, { rowId: 'row-1' }, { rowId: 'row-2' }],
+      malformedRows: [{ rowId: 'row-3', code: 'malformed' }],
+      dependencyGroups: [{ rowIds: ['row-0', 'row-2'] }],
+    },
+  };
+  const first = createInventoryPage(output, rows, { pageSize: 2 });
+  const second = createInventoryPage(output, rows, {
+    pageSize: 2,
+    cursor: first.pagination.nextCursor,
+  });
+  assert.deepEqual(
+    [...first.inventory, ...second.inventory].map(({ rowId }) => rowId),
+    rows.map(({ id }) => id)
+  );
+  assert.equal(first.inventory[0].inspectedActionCount, 2);
+  assert.deepEqual(first.inventory[0].dependencyGroup, second.inventory[0].dependencyGroup);
+  assert.equal(second.inventory[1].malformedCode, 'malformed');
+  assert.equal(second.pagination.nextCursor, null);
+  assert.ok(Buffer.byteLength(JSON.stringify(first)) < 50_000);
+  assert.ok(!JSON.stringify(first).includes('大'));
+  const wideRows = rows.map((row) => ({ ...row, entity_type: 'x'.repeat(20_000) }));
+  const bounded = createInventoryPage(output, wideRows, { pageSize: 4 });
+  assert.ok(bounded.inventory.length < 4);
+  assert.ok(Buffer.byteLength(`${JSON.stringify(bounded, null, 2)}\n`) <= 50_000);
+  assert.ok(bounded.pagination.nextCursor);
+  assert.throws(
+    () =>
+      createInventoryPage(output, [{ ...rows[0], status: 'revoked' }, ...rows.slice(1)], {
+        cursor: first.pagination.nextCursor,
+      }),
+    { code: 'inventory_changed_restart_required' }
+  );
+  assert.throws(
+    () =>
+      createInventoryPage({ ...output, scope: { actor: 'Jerry' } }, rows, {
+        cursor: first.pagination.nextCursor,
+      }),
+    { code: 'inventory_changed_restart_required' }
+  );
+  assert.throws(() => createInventoryPage(output, rows, { cursor: 'bad' }), {
+    code: 'invalid_inventory_cursor',
+  });
+  assert.throws(() => createInventoryPage(output, rows, { pageSize: 101 }), {
+    code: 'invalid_page_size',
+  });
+  const empty = createInventoryPage(
+    { ...output, report: { rows: [], malformedRows: [], dependencyGroups: [] } },
+    []
+  );
+  assert.equal(empty.pagination.nextCursor, null);
+  assert.deepEqual(empty.inventory, []);
+});
 
 test('exports lossless oversized evidence only to new ignored files', () => {
   const directory = mkdtempSync(join(tmpdir(), 'inspection-output-'));

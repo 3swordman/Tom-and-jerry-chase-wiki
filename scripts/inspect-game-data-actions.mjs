@@ -5,7 +5,10 @@ import { createClient } from '@supabase/supabase-js';
 import { createJiti } from 'jiti';
 
 import { fetchGameDataActionRows } from './lib/game-data-action-query.mjs';
-import { writeInspectionEvidence } from './lib/game-data-inspection-output.mjs';
+import {
+  createInventoryPage,
+  writeInspectionEvidence,
+} from './lib/game-data-inspection-output.mjs';
 import { resolveSupabaseTarget } from './lib/supabase-target.mjs';
 
 const projectDir = fileURLToPath(new URL('..', import.meta.url));
@@ -54,6 +57,8 @@ function parseArgs(args) {
   let actor;
   let ids;
   let outputPath;
+  let pageSize;
+  let cursor;
   let includeValues = false;
   let includeHistory = false;
 
@@ -63,6 +68,12 @@ function parseArgs(args) {
     else if (arg.startsWith('--to=')) to = arg.slice('--to='.length);
     else if (arg.startsWith('--actor=')) actor = arg.slice('--actor='.length);
     else if (arg.startsWith('--ids=')) ids = parseList(arg.slice('--ids='.length));
+    else if (arg.startsWith('--page-size=')) {
+      const value = arg.slice('--page-size='.length);
+      if (!/^[1-9]\d*$/.test(value) || Number(value) > 100)
+        throw new InspectionScriptError('invalid_page_size');
+      pageSize = Number(value);
+    } else if (arg.startsWith('--cursor=')) cursor = arg.slice('--cursor='.length);
     else if (arg.startsWith('--output=')) {
       outputPath = arg.slice('--output='.length);
       if (!outputPath.trim()) throw new InspectionScriptError('invalid_output_path');
@@ -74,6 +85,9 @@ function parseArgs(args) {
   const dateMode = date !== undefined || from !== undefined || to !== undefined;
   const idMode = ids !== undefined;
   if (dateMode === idMode) throw new InspectionScriptError('select_exactly_one_scope');
+  if ((pageSize !== undefined || cursor !== undefined) && (idMode || outputPath !== undefined)) {
+    throw new InspectionScriptError('pagination_requires_date_scope_without_output');
+  }
   if (date !== undefined && (from !== undefined || to !== undefined)) {
     throw new InspectionScriptError('date_range_conflict');
   }
@@ -94,6 +108,8 @@ function parseArgs(args) {
     actor,
     ids,
     outputPath,
+    pageSize,
+    cursor,
     includeValues,
     includeHistory,
     dateRange:
@@ -182,7 +198,11 @@ async function main() {
         : { kind: 'ids', ids: args.ids },
     report,
   };
-  if (args.outputPath !== undefined) {
+  if (args.pageSize !== undefined || args.cursor !== undefined) {
+    writeOutput(
+      createInventoryPage(output, rows, { pageSize: args.pageSize, cursor: args.cursor })
+    );
+  } else if (args.outputPath !== undefined) {
     const selectedIds = new Set([
       ...report.rows.map(({ rowId }) => rowId),
       ...report.malformedRows.map(({ rowId }) => rowId),

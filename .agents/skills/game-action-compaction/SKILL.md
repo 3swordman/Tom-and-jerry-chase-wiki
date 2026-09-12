@@ -30,7 +30,8 @@ independent rows unless the user explicitly requests compaction.
 ## Freeze the cohort
 
 1. Run `npm run inspect:game-data-actions` with the requested inclusive Beijing dates and actor scope.
-   Bisect date ranges when inventory returns `output_too_large`; do not fetch unbounded full values.
+   For oversized inventory, use `--page-size=25` and follow `nextCursor`, or export the full scope with
+   `--output=.tmp/<new-file>.json`. Keep scope fixed across pages; restart if the snapshot changes.
 2. Merge by `created_at`, then `id`, then action order. Deduplicate row IDs without splitting multi-action rows.
 3. Save the discovery manifest under ignored `.tmp/` before editing. Include:
    - original user scope, UTC bounds, discovery timestamp, and original baseline `repository.head`;
