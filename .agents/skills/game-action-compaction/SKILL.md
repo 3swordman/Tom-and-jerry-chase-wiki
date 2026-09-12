@@ -19,7 +19,8 @@ independent rows unless the user explicitly requests compaction.
 ## Scope and authorization
 
 - Stay on the current branch. Do not use a browser.
-- Remote mutations, repository pushes, and deployments require authorization for the batch and target.
+- Except for deterministic exact-duplicate resolution within the requested batch (see below), remote
+  mutations, repository pushes, and deployments require authorization for the batch and target.
   Existing batch authorization persists across deployment handoffs; ask only for scope changes or new decisions.
   Without remote authorization, complete local preparation and stop there.
 - Only an exact remote re-query confirming `status = 'synced'` permits calling a row synced.
@@ -69,11 +70,12 @@ without recording user identifiers in the manifest or report:
 - For copies from the same non-anonymous user, retain the earliest by time/ID.
 - For different non-anonymous contributors, defer for review; do not choose a contributor automatically.
 
-Only with mutation authorization, use the prepared reject RPC for pending/private copies or revoke RPC
-for approved/public copies. Require a moderator actor, replay-epoch protection, and exact post-mutation
+Resolving exact duplicates under these rules is part of the requested batch and requires no separate
+authorization. Use the prepared reject RPC for pending/private copies or revoke RPC for approved/public
+copies. Require a moderator actor, replay-epoch protection, and exact post-mutation
 re-query; never update status directly. Read the actor from `GAME_DATA_COMPACTION_ACTOR_ID` when configured
 in ignored local environment files. Do not print or store that UUID in tracked files, manifests, or reports;
-its presence is not authorization.
+its presence does not authorize unrelated mutations.
 
 Preserve the discovery manifest and record removals separately. Freeze a new working manifest excluding
 removed copies from both cutover and verification dependencies. Recompute groups, chains, counts,
