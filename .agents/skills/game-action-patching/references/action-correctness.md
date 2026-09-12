@@ -70,8 +70,9 @@ for classification, patching, and verification.
 
 `--include-history` finds exact, ancestor/descendant, and structural-array path overlaps, plus inverse
 character counters and reversed symmetric `collaborators`/`counterEachOther` endpoints. Dependency
-grouping uses the same matching. Both old and new endpoint names are considered; whole-character
-snapshots are included. Missing endpoint names (for example indexed description edits) conservatively
+grouping uses the same matching. Both old and new endpoint `id` values are considered, including
+indexed objects and `.id` edits; whole-character snapshots are included. Missing endpoint IDs
+(for example indexed description edits) conservatively
 match possible endpoints, so an overlap is a review candidate, not proof of equal content. Other
 relation domains retain structural matching; same-path chain checks remain unchanged.
 Use direct SQL only as a diagnosed

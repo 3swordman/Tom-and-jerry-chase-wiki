@@ -54,19 +54,19 @@ describe('createActionInspectionReport', () => {
       op: 'set',
       path: `Tom.${leftKind}`,
       oldValue: [],
-      newValue: [{ name: 'Jerry' }],
+      newValue: [{ id: 'Jerry' }],
     });
     const inverse = row('inverse', {
       op: 'set',
       path: `Jerry.${rightKind}`,
-      oldValue: [{ name: 'Tom' }],
+      oldValue: [{ id: 'Tom' }],
       newValue: [],
     });
     const unrelated = row('unrelated', {
       op: 'set',
       path: `Spike.${rightKind}`,
       oldValue: [],
-      newValue: [{ name: 'Tyke' }],
+      newValue: [{ id: 'Tyke' }],
     });
     const report = createActionInspectionReport({
       rows: [selected],
@@ -85,10 +85,41 @@ describe('createActionInspectionReport', () => {
     ).toEqual([{ entityType: 'characters', rowIds: ['inverse', 'selected'] }]);
   });
 
+  it('uses stored IDs for indexed endpoint objects without merging unrelated edges', () => {
+    const selected = row('selected', {
+      op: 'set',
+      path: 'Tom.counters.0',
+      oldValue: { id: 'Jerry', name: 'display label' },
+      newValue: { id: 'Tyke', name: 'display label' },
+    });
+    const matching = row('matching', {
+      op: 'set',
+      path: 'Jerry.counteredBy.0',
+      oldValue: { id: 'Tom' },
+      newValue: { id: 'Tom', description: 'updated' },
+    });
+    const unrelated = row('unrelated', {
+      op: 'set',
+      path: 'Spike.counteredBy.0',
+      oldValue: { id: 'Butch' },
+      newValue: { id: 'Butch', description: 'updated' },
+    });
+    const report = createActionInspectionReport({
+      rows: [selected],
+      targets: targets({}),
+      historyRows: [matching, unrelated],
+    });
+    expect(report.overlapHistory.map(({ rowId }) => rowId)).toEqual(['matching']);
+    expect(
+      createActionInspectionReport({ rows: [selected, matching, unrelated], targets: targets({}) })
+        .dependencyGroups
+    ).toEqual([{ entityType: 'characters', rowIds: ['matching', 'selected'] }]);
+  });
+
   it('includes old endpoints, parent snapshots and unresolved indexed edits conservatively', () => {
     const selected = row('selected', {
       op: 'set',
-      path: 'Tom.counters.0.name',
+      path: 'Tom.counters.0.id',
       oldValue: 'Jerry',
       newValue: 'Tyke',
     });
@@ -100,13 +131,13 @@ describe('createActionInspectionReport', () => {
           op: 'set',
           path: 'Jerry.counteredBy',
           oldValue: [],
-          newValue: [{ name: 'Tom' }],
+          newValue: [{ id: 'Tom' }],
         }),
         row('parent', {
           op: 'set',
           path: 'Tyke',
           oldValue: { counteredBy: [] },
-          newValue: { counteredBy: [{ name: 'Tom' }] },
+          newValue: { counteredBy: [{ id: 'Tom' }] },
         }),
         row('indexed', {
           op: 'set',
@@ -118,13 +149,13 @@ describe('createActionInspectionReport', () => {
           op: 'set',
           path: 'Jerry.counters',
           oldValue: [],
-          newValue: [{ name: 'Tom' }],
+          newValue: [{ id: 'Tom' }],
         }),
         row('wrong-kind', {
           op: 'set',
           path: 'Jerry.collaborators',
           oldValue: [],
-          newValue: [{ name: 'Tom' }],
+          newValue: [{ id: 'Tom' }],
         }),
       ],
     });
@@ -134,9 +165,9 @@ describe('createActionInspectionReport', () => {
   it('unions semantic and structural dependencies transitively while keeping rows atomic', () => {
     const report = createActionInspectionReport({
       rows: [
-        row('a', { op: 'set', path: 'Tom.counters', oldValue: [], newValue: [{ name: 'Jerry' }] }),
+        row('a', { op: 'set', path: 'Tom.counters', oldValue: [], newValue: [{ id: 'Jerry' }] }),
         row('b', [
-          { op: 'set', path: 'Jerry.counteredBy', oldValue: [], newValue: [{ name: 'Tom' }] },
+          { op: 'set', path: 'Jerry.counteredBy', oldValue: [], newValue: [{ id: 'Tom' }] },
           { op: 'set', path: 'Spike.name', oldValue: 'a', newValue: 'b' },
         ]),
         row('c', { op: 'set', path: 'Spike.name', oldValue: 'b', newValue: 'c' }),

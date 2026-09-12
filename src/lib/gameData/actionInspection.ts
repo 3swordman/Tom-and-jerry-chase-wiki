@@ -446,12 +446,10 @@ function relationFootprints(action: Action): RelationFootprint[] {
   const { characterId, relationKind, rest } = relation;
   const endpoints = (value: unknown): (string | null)[] => {
     if (rest.length === 0 && Array.isArray(value)) {
-      return value.map((item) =>
-        isRecord(item) && typeof item.name === 'string' ? item.name : null
-      );
+      return value.map((item) => (isRecord(item) && typeof item.id === 'string' ? item.id : null));
     }
-    if (rest.length === 1 && isRecord(value) && typeof value.name === 'string') return [value.name];
-    if (rest.length === 2 && rest[1] === 'name' && typeof value === 'string') return [value];
+    if (rest.length === 1 && isRecord(value) && typeof value.id === 'string') return [value.id];
+    if (rest.length === 2 && rest[1] === 'id' && typeof value === 'string') return [value];
     // Index-only/material edits cannot identify a historical endpoint from today's source.
     return [null];
   };
