@@ -191,7 +191,10 @@ rejected, and revoked rows never explain source state.
 
 Run `npm run verify:game-data-actions -- --ids=<complete-group-row-ids>` for every applied or
 represented group. Pass every row in a parent/child or old/new chain together so reverse
-verification can reconstruct intermediate states. Defer the whole submitted verification batch
+verification can reconstruct intermediate states. The verifier accepts groups larger than 25 rows:
+it fetches at most 25 IDs per request, checks that every requested row was returned, then sorts and
+verifies the entire group once. The inspector's exact-ID limit does not limit verification groups.
+Defer the whole submitted verification batch
 if any row is unsupported or mismatched. Never split a dependency group to fit a tool limit;
 report a tooling blocker if the verifier cannot accept the complete group.
 

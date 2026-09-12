@@ -49,7 +49,6 @@ function parseArgs(args) {
 
   if (help) return { help: true };
   if (!ids || ids.length === 0) throw new VerificationScriptError('ids_required');
-  if (ids.length > 25) throw new VerificationScriptError('too_many_ids', { maximum: 25 });
   if (new Set(ids).size !== ids.length) throw new VerificationScriptError('duplicate_ids');
   if (ids.some((id) => !UUID_PATTERN.test(id))) {
     throw new VerificationScriptError('invalid_id');
@@ -62,12 +61,16 @@ function compareRows(left, right) {
 }
 
 async function fetchRows(supabase, ids) {
-  const { data, error } = await supabase
-    .from('game_data_actions')
-    .select(SELECT_COLUMNS)
-    .in('id', ids);
-  if (error) throw new VerificationScriptError('query_failed');
-  const rows = data ?? [];
+  const rows = [];
+  // Bound request URLs, then verify the complete group in one ordered replay.
+  for (let offset = 0; offset < ids.length; offset += 25) {
+    const { data, error } = await supabase
+      .from('game_data_actions')
+      .select(SELECT_COLUMNS)
+      .in('id', ids.slice(offset, offset + 25));
+    if (error) throw new VerificationScriptError('query_failed');
+    rows.push(...(data ?? []));
+  }
   const found = new Set(rows.map((row) => row.id));
   const missing = ids.filter((id) => !found.has(id));
   if (missing.length > 0) throw new VerificationScriptError('rows_missing', { ids: missing });
