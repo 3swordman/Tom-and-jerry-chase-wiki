@@ -101,11 +101,11 @@ describe('relationMatrixViewModel', () => {
 
     expect(getCell(catRows, '汤姆', '杰瑞')).toMatchObject({
       displayKind: 'counter',
-      tooltipContent: expect.stringContaining('汤姆克制杰瑞：杰瑞自保能力差'),
+      tooltipContent: expect.stringContaining('汤姆克制杰瑞 [免疫]：杰瑞自保能力差'),
     });
     expect(getCell(mouseRows, '杰瑞', '汤姆')).toMatchObject({
       displayKind: 'counteredBy',
-      tooltipContent: expect.stringContaining('杰瑞被汤姆克制：杰瑞自保能力差'),
+      tooltipContent: expect.stringContaining('杰瑞被汤姆克制 [怕免疫]：杰瑞自保能力差'),
     });
     expect(getCell(catRows, '牛仔汤姆', '剑客泰菲')).toMatchObject({
       displayKind: 'counteredBy',
