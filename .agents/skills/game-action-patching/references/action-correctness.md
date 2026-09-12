@@ -33,6 +33,10 @@ npm run inspect:game-data-actions -- --from=2026-07-24 --to=2026-07-26 --actor=T
 # Exact rows, with small values and optional overlapping history
 npm run inspect:game-data-actions -- --ids=<comma-separated UUIDs> --values
 npm run inspect:game-data-actions -- --ids=<comma-separated UUIDs> --include-history
+
+# Complete evidence, including oversized payloads; parent directory must already exist
+npm run inspect:game-data-actions -- --date=2026-07-24 --output=.tmp/inventory-2026-07-24.json
+npm run inspect:game-data-actions -- --ids=<comma-separated UUIDs> --include-history --output=.tmp/details.json
 ```
 
 The command is read-only and uses the same service-key credential convention and paginated query
@@ -41,7 +45,15 @@ projects legacy paths; compares each action with current source; groups dependen
 same-path old/new chains. Date scopes perform the Beijing-to-UTC conversion and return inventory
 without complete values. Exact-ID scopes accept at most 25 IDs. `--values` returns complete values
 only for payloads at or below 10,000 serialized bytes; larger payloads always return bounded
-structural summaries/diffs. Total output is capped near 50,000 bytes, so split an exact-ID request
+structural summaries/diffs. With `--output=<new ignored path>`, stdout contains only counts and a file
+receipt. The JSON file contains the report plus complete stored `rows` and matching `historyRows`,
+including full `entry` payloads regardless of size, scope, query start/end times, target, and repository
+HEAD. Actor-filtered exports retain whole matching rows, including sibling actions; malformed selected
+rows are retained too. History includes only the structural overlaps identified by the inspector.
+The parent directory must exist; tracked/unignored paths and existing files are rejected. This is
+inspection evidence, not an atomic database snapshot or deployment-bound parity proof. `--values`
+still controls small values in the report; use the stored rows for complete action content.
+Without `--output`, total output is capped near 50,000 bytes, so split an exact-ID request
 if it reports `output_too_large`. Split inspection output only; keep dependency groups together
 for classification, patching, and verification.
 

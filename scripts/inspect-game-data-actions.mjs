@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { createJiti } from 'jiti';
 
 import { fetchGameDataActionRows } from './lib/game-data-action-query.mjs';
+import { writeInspectionEvidence } from './lib/game-data-inspection-output.mjs';
 import { resolveSupabaseTarget } from './lib/supabase-target.mjs';
 
 const projectDir = fileURLToPath(new URL('..', import.meta.url));
@@ -52,6 +53,7 @@ function parseArgs(args) {
   let to;
   let actor;
   let ids;
+  let outputPath;
   let includeValues = false;
   let includeHistory = false;
 
@@ -61,7 +63,10 @@ function parseArgs(args) {
     else if (arg.startsWith('--to=')) to = arg.slice('--to='.length);
     else if (arg.startsWith('--actor=')) actor = arg.slice('--actor='.length);
     else if (arg.startsWith('--ids=')) ids = parseList(arg.slice('--ids='.length));
-    else if (arg === '--values') includeValues = true;
+    else if (arg.startsWith('--output=')) {
+      outputPath = arg.slice('--output='.length);
+      if (!outputPath.trim()) throw new InspectionScriptError('invalid_output_path');
+    } else if (arg === '--values') includeValues = true;
     else if (arg === '--include-history') includeHistory = true;
     else throw new InspectionScriptError('invalid_argument');
   }
@@ -88,6 +93,7 @@ function parseArgs(args) {
   return {
     actor,
     ids,
+    outputPath,
     includeValues,
     includeHistory,
     dateRange:
@@ -115,7 +121,7 @@ function writeOutput(output) {
   if (Buffer.byteLength(serialized) > MAX_OUTPUT_BYTES) {
     throw new InspectionScriptError('output_too_large', {
       maximumBytes: MAX_OUTPUT_BYTES,
-      hint: 'Use fewer IDs or omit --values',
+      hint: 'Use --output=.tmp/inspection.json to export complete evidence, or use fewer IDs',
     });
   }
   process.stdout.write(serialized);
@@ -123,6 +129,7 @@ function writeOutput(output) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  const startedAt = new Date().toISOString();
   if (!SUPABASE_URL || !SERVICE_KEY) {
     throw new InspectionScriptError('missing_supabase_credentials');
   }
@@ -167,14 +174,42 @@ async function main() {
     ...(historyRows === undefined ? {} : { historyRows }),
   });
 
-  writeOutput({
+  const output = {
     target,
     scope:
       args.ids === undefined
         ? { kind: 'beijing-date-range', ...args.dateRange, actor: args.actor ?? null }
         : { kind: 'ids', ids: args.ids },
     report,
-  });
+  };
+  if (args.outputPath !== undefined) {
+    const selectedIds = new Set([
+      ...report.rows.map(({ rowId }) => rowId),
+      ...report.malformedRows.map(({ rowId }) => rowId),
+    ]);
+    const overlappingIds = new Set(report.overlapHistory.map(({ rowId }) => rowId));
+    // Keep whole stored rows, including sibling actions excluded by an actor filter.
+    const selectedRows = rows.filter(({ id }) => selectedIds.has(id));
+    const overlappingRows = historyRows?.filter(({ id }) => overlappingIds.has(id)) ?? [];
+    const receipt = writeInspectionEvidence(projectDir, args.outputPath, {
+      startedAt,
+      completedAt: new Date().toISOString(),
+      ...output,
+      rows: selectedRows,
+      historyRows: overlappingRows,
+    });
+    writeOutput({
+      target,
+      ...receipt,
+      rowCount: selectedRows.length,
+      actionCount: report.rows.length,
+      malformedRowCount: report.malformedRows.length,
+      historyRowCount: overlappingRows.length,
+      dependencyGroupCount: report.dependencyGroups.length,
+    });
+  } else {
+    writeOutput(output);
+  }
 }
 
 main().catch((error) => {
