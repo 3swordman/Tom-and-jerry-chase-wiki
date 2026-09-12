@@ -44,6 +44,110 @@ describe('createBeijingDateRange', () => {
 });
 
 describe('createActionInspectionReport', () => {
+  it.each([
+    ['counters', 'counteredBy'],
+    ['counteredBy', 'counters'],
+    ['collaborators', 'collaborators'],
+    ['counterEachOther', 'counterEachOther'],
+  ])('matches reversed %s/%s edges in history and groups', (leftKind, rightKind) => {
+    const selected = row('selected', {
+      op: 'set',
+      path: `Tom.${leftKind}`,
+      oldValue: [],
+      newValue: [{ name: 'Jerry' }],
+    });
+    const inverse = row('inverse', {
+      op: 'set',
+      path: `Jerry.${rightKind}`,
+      oldValue: [{ name: 'Tom' }],
+      newValue: [],
+    });
+    const unrelated = row('unrelated', {
+      op: 'set',
+      path: `Spike.${rightKind}`,
+      oldValue: [],
+      newValue: [{ name: 'Tyke' }],
+    });
+    const report = createActionInspectionReport({
+      rows: [selected],
+      targets: targets({}),
+      historyRows: [
+        selected,
+        inverse,
+        unrelated,
+        { ...inverse, id: 'other-domain', entity_type: 'items' },
+      ],
+    });
+    expect(report.overlapHistory.map(({ rowId }) => rowId)).toEqual(['inverse']);
+    expect(
+      createActionInspectionReport({ rows: [selected, inverse, unrelated], targets: targets({}) })
+        .dependencyGroups
+    ).toEqual([{ entityType: 'characters', rowIds: ['inverse', 'selected'] }]);
+  });
+
+  it('includes old endpoints, parent snapshots and unresolved indexed edits conservatively', () => {
+    const selected = row('selected', {
+      op: 'set',
+      path: 'Tom.counters.0.name',
+      oldValue: 'Jerry',
+      newValue: 'Tyke',
+    });
+    const report = createActionInspectionReport({
+      rows: [selected],
+      targets: targets({}),
+      historyRows: [
+        row('old', {
+          op: 'set',
+          path: 'Jerry.counteredBy',
+          oldValue: [],
+          newValue: [{ name: 'Tom' }],
+        }),
+        row('parent', {
+          op: 'set',
+          path: 'Tyke',
+          oldValue: { counteredBy: [] },
+          newValue: { counteredBy: [{ name: 'Tom' }] },
+        }),
+        row('indexed', {
+          op: 'set',
+          path: 'Jerry.counteredBy.3.description',
+          oldValue: 'a',
+          newValue: 'b',
+        }),
+        row('wrong-direction', {
+          op: 'set',
+          path: 'Jerry.counters',
+          oldValue: [],
+          newValue: [{ name: 'Tom' }],
+        }),
+        row('wrong-kind', {
+          op: 'set',
+          path: 'Jerry.collaborators',
+          oldValue: [],
+          newValue: [{ name: 'Tom' }],
+        }),
+      ],
+    });
+    expect(report.overlapHistory.map(({ rowId }) => rowId)).toEqual(['indexed', 'old', 'parent']);
+  });
+
+  it('unions semantic and structural dependencies transitively while keeping rows atomic', () => {
+    const report = createActionInspectionReport({
+      rows: [
+        row('a', { op: 'set', path: 'Tom.counters', oldValue: [], newValue: [{ name: 'Jerry' }] }),
+        row('b', [
+          { op: 'set', path: 'Jerry.counteredBy', oldValue: [], newValue: [{ name: 'Tom' }] },
+          { op: 'set', path: 'Spike.name', oldValue: 'a', newValue: 'b' },
+        ]),
+        row('c', { op: 'set', path: 'Spike.name', oldValue: 'b', newValue: 'c' }),
+      ],
+      targets: targets({}),
+    });
+    expect(report.dependencyGroups).toEqual([
+      { entityType: 'characters', rowIds: ['a', 'b', 'c'] },
+    ]);
+  });
+
   it('decodes nested rows and exposes dependencies, chains, and current-source matches', () => {
     const report = createActionInspectionReport({
       rows: [

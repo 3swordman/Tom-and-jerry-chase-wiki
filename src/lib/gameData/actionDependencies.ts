@@ -134,9 +134,13 @@ function actionsInEntry(entry: ActionHistoryEntry): Action[] {
   return Array.isArray(entry) ? entry : [entry];
 }
 
-function entriesAreOrderDependent(left: ActionHistoryEntry, right: ActionHistoryEntry): boolean {
+function entriesAreOrderDependent(
+  left: ActionHistoryEntry,
+  right: ActionHistoryEntry,
+  areDependent: (left: Action, right: Action) => boolean
+): boolean {
   return actionsInEntry(left).some((leftAction) =>
-    actionsInEntry(right).some((rightAction) => areActionsOrderDependent(leftAction, rightAction))
+    actionsInEntry(right).some((rightAction) => areDependent(leftAction, rightAction))
   );
 }
 
@@ -145,7 +149,10 @@ function entriesAreOrderDependent(left: ActionHistoryEntry, right: ActionHistory
  * Every input index occurs exactly once, and both groups and their members
  * preserve the original history order.
  */
-export function groupActionEntriesByDependency(entries: readonly ActionHistoryEntry[]): number[][] {
+export function groupActionEntriesByDependency(
+  entries: readonly ActionHistoryEntry[],
+  areDependent: (left: Action, right: Action) => boolean = areActionsOrderDependent
+): number[][] {
   const parents = entries.map((_, index) => index);
 
   const findRoot = (index: number): number => {
@@ -172,7 +179,7 @@ export function groupActionEntriesByDependency(entries: readonly ActionHistoryEn
     const left = entries[leftIndex]!;
     for (let rightIndex = leftIndex + 1; rightIndex < entries.length; rightIndex += 1) {
       const right = entries[rightIndex]!;
-      if (entriesAreOrderDependent(left, right)) union(leftIndex, rightIndex);
+      if (entriesAreOrderDependent(left, right, areDependent)) union(leftIndex, rightIndex);
     }
   }
 

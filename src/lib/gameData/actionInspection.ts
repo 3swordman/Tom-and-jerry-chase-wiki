@@ -1,5 +1,6 @@
 import isEqual from 'lodash-es/isEqual';
 
+import { parseCharacterRelationActionPath } from '@/lib/edit/characterRelationActions';
 import type { Action, ActionHistoryEntry } from '@/lib/edit/diffUtils';
 
 import { areActionsOrderDependent, groupActionEntriesByDependency } from './actionDependencies';
@@ -413,6 +414,75 @@ function decodeRows(
   return { decodedRows, malformedRows };
 }
 
+type RelationFootprint = {
+  kind: string;
+  subject: string | null;
+  target: string | null;
+};
+
+const characterEdgeKinds = [
+  'counters',
+  'counteredBy',
+  'counterEachOther',
+  'collaborators',
+] as const;
+
+function relationFootprints(action: Action): RelationFootprint[] {
+  const parsed = parseActionPath(action.path);
+  if (!parsed.success) return [];
+  const relation = parseCharacterRelationActionPath(parsed.value.segments.join('.'));
+  // A whole-character write can change any of its relationship collections.
+  if (parsed.value.segments.length === 1) {
+    return characterEdgeKinds.flatMap((kind) =>
+      relationFootprints({
+        ...action,
+        path: `${parsed.value.rootKey}.${kind}`,
+        oldValue: isRecord(action.oldValue) ? action.oldValue[kind] : undefined,
+        newValue: isRecord(action.newValue) ? action.newValue[kind] : undefined,
+      })
+    );
+  }
+  if (!relation || !characterEdgeKinds.some((kind) => kind === relation.relationKind)) return [];
+  const { characterId, relationKind, rest } = relation;
+  const endpoints = (value: unknown): (string | null)[] => {
+    if (rest.length === 0 && Array.isArray(value)) {
+      return value.map((item) =>
+        isRecord(item) && typeof item.name === 'string' ? item.name : null
+      );
+    }
+    if (rest.length === 1 && isRecord(value) && typeof value.name === 'string') return [value.name];
+    if (rest.length === 2 && rest[1] === 'name' && typeof value === 'string') return [value];
+    // Index-only/material edits cannot identify a historical endpoint from today's source.
+    return [null];
+  };
+  const values = [
+    ...(action.op === 'add' && action.oldValue === undefined ? [] : endpoints(action.oldValue)),
+    ...(action.op === 'delete' && action.newValue === undefined ? [] : endpoints(action.newValue)),
+  ];
+  return [...new Set(values)].map((endpoint) => ({
+    kind: relationKind === 'counteredBy' ? 'counters' : relationKind,
+    subject: relationKind === 'counteredBy' ? endpoint : characterId,
+    target: relationKind === 'counteredBy' ? characterId : endpoint,
+  }));
+}
+
+function inspectionActionsOverlap(entityType: string, left: Action, right: Action): boolean {
+  if (areActionsOrderDependent(left, right)) return true;
+  if (entityType !== 'characters') return false;
+  const endpointMatches = (a: string | null, b: string | null) =>
+    a === null || b === null || a === b;
+  return relationFootprints(left).some((a) =>
+    relationFootprints(right).some(
+      (b) =>
+        a.kind === b.kind &&
+        ((endpointMatches(a.subject, b.subject) && endpointMatches(a.target, b.target)) ||
+          ((a.kind === 'collaborators' || a.kind === 'counterEachOther') &&
+            endpointMatches(a.subject, b.target) &&
+            endpointMatches(a.target, b.subject)))
+    )
+  );
+}
+
 function createDependencyGroups(
   decodedRows: readonly DecodedInspectionRow[]
 ): ActionInspectionReport['dependencyGroups'] {
@@ -427,7 +497,8 @@ function createDependencyGroups(
 
   for (const [entityType, rows] of byEntityType) {
     const dependencyGroups = groupActionEntriesByDependency(
-      rows.map(({ actions }) => [...actions] as ActionHistoryEntry)
+      rows.map(({ actions }) => [...actions] as ActionHistoryEntry),
+      (left, right) => inspectionActionsOverlap(entityType, left, right)
     );
     for (const indexes of dependencyGroups) {
       if (indexes.length < 2) continue;
@@ -535,7 +606,7 @@ function createOverlapHistory(
       const matches = selectedActions.filter(
         (selected) =>
           selected.row.entity_type === row.entity_type &&
-          areActionsOrderDependent(selected.action, action)
+          inspectionActionsOverlap(row.entity_type, selected.action, action)
       );
       if (matches.length === 0) return [];
       return [

@@ -49,7 +49,7 @@ structural summaries/diffs. With `--output=<new ignored path>`, stdout contains 
 receipt. The JSON file contains the report plus complete stored `rows` and matching `historyRows`,
 including full `entry` payloads regardless of size, scope, query start/end times, target, and repository
 HEAD. Actor-filtered exports retain whole matching rows, including sibling actions; malformed selected
-rows are retained too. History includes only the structural overlaps identified by the inspector.
+rows are retained too. History includes structural and semantic overlaps identified by the inspector.
 The parent directory must exist; tracked/unignored paths and existing files are rejected. This is
 inspection evidence, not an atomic database snapshot or deployment-bound parity proof. `--values`
 still controls small values in the report; use the stored rows for complete action content.
@@ -57,9 +57,13 @@ Without `--output`, total output is capped near 50,000 bytes, so split an exact-
 if it reports `output_too_large`. Split inspection output only; keep dependency groups together
 for classification, patching, and verification.
 
-`--include-history` finds exact and ancestor/descendant path overlaps. Until relation-semantic
-history matching is implemented, also inspect inverse and symmetric relation endpoints using the
-mapping below. Report this limitation if it affects a decision. Use direct SQL only as a diagnosed
+`--include-history` finds exact, ancestor/descendant, and structural-array path overlaps, plus inverse
+character counters and reversed symmetric `collaborators`/`counterEachOther` endpoints. Dependency
+grouping uses the same matching. Both old and new endpoint names are considered; whole-character
+snapshots are included. Missing endpoint names (for example indexed description edits) conservatively
+match possible endpoints, so an overlap is a review candidate, not proof of equal content. Other
+relation domains retain structural matching; same-path chain checks remain unchanged.
+Use direct SQL only as a diagnosed
 fallback when the inspector cannot express the required scope, and report the missing capability.
 
 ## Relation Mapping (src/data/characterRelationData/\*.ts)
