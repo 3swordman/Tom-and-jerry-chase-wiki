@@ -46,8 +46,6 @@ const MAX_SEARCH_LENGTH = 200;
 const MAX_EXTRACT_CHARS = 1000;
 const MAX_SEARCH_RESULTS = 10;
 
-const PUBLIC_CACHE = 'public, max-age=60, s-maxage=60, stale-while-revalidate=300';
-const SITEINFO_CACHE = 'public, max-age=43200, s-maxage=43200, stale-while-revalidate=86400';
 const NO_CACHE = 'no-store, max-age=0';
 
 const API_HEADERS = {
@@ -581,13 +579,7 @@ export async function handleMediaWikiGet(request: Request): Promise<NextResponse
       action === 'query' ? queryAction(catalog, index, params) : parseAction(index, params);
     if (result instanceof NextResponse) return result;
 
-    const cacheControl =
-      action === 'query' && params.get('meta') === 'siteinfo'
-        ? SITEINFO_CACHE
-        : action === 'query' && params.get('list') === 'random'
-          ? NO_CACHE
-          : PUBLIC_CACHE;
-    return jsonResponse(result, cacheControl);
+    return jsonResponse(result, NO_CACHE);
   } catch (error) {
     console.error('MediaWiki API catalog failure:', error);
     return mediaWikiError(
@@ -603,7 +595,7 @@ export function handleMediaWikiOptions(): NextResponse {
     headers: {
       ...API_HEADERS,
       'Access-Control-Max-Age': '43200',
-      'Cache-Control': SITEINFO_CACHE,
+      'Cache-Control': NO_CACHE,
     },
   });
 }
