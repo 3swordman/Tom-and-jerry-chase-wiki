@@ -19,7 +19,10 @@ const catAchievementDefinitions: Record<string, AchievementDefinition> = {
   狡诈: { score: 100, description: '隐身状态抓老鼠1次' },
   阴险: { score: 50, description: '设置3个老鼠夹' },
   绝杀: { score: 50, description: '最后60秒获胜' },
-  '爱！': { score: 50, description: '游戏结束没有老鼠被放飞也没有老鼠逃脱' },
+  '爱！': {
+    score: 50,
+    description: '游戏结束没有老鼠被放飞也没有老鼠逃脱（所有玩家都会取得该成就）',
+  },
 };
 
 const catAchievementsWithImages: Record<string, Achievement> = Object.fromEntries(

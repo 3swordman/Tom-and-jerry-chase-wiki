@@ -266,7 +266,7 @@ const mouseKnowledgeCardDefinitions: Record<string, Card> = {
     cost: 3,
     description: '被猫咪追击时，如果附近没有其他可行动的老鼠，获得**加速**。',
     detailedDescription:
-      '周围[小范围](20260402增强前为550范围，现已缩小)内有猫咪时，如果该范围内没有其他可行动的老鼠，获得**加速**。',
+      '周围[小范围](20260402增强前为550范围，现已缩小。库博处于间歇性隐身时无法触发)内有猫咪时，如果该范围内没有其他可行动的老鼠，获得**加速**。',
     levels: [
       { level: 1, description: '加速**3%**。' },
       { level: 2, description: '加速**4%**。' },
