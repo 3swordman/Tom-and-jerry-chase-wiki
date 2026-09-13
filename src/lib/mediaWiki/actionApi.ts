@@ -45,6 +45,8 @@ const MAX_TITLE_LENGTH = 500;
 const MAX_SEARCH_LENGTH = 200;
 const MAX_EXTRACT_CHARS = 1000;
 const MAX_SEARCH_RESULTS = 10;
+const SPECIAL_INTERWIKI_TITLE = 'Special:Interwiki';
+const SPECIAL_INTERWIKI_PAGE_ID = -1;
 
 const NO_CACHE = 'no-store, max-age=0';
 
@@ -81,6 +83,14 @@ function titleKey(value: string): string {
   return normalizeTitle(value).toLocaleLowerCase('zh-CN');
 }
 
+function isSpecialInterwikiTitle(value: string): boolean {
+  return titleKey(value) === titleKey(SPECIAL_INTERWIKI_TITLE);
+}
+
+function isSpecialInterwikiPageId(value: string): boolean {
+  return value === String(SPECIAL_INTERWIKI_PAGE_ID);
+}
+
 function absoluteHttpUrl(value: string | undefined): string | undefined {
   if (!value?.trim()) return undefined;
   try {
@@ -89,6 +99,10 @@ function absoluteHttpUrl(value: string | undefined): string | undefined {
   } catch {
     return undefined;
   }
+}
+
+function absoluteSiteUrl(route: string): string {
+  return new URL(route, SITE_URL).toString();
 }
 
 function createCatalogIndex(catalog: MediaWikiCatalog): CatalogIndex {
@@ -230,6 +244,16 @@ function parsePageQueries(
 
   const results: QueryPage[] = [];
   for (const [indexInBatch, requestedId] of parsed.values.entries()) {
+    if (isSpecialInterwikiPageId(requestedId)) {
+      results.push({
+        page: null,
+        requestedTitle: SPECIAL_INTERWIKI_TITLE,
+        normalizedTitle: SPECIAL_INTERWIKI_TITLE,
+        missingKey: String(-(indexInBatch + 1)),
+        alias: false,
+      });
+      continue;
+    }
     if (!isValidPageId(requestedId)) {
       return { error: mediaWikiError('invalidpageid', `Invalid page ID "${requestedId}".`) };
     }
@@ -286,6 +310,22 @@ function toPagePayload(page: MediaWikiPage, params: URLSearchParams): UnknownRec
   };
 }
 
+function specialInterwikiPagePayload(): UnknownRecord {
+  const fullUrl = absoluteSiteUrl('/Special:Interwiki');
+  return {
+    pageid: SPECIAL_INTERWIKI_PAGE_ID,
+    ns: -1,
+    title: SPECIAL_INTERWIKI_TITLE,
+    fullurl: fullUrl,
+    canonicalurl: fullUrl,
+    special: '',
+    extract: '本 Wiki 暂未配置互联链接。',
+    templates: [],
+    langlinks: [],
+    pageprops: {},
+  };
+}
+
 function addQueryPage(
   pages: Record<string, UnknownRecord>,
   query: QueryPage,
@@ -298,6 +338,14 @@ function addQueryPage(
     if (query.alias) redirects.push({ from: query.requestedTitle, to: query.page.title });
     if (query.normalizedTitle !== query.requestedTitle) {
       normalized.push({ from: query.requestedTitle, to: query.normalizedTitle });
+    }
+    return;
+  }
+
+  if (isSpecialInterwikiTitle(query.requestedTitle)) {
+    pages[String(SPECIAL_INTERWIKI_PAGE_ID)] = specialInterwikiPagePayload();
+    if (query.requestedTitle !== SPECIAL_INTERWIKI_TITLE) {
+      normalized.push({ from: query.requestedTitle, to: SPECIAL_INTERWIKI_TITLE });
     }
     return;
   }
@@ -335,6 +383,7 @@ function siteInfo(catalog: MediaWikiCatalog): UnknownRecord {
         wikiid: 'tjwiki',
       },
       namespaces: {
+        '-1': { '*': 'Special', canonical: 'Special', id: -1, case: 'first-letter' },
         '0': { '*': '', id: 0, case: 'first-letter', content: '' },
       },
       namespacealiases: [],
@@ -372,10 +421,7 @@ function renderPageBody(page: MediaWikiPage): string {
         const qualifier = candidate.kindDescription
           ? `，${escapeHtml(candidate.kindDescription)}`
           : '';
-        const description = candidate.description
-          ? `，${escapeHtml(candidate.description)}`
-          : qualifier;
-        return `<li><a href="${href}" title="${title}">${title}</a>${description}</li>`;
+        return `<li><a href="${href}" title="${title}">${title}</a>${qualifier}</li>`;
       })
       .join('');
     return `<p>${escapeHtml(page.title)}可能指：</p><ul>${candidates}</ul>`;
@@ -414,6 +460,28 @@ function parsePage(page: MediaWikiPage, params: URLSearchParams): UnknownRecord 
       anchor: section.anchor,
     }));
   }
+  return parsed;
+}
+
+function parseSpecialInterwikiPage(params: URLSearchParams): UnknownRecord {
+  const body = '<p>本 Wiki 暂未配置互联链接。</p>';
+  const rawProps = params.get('prop');
+  const props =
+    rawProps === null || rawProps.trim() === '' ? new Set(['text']) : new Set(rawProps.split('|'));
+  const parsed: UnknownRecord = {
+    title: SPECIAL_INTERWIKI_TITLE,
+    pageid: SPECIAL_INTERWIKI_PAGE_ID,
+  };
+
+  if (props.has('text')) {
+    parsed.text = { '*': `<div class="mw-parser-output">${body}</div>` };
+  }
+  if (props.has('headhtml')) {
+    const html = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>${escapeHtml(SPECIAL_INTERWIKI_TITLE)}</title></head><body class="mediawiki ltr ns-special ns-special-Interwiki"><div class="mw-parser-output">${body}</div></body></html>`;
+    parsed.headhtml = { '*': html };
+  }
+  if (props.has('sections')) parsed.sections = [];
+
   return parsed;
 }
 
@@ -538,9 +606,28 @@ function parseAction(index: CatalogIndex, params: URLSearchParams): UnknownRecor
   }
 
   const page =
-    pageIdParam !== null
+    pageIdParam !== null && !isSpecialInterwikiPageId(pageIdParam)
       ? lookupPageById(index, pageIdParam)
-      : resolveTitle(index, pageParam ?? '')?.page;
+      : pageParam !== null && !isSpecialInterwikiTitle(pageParam)
+        ? resolveTitle(index, pageParam)?.page
+        : null;
+
+  const isSpecialInterwiki =
+    (pageParam !== null && isSpecialInterwikiTitle(pageParam)) ||
+    (pageIdParam !== null && isSpecialInterwikiPageId(pageIdParam));
+  if (isSpecialInterwiki) {
+    const props = params.get('prop');
+    if (props) {
+      const unsupported = props
+        .split('|')
+        .map((property) => property.trim())
+        .filter((property) => property && !['headhtml', 'sections', 'text'].includes(property));
+      if (unsupported.length) {
+        return mediaWikiError('unknown_prop', `Unknown parse property "${unsupported[0]}".`);
+      }
+    }
+    return { parse: parseSpecialInterwikiPage(params) };
+  }
   if (!page) return mediaWikiError('missingtitle', 'The requested page could not be found.');
 
   const props = params.get('prop');
