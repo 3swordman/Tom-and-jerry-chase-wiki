@@ -26,7 +26,7 @@ export function Skeleton({
   return (
     <div
       className={cn(
-        'relative overflow-hidden bg-gray-200 dark:bg-gray-700',
+        'daisy-skeleton relative animate-none overflow-hidden rounded-none bg-gray-200 bg-none will-change-auto dark:bg-gray-700',
         rounded && 'rounded',
         animate && 'animate-pulse',
         className

@@ -116,7 +116,7 @@ export default function KnowledgeCardAttributesCard({ card }: KnowledgeCardDetai
                       });
                     }
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {CARD_RANKS.map((rank) => (
                     <option key={rank} value={rank}>
@@ -153,7 +153,7 @@ export default function KnowledgeCardAttributesCard({ card }: KnowledgeCardDetai
                         else draft.priority = priority as (typeof CARD_PRIORITIES)[number];
                       });
                     }}
-                    className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                    className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                   >
                     <option value=''>未设置</option>
                     {CARD_PRIORITIES.map((priority) => (

@@ -24,7 +24,7 @@ export default function CharacterNavigationButtons({
         onClick={navigateToPrevious}
         disabled={!previousId}
         className={cn(
-          'flex items-center gap-2 rounded-lg px-4 py-2 transition-colors',
+          'daisy-btn daisy-btn-sm flex h-auto min-h-0 items-center gap-2 rounded-lg px-4 py-2 font-normal transition-colors active:translate-none',
           previousId
             ? 'bg-blue-500 text-white hover:bg-blue-600'
             : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
@@ -45,7 +45,7 @@ export default function CharacterNavigationButtons({
         onClick={navigateToNext}
         disabled={!nextId}
         className={cn(
-          'flex items-center gap-2 rounded-lg px-4 py-2 transition-colors',
+          'daisy-btn daisy-btn-sm flex h-auto min-h-0 items-center gap-2 rounded-lg px-4 py-2 font-normal transition-colors active:translate-none',
           nextId
             ? 'bg-blue-500 text-white hover:bg-blue-600'
             : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'

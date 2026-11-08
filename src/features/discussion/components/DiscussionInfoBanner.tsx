@@ -9,7 +9,7 @@ export function DiscussionInfoBanner({ entityTitle, entityTypeLabel }: Discussio
   const showTypeLabel = entityTitle !== entityTypeLabel;
 
   return (
-    <div className='mb-6 rounded-lg border border-blue-200 bg-blue-50/60 px-5 py-3 text-sm text-gray-700 dark:border-blue-800 dark:bg-blue-950/30 dark:text-gray-300'>
+    <div className='daisy-alert daisy-alert-info daisy-alert-soft mb-6 block rounded-lg border border-blue-200 bg-blue-50/60 px-5 py-3 text-sm text-gray-700 dark:border-blue-800 dark:bg-blue-950/30 dark:text-gray-300'>
       <p>
         这是 <strong className='font-semibold'>{entityTitle}</strong>
         {showTypeLabel && (

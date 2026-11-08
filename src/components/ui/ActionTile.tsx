@@ -66,7 +66,7 @@ export default function ActionTile({
   };
 
   const tileClasses = cn(
-    'group overflow-hidden shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-focus focus-visible:outline-none',
+    'daisy-btn group h-auto shrink cursor-[revert] touch-auto select-auto overflow-hidden border-0 align-baseline font-normal shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-focus focus-visible:outline-none active:translate-none',
     layout === 'inline'
       ? 'flex items-center rounded-lg'
       : 'flex flex-col items-center justify-center rounded-md text-center',

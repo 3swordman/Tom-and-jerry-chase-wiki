@@ -38,7 +38,7 @@ export default function EditableCheckboxGroup<Option extends string>({
                 else next.delete(option);
                 onChange(options.filter((candidate) => next.has(candidate)));
               }}
-              className='h-3 w-3'
+              className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
             />
             <span className='font-bold'>{option}</span>
           </label>

@@ -44,7 +44,7 @@ export default function PreferenceChoice<T extends string>({
                 onChange={() => onChange(option.value)}
                 aria-labelledby={`${optionId}-label`}
                 aria-describedby={option.description ? `${optionId}-description` : undefined}
-                className='peer sr-only focus:outline-none'
+                className='daisy-radio peer sr-only focus:outline-none'
               />
               <span
                 className={cn(

@@ -176,7 +176,7 @@ const UserManagement: React.FC<UserManagementProps> = ({
         </div>
 
         <div className='overflow-x-auto'>
-          <table className='divide-border min-w-full divide-y'>
+          <table className='daisy-table divide-border min-w-full divide-y'>
             <thead className='bg-surface-sunken'>
               <tr>
                 <th className='px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-slate-200'>
@@ -204,7 +204,12 @@ const UserManagement: React.FC<UserManagementProps> = ({
                     </Link>
                   </td>
                   <td className='px-4 py-3 text-sm text-gray-600 dark:text-gray-300'>
-                    <div className='w-52'>
+                    <div
+                      className={cn(
+                        'daisy-dropdown daisy-dropdown-end w-52',
+                        openGroupUserId === user.id && 'daisy-dropdown-open'
+                      )}
+                    >
                       <Button
                         variant='unstyled'
                         type='button'
@@ -212,7 +217,7 @@ const UserManagement: React.FC<UserManagementProps> = ({
                         onClick={() =>
                           setOpenGroupUserId((current) => (current === user.id ? null : user.id))
                         }
-                        className='bg-surface flex min-h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:border-blue-400 dark:border-slate-600 dark:text-slate-200 dark:hover:border-blue-500'
+                        className='daisy-btn daisy-btn-outline bg-surface flex h-auto min-h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md px-3 py-1.5 text-sm font-normal text-gray-700 transition-colors hover:border-blue-400 active:translate-none dark:border-slate-600 dark:text-slate-200 dark:hover:border-blue-500'
                       >
                         <span
                           className='truncate'
@@ -237,16 +242,17 @@ const UserManagement: React.FC<UserManagementProps> = ({
                         />
                       </Button>
                       {openGroupUserId === user.id && (
-                        <div className='border-border bg-surface-raised text-foreground mt-1 max-h-64 w-full overflow-y-auto rounded-md border p-1 shadow-lg'>
+                        <div className='daisy-dropdown-content border-border bg-surface-raised text-foreground mt-1 max-h-64 w-full overflow-y-auto rounded-md border p-1 shadow-lg'>
                           {groups.map((group) => {
                             const checked = user.groupIds.includes(group.id);
                             return (
                               <label
                                 key={group.id}
-                                className='hover:bg-control flex cursor-pointer items-center gap-2 rounded px-2 py-2 text-sm'
+                                className='daisy-label hover:bg-control flex cursor-pointer items-center justify-start gap-2 rounded px-2 py-2 text-sm'
                               >
                                 <input
                                   type='checkbox'
+                                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs'
                                   checked={checked}
                                   disabled={!canAssignGroups}
                                   onChange={() => {

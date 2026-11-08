@@ -221,7 +221,7 @@ const CategoryManagement: React.FC<CategoryManagementProps> = ({
         </div>
 
         <div className='overflow-x-auto'>
-          <table className='divide-border min-w-full divide-y'>
+          <table className='daisy-table divide-border min-w-full divide-y'>
             <thead className='bg-surface-sunken'>
               <tr>
                 <th className='px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-slate-200'>

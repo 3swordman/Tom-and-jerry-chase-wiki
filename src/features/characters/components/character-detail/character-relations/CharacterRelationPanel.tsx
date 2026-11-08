@@ -139,7 +139,7 @@ function RelationItemMedia({ item }: { item: RelationDisplayItem }) {
         alt={item.id}
         width={40}
         height={40}
-        className='h-10 w-10 rounded-full object-cover'
+        className='daisy-mask daisy-mask-circle h-10 w-10 rounded-full object-cover'
       />
     ) : (
       <span className='flex h-10 w-10 items-center justify-center rounded-full bg-pink-200 text-xs text-pink-600'>
@@ -325,7 +325,7 @@ function RelationItemCard({
               rows={2}
               defaultValue={item.description}
               onBlur={(event) => item.onUpdateDescription?.(event.currentTarget.value)}
-              className={relationItemTextareaClassName}
+              className={cn('daisy-textarea', relationItemTextareaClassName)}
               placeholder='补充关系描述'
             />
           )

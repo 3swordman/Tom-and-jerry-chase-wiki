@@ -38,7 +38,7 @@ export default function SingleItemListEditor({
       {items.map((item, index) => (
         <div
           key={`${itemLabel}-${index}`}
-          className='border-border bg-surface-muted grid grid-cols-[minmax(0,1fr)_auto] gap-2 rounded-md border p-2'
+          className='daisy-card border-border bg-surface-muted grid grid-cols-[minmax(0,1fr)_auto] gap-2 rounded-md border p-2'
         >
           <div className='grid min-w-0 gap-2 sm:grid-cols-[9rem_minmax(0,1fr)_7rem]'>
             <FormSelect

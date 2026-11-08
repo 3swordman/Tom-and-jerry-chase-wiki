@@ -41,7 +41,7 @@ const RelationItemSelector: React.FC<RelationItemSelectorProps> = ({
   }
 
   return (
-    <div className='relative inline-block'>
+    <div className={cn('daisy-dropdown daisy-dropdown-end', isOpen && 'daisy-dropdown-open')}>
       <IconButton
         type='button'
         onClick={() => !disabled && setIsOpen((current) => !current)}
@@ -54,14 +54,14 @@ const RelationItemSelector: React.FC<RelationItemSelectorProps> = ({
       </IconButton>
 
       {isOpen && (
-        <div className='border-border bg-surface-raised text-foreground absolute top-full right-0 z-50 mt-1 max-h-48 w-48 overflow-y-auto rounded-lg border shadow-lg'>
+        <div className='daisy-dropdown-content border-border bg-surface-raised text-foreground absolute top-full right-0 z-50 mt-1 max-h-48 w-48 overflow-y-auto rounded-lg border shadow-lg'>
           {options.map(({ id, imageUrl, imageClassName }) => (
             <Button
               variant='unstyled'
               key={id}
               type='button'
               onClick={() => handleSelect(id)}
-              className='hover:bg-control flex w-full items-center gap-2 px-3 py-2 text-left text-sm'
+              className='daisy-btn daisy-btn-ghost hover:bg-control flex h-auto min-h-0 w-full items-center justify-start gap-2 rounded-none border-0 px-3 py-2 text-left text-sm font-normal active:translate-none'
               aria-label={optionAriaLabel(id)}
             >
               {imageUrl && (

@@ -158,7 +158,7 @@ export default function OnboardingTutorial({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 20 }}
-          className='bg-surface-raised text-foreground absolute max-w-xs rounded-lg p-4 shadow-lg'
+          className='daisy-card bg-surface-raised text-foreground absolute max-w-xs rounded-lg p-4 shadow-lg'
           style={{ left: tooltipX, top: tooltipY, width: tooltipWidth }}
         >
           <div className='mb-2 text-xs font-medium text-blue-600'>

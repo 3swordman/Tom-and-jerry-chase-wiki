@@ -39,7 +39,7 @@ export default function RecommendedStorePlansSection() {
         {storePlans.map((plan, planIndex) => (
           <li
             key={planIndex}
-            className='border-border bg-surface-sunken rounded-xl border px-3 py-2.5'
+            className='daisy-card border-border bg-surface-sunken rounded-xl border px-3 py-2.5'
           >
             {isEditMode && (
               <div className='mb-3 flex justify-end'>

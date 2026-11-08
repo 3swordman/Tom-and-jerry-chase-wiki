@@ -41,7 +41,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
         )}
       </div>
 
-      <div className='flex items-center gap-2'>
+      <div className='daisy-join pagination flex items-center gap-2'>
         <Button
           variant='secondary'
           size='sm'
@@ -49,7 +49,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage <= 1}
           aria-label='上一页'
-          className='rounded-lg border-0'
+          className='daisy-join-item rounded-lg border-0'
         >
           上一页
         </Button>
@@ -62,7 +62,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
               type='button'
               onClick={() => handlePageChange(1)}
               aria-label='第 1 页'
-              className='rounded-lg border-0'
+              className='daisy-join-item rounded-lg border-0'
             >
               1
             </Button>
@@ -83,7 +83,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
             onClick={() => handlePageChange(page)}
             aria-label={`第 ${page} 页`}
             aria-current={page === currentPage ? 'page' : undefined}
-            className='rounded-lg border-0'
+            className='daisy-join-item rounded-lg border-0'
           >
             {page}
           </Button>
@@ -102,7 +102,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
               type='button'
               onClick={() => handlePageChange(totalPages)}
               aria-label={`第 ${totalPages} 页`}
-              className='rounded-lg border-0'
+              className='daisy-join-item rounded-lg border-0'
             >
               {totalPages}
             </Button>
@@ -116,7 +116,7 @@ const ArticlePagination: React.FC<ArticlePaginationProps> = ({
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
           aria-label='下一页'
-          className='rounded-lg border-0'
+          className='daisy-join-item rounded-lg border-0'
         >
           下一页
         </Button>

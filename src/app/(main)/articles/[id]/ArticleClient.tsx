@@ -112,9 +112,11 @@ export default function ArticleClient({
       {mounted &&
         createPortal(
           <div className='pointer-events-none fixed top-0 left-0 z-9999 h-0.5 w-full bg-transparent'>
-            <div
-              className='h-full bg-blue-500/80 transition-all duration-150 ease-out dark:bg-blue-400/80'
-              style={{ width: `${readingProgress}%` }}
+            <progress
+              className='daisy-progress daisy-progress-primary h-0.5 w-full rounded-none bg-transparent text-blue-500 dark:text-blue-400'
+              value={readingProgress}
+              max={100}
+              aria-label='阅读进度'
             />
           </div>,
           document.body
@@ -181,7 +183,7 @@ export default function ArticleClient({
                         alt={boundCharacter.id}
                         width={24}
                         height={24}
-                        className='h-6 w-6 rounded-full object-cover ring-1 ring-blue-400 dark:ring-blue-500'
+                        className='daisy-mask daisy-mask-circle h-6 w-6 rounded-full object-cover ring-1 ring-blue-400 dark:ring-blue-500'
                       />
                     }
                   >

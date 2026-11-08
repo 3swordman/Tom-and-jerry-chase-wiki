@@ -8,21 +8,22 @@ const navButtonThemes = {
 
 const actionButtonVariants = {
   primary:
-    'bg-action-primary text-action-primary-foreground shadow-sm hover:bg-action-primary-hover',
+    'daisy-btn-primary bg-action-primary text-action-primary-foreground shadow-sm hover:bg-action-primary-hover',
   secondary:
-    'bg-control text-gray-800 hover:bg-control-hover border border-gray-200 dark:text-gray-100 dark:border-slate-600',
-  ghost: 'text-gray-700 hover:bg-control dark:text-gray-200',
-  danger: 'bg-action-danger text-action-danger-foreground shadow-sm hover:bg-action-danger-hover',
+    'daisy-btn-neutral bg-control text-gray-800 hover:bg-control-hover border border-gray-200 dark:text-gray-100 dark:border-slate-600',
+  ghost: 'daisy-btn-ghost bg-transparent text-gray-700 hover:bg-control dark:text-gray-200',
+  danger:
+    'daisy-btn-error bg-action-danger text-action-danger-foreground shadow-sm hover:bg-action-danger-hover',
   success:
-    'bg-action-success text-action-success-foreground shadow-sm hover:bg-action-success-hover',
+    'daisy-btn-success bg-action-success text-action-success-foreground shadow-sm hover:bg-action-success-hover',
   warning:
-    'bg-action-warning text-action-warning-foreground shadow-sm hover:bg-action-warning-hover',
+    'daisy-btn-warning bg-action-warning text-action-warning-foreground shadow-sm hover:bg-action-warning-hover',
 };
 
 const actionButtonSizes = {
-  sm: 'text-sm px-3 py-2 rounded-md',
-  md: 'text-base px-4 py-2.5 rounded-lg',
-  lg: 'text-lg px-5 py-3 rounded-lg',
+  sm: 'daisy-btn-sm text-sm px-3 py-2 rounded-md',
+  md: 'daisy-btn-md text-base px-4 py-2.5 rounded-lg',
+  lg: 'daisy-btn-lg text-lg px-5 py-3 rounded-lg',
 };
 
 export type FilterButtonTone = 'default' | 'blue' | 'green' | 'strongNeutral';
@@ -57,8 +58,8 @@ export function getNavigationButtonClasses(
   suppressActiveBackground: boolean = false
 ): string {
   const layout = isSquare
-    ? 'flex h-10 w-10 items-center justify-center rounded-md border-none p-2 md:h-11 md:w-11 lg:p-2.5 transition-colors'
-    : 'flex min-h-10 items-center justify-center whitespace-nowrap rounded-md border-none px-2 py-2 text-sm transition-colors md:min-h-11 md:px-2.5 lg:px-3.5 lg:text-base';
+    ? 'daisy-btn daisy-btn-ghost daisy-btn-sm h-10 w-10 min-h-0 shrink-0 border-none p-2 font-normal md:h-11 md:w-11 lg:p-2.5'
+    : 'daisy-btn daisy-btn-ghost daisy-btn-sm min-h-10 shrink-0 border-none px-2 py-2 text-sm font-normal whitespace-nowrap md:min-h-11 md:px-2.5 lg:px-3.5 lg:text-base';
   const focus =
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus';
 
@@ -81,7 +82,7 @@ export function getActionButtonClasses(
   options?: { fullWidth?: boolean; loading?: boolean }
 ): string {
   const base =
-    'inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60';
+    'daisy-btn inline-flex h-auto min-w-0 shrink cursor-default touch-auto items-center justify-center gap-2 border-0 border-current bg-none text-center align-baseline font-semibold shadow-none outline-current text-shadow-none select-auto transition-colors active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-60';
   return cn(
     base,
     actionButtonVariants[variant],

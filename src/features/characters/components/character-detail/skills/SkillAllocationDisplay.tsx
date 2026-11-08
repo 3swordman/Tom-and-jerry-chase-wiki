@@ -116,7 +116,7 @@ const SkillAllocationDisplay: React.FC<SkillAllocationDisplayProps> = ({
         </div>
         <div className='flex-1'>
           {!patternValidation.isValid && (
-            <div className='mb-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20'>
+            <div className='daisy-alert daisy-alert-error daisy-alert-soft mb-3 block rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20'>
               <div className='flex items-start gap-2'>
                 <div className='mt-0.5 h-5 w-5 shrink-0'>
                   <XCircleSolidIcon className='h-5 w-5 text-red-500 dark:text-red-400' />

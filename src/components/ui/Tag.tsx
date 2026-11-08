@@ -35,7 +35,7 @@ export default function Tag({
       style={colorStyles}
       {...(role ? { role } : {})}
       className={cn(
-        'inline-block rounded-md border-0 font-medium',
+        'daisy-badge inline-block h-auto w-auto shrink rounded-md border-0 bg-transparent bg-none align-baseline font-medium text-inherit',
         densityClasses[variant],
         fontSizeClasses[size],
         className

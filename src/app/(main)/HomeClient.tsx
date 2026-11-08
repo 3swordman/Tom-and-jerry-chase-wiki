@@ -78,7 +78,7 @@ export default function HomeContentClient({ description, hasServiceKey }: Props)
       {/* Division line before 网站说明 */}
       <div className='mt-12 px-2 sm:mt-18 sm:px-4 md:mt-24'>
         <div className='mx-auto max-w-4xl'>
-          <div className='bg-border h-px w-full'></div>
+          <div className='daisy-divider my-0 h-auto'></div>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ export default function HomeContentClient({ description, hasServiceKey }: Props)
 
         <div className='mt-8 px-2 sm:mt-10 sm:px-4 md:mt-12'>
           <div className='mx-auto max-w-4xl'>
-            <div className='bg-border h-px w-full'></div>
+            <div className='daisy-divider my-0 h-auto'></div>
           </div>
         </div>
 

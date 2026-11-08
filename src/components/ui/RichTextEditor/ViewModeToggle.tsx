@@ -28,7 +28,7 @@ const ViewModeToggle = React.memo(function ViewModeToggle({
     wiki: labels?.wiki ?? 'WikiText',
   };
   const baseButtonClasses =
-    'focus-visible:ring-focus inline-flex h-8 items-center justify-center p-2 rounded-md text-sm focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50';
+    'daisy-btn daisy-btn-sm daisy-join-item focus-visible:ring-focus inline-flex h-8 min-h-0 items-center justify-center rounded-md border-0 p-2 text-sm font-normal active:translate-none focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50';
   const buttonConfigs: Array<{ mode: EditorViewMode; label: string; title: string }> = [
     { mode: 'rich', label: l.rich, title: '富文本' },
     { mode: 'html', label: l.html, title: 'HTML' },
@@ -39,7 +39,11 @@ const ViewModeToggle = React.memo(function ViewModeToggle({
   }
 
   return (
-    <div role='group' aria-label='编辑模式' className={cn('flex items-center gap-1', className)}>
+    <div
+      role='group'
+      aria-label='编辑模式'
+      className={cn('daisy-join flex items-center gap-1', className)}
+    >
       {buttonConfigs.map(({ mode: targetMode, label, title }) => (
         <Button
           variant='unstyled'
@@ -48,7 +52,11 @@ const ViewModeToggle = React.memo(function ViewModeToggle({
           aria-pressed={mode === targetMode}
           onClick={() => onChange(targetMode)}
           disabled={disabled}
-          className={cn(baseButtonClasses, getSelectionControlClasses(mode === targetMode))}
+          className={cn(
+            baseButtonClasses,
+            getSelectionControlClasses(mode === targetMode),
+            mode === targetMode && 'daisy-btn-active'
+          )}
           title={title}
         >
           {label}

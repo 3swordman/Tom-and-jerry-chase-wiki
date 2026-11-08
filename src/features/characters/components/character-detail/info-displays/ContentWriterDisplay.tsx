@@ -89,7 +89,7 @@ export default function ContentWriterDisplay({
             variant='unstyled'
             type='button'
             onClick={() => setIsExpanded((expanded) => !expanded)}
-            className='ml-1 cursor-pointer transition-colors hover:text-gray-600 dark:hover:text-gray-300'
+            className='daisy-btn daisy-btn-ghost daisy-btn-xs ml-1 h-auto min-h-0 cursor-pointer border-0 p-0.5 font-normal transition-colors hover:bg-transparent hover:text-gray-600 active:translate-none dark:hover:text-gray-300'
             aria-expanded={isExpanded}
             aria-label='展开文案编辑者'
           >

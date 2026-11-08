@@ -82,7 +82,7 @@ export default function ItemAttributesCard({ item }: { item: DeepReadonly<Item> 
                       draft.itemtype = event.target.value as Itemtypelist;
                     });
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {ITEM_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -108,7 +108,7 @@ export default function ItemAttributesCard({ item }: { item: DeepReadonly<Item> 
                       draft.itemsource = event.target.value as Itemsourcelist;
                     });
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {ITEM_SOURCES.map((source) => (
                     <option key={source} value={source}>
@@ -249,7 +249,7 @@ export default function ItemAttributesCard({ item }: { item: DeepReadonly<Item> 
                           draft.store = e.target.checked;
                         });
                       }}
-                      className='h-3 w-3'
+                      className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                     />
                     <span className='font-bold'>
                       {(effectiveItem.store ?? false) ? '有售' : '不售'}
@@ -320,7 +320,7 @@ export default function ItemAttributesCard({ item }: { item: DeepReadonly<Item> 
                             draft.teamCD = e.target.checked;
                           });
                         }}
-                        className='h-3 w-3'
+                        className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                       />
                       <span className='font-bold'>(鼠)团队共享CD</span>
                     </label>

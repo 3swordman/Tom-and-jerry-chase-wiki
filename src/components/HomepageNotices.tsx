@@ -62,7 +62,7 @@ export default function HomepageNotices() {
   return (
     <section
       aria-label='站点公告'
-      className='overflow-hidden rounded-xl border border-blue-200 bg-blue-50/80 shadow-sm dark:border-blue-900/70 dark:bg-blue-950/30'
+      className='daisy-alert daisy-alert-info daisy-alert-soft block overflow-hidden rounded-xl border border-blue-200 bg-blue-50/80 shadow-sm dark:border-blue-900/70 dark:bg-blue-950/30'
     >
       <article className='p-4 sm:p-5'>
         <div className='flex items-start justify-between gap-4'>
@@ -77,7 +77,7 @@ export default function HomepageNotices() {
           <Button
             variant='unstyled'
             onClick={() => dismiss(current)}
-            className='focus:ring-focus shrink-0 rounded-md px-2 py-1 text-sm text-blue-700 hover:bg-blue-100 focus:ring-2 focus:outline-none dark:text-blue-200 dark:hover:bg-blue-900/50'
+            className='daisy-btn daisy-btn-ghost daisy-btn-sm h-auto min-h-0 shrink-0 rounded-md border-0 px-2 py-1 text-sm font-normal text-blue-700 hover:bg-blue-100 active:translate-none dark:text-blue-200 dark:hover:bg-blue-900/50'
             aria-label={`关闭公告：${current.title}`}
           >
             关闭
@@ -87,11 +87,11 @@ export default function HomepageNotices() {
       </article>
 
       {previous.length > 0 && (
-        <details className='group border-t border-blue-200 dark:border-blue-900/70'>
-          <summary className='cursor-pointer px-4 py-3 text-sm font-medium text-blue-700 hover:bg-blue-100/70 focus:outline-none sm:px-5 dark:text-blue-200 dark:hover:bg-blue-900/30'>
+        <details className='daisy-collapse daisy-collapse-arrow group border-t border-blue-200 dark:border-blue-900/70'>
+          <summary className='daisy-collapse-title min-h-0 cursor-pointer px-4 py-3 text-sm font-medium text-blue-700 hover:bg-blue-100/70 focus:outline-none sm:px-5 dark:text-blue-200 dark:hover:bg-blue-900/30'>
             查看其他展示中的公告（{previous.length}）
           </summary>
-          <div className='divide-y divide-blue-200 border-t border-blue-200 dark:divide-blue-900/70 dark:border-blue-900/70'>
+          <div className='daisy-collapse-content divide-y divide-blue-200 border-t border-blue-200 p-0 dark:divide-blue-900/70 dark:border-blue-900/70'>
             {previous.map((notice) => (
               <article
                 key={dismissalId(notice)}
@@ -102,7 +102,7 @@ export default function HomepageNotices() {
                   <Button
                     variant='unstyled'
                     onClick={() => dismiss(notice)}
-                    className='focus:ring-focus shrink-0 rounded-md px-2 py-1 text-sm text-blue-700 hover:bg-blue-100 focus:ring-2 focus:outline-none dark:text-blue-200 dark:hover:bg-blue-900/50'
+                    className='daisy-btn daisy-btn-ghost daisy-btn-sm h-auto min-h-0 shrink-0 rounded-md border-0 px-2 py-1 text-sm font-normal text-blue-700 hover:bg-blue-100 active:translate-none dark:text-blue-200 dark:hover:bg-blue-900/50'
                     aria-label={`关闭公告：${notice.title}`}
                   >
                     关闭

@@ -90,7 +90,7 @@ function TraitItemEditor({
   onRemove: () => void;
 }) {
   return (
-    <div className='border-border bg-surface-raised grid gap-2 rounded-lg border p-2 sm:grid-cols-[minmax(0,1fr)_10rem_7rem_auto]'>
+    <div className='daisy-card border-border bg-surface-raised grid gap-2 rounded-lg border p-2 sm:grid-cols-[minmax(0,1fr)_10rem_7rem_auto]'>
       <TraitTextField
         aria-label='成员名称'
         placeholder='成员名称'
@@ -180,7 +180,10 @@ function TraitGroupEditor({
       {group.map((groupItem, groupIndex) => {
         const alternatives = isReadonlyArray(groupItem) ? groupItem : [groupItem];
         return (
-          <div key={groupIndex} className='border-border bg-surface rounded-xl border p-3'>
+          <div
+            key={groupIndex}
+            className='daisy-card border-border bg-surface rounded-xl border p-3'
+          >
             <div className='mb-2 flex items-center justify-between gap-2'>
               <span className='text-muted-foreground text-xs font-medium'>
                 关联组 {groupIndex + 1}
@@ -280,7 +283,7 @@ function TraitCard({
   return (
     <PendingActionWarningBoundary descriptors={[{ op: 'set', path: traitId, hasNewValue: true }]}>
       <details
-        className='border-border bg-surface-raised group rounded-xl border shadow-sm'
+        className='daisy-card border-border bg-surface-raised group rounded-xl border shadow-sm'
         onFocus={onFocus}
       >
         <summary className='flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 select-none'>
@@ -348,7 +351,7 @@ function TraitCard({
             </Button>
           </div>
 
-          <label className='block space-y-1 text-sm font-medium'>
+          <label className='daisy-label block space-y-1 text-sm font-medium'>
             <span>描述</span>
             <TraitTextField
               rows={4}
@@ -389,7 +392,7 @@ function TraitCard({
             {trait.spacialCase?.map((specialCase, specialCaseIndex) => (
               <div
                 key={specialCaseIndex}
-                className='border-border bg-surface space-y-3 rounded-xl border p-3'
+                className='daisy-card border-border bg-surface space-y-3 rounded-xl border p-3'
               >
                 <div className='flex items-center justify-between gap-3'>
                   <span className='text-sm font-medium'>特殊情况 {specialCaseIndex + 1}</span>
@@ -469,7 +472,7 @@ export default function TraitEditor({
 
   return (
     <div className='mx-auto max-w-5xl space-y-4 px-2 py-4 sm:px-4'>
-      <div className='border-border bg-surface-raised sticky top-2 z-20 flex flex-col gap-3 rounded-xl border p-3 shadow-md sm:flex-row'>
+      <div className='daisy-card border-border bg-surface-raised sticky top-2 z-20 flex flex-col gap-3 rounded-xl border p-3 shadow-md sm:flex-row'>
         <FormInput
           type='search'
           placeholder='搜索编号、描述或成员'

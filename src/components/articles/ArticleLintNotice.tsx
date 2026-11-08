@@ -46,7 +46,7 @@ export const ArticleLintNotice: React.FC<ArticleLintNoticeProps> = ({ results, o
                           variant='unstyled'
                           type='button'
                           onClick={onFixHeadings}
-                          className='shrink-0 rounded border border-current px-2 py-1 text-xs font-semibold transition hover:bg-white/20'
+                          className='daisy-btn daisy-btn-ghost daisy-btn-xs h-auto min-h-0 shrink-0 rounded border border-current px-2 py-1 text-xs font-semibold transition hover:bg-white/20 active:translate-none'
                         >
                           一键修复
                         </Button>

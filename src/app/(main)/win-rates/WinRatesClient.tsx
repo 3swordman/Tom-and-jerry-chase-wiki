@@ -31,7 +31,7 @@ import {
   type SortDirection,
 } from './tableModel';
 
-const TABLE_CLASS_NAME = 'w-full table-fixed border-collapse text-left';
+const TABLE_CLASS_NAME = 'daisy-table w-full table-fixed border-collapse text-left';
 const TABLE_CELL_CLASS_NAME = 'border-border border px-1 py-2 sm:px-2 lg:px-4';
 const EXPORT_BUTTON_CLASS_NAME = cn(
   'filter-button shrink-0 cursor-pointer rounded-lg border-none font-medium',

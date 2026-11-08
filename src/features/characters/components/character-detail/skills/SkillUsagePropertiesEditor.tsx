@@ -62,7 +62,7 @@ function BooleanCheckbox({
               draft[property] = event.target.checked;
             });
           }}
-          className='h-3 w-3'
+          className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
         />
         <span className='font-bold'>{usage[property] ? trueText : falseText}</span>
       </label>
@@ -144,7 +144,7 @@ function CancelableEditor({
               setDuration(event.target.checked ? 0 : -1);
               if (event.target.checked) setCancelableValue(noAnimationText);
             }}
-            className='h-3 w-3'
+            className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
           />
           <span className={cn({ 'font-bold': value === 0 })}>{noAnimationText}</span>
         </label>
@@ -156,7 +156,7 @@ function CancelableEditor({
             disabled={disabled}
             checked={cancelableValue === specialText}
             onChange={(event) => setCancelableValue(event.target.checked ? specialText : undefined)}
-            className='h-3 w-3'
+            className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
           />
           <span className={cn({ 'font-bold': cancelableValue === specialText })}>
             {specialText}
@@ -186,7 +186,7 @@ function CancelableEditor({
                 }
                 setCancelableValue(nextOptions.length > 0 ? nextOptions : undefined);
               }}
-              className='h-3 w-3'
+              className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
             />
             <span className={cn({ 'font-bold': activeOptions.includes(option) })}>{option}</span>
           </label>
@@ -235,7 +235,7 @@ function RadioGroup<T extends string>({
                   }
                 });
               }}
-              className='h-3 w-3'
+              className='daisy-radio daisy-radio-primary daisy-radio-xs h-3 w-3'
             />
             <span className={cn({ 'font-bold': currentValue === option })}>{option}</span>
           </label>

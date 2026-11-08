@@ -5,26 +5,28 @@ interface LoadingAnimationProps {
   className?: string;
 }
 
+const loadingSizeClasses = {
+  sm: 'daisy-loading-sm',
+  md: 'daisy-loading-md',
+  lg: 'daisy-loading-lg',
+} as const;
+
+const loadingColorClasses = 'text-blue-500 dark:text-blue-400';
+
 /**
  * Bouncing dots animation
  */
 export function BouncingDots({ size = 'md', className = '' }: LoadingAnimationProps) {
-  const sizeClasses = {
-    sm: 'w-1 h-1',
-    md: 'w-2 h-2',
-    lg: 'w-3 h-3',
-  };
-
-  const dotClass = cn(
-    'bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce',
-    sizeClasses[size]
-  );
-
   return (
-    <div className={cn('flex items-center justify-center space-x-1', className)}>
-      <div className={cn(dotClass, '[animation-delay:-0.3s]')}></div>
-      <div className={cn(dotClass, '[animation-delay:-0.15s]')}></div>
-      <div className={dotClass}></div>
+    <div className={cn('flex items-center justify-center', className)}>
+      <span
+        aria-hidden='true'
+        className={cn(
+          'daisy-loading daisy-loading-dots',
+          loadingSizeClasses[size],
+          loadingColorClasses
+        )}
+      />
     </div>
   );
 }
@@ -33,19 +35,16 @@ export function BouncingDots({ size = 'md', className = '' }: LoadingAnimationPr
  * Ripple effect animation
  */
 export function RippleAnimation({ size = 'md', className = '' }: LoadingAnimationProps) {
-  const sizeClasses = {
-    sm: 'w-8 h-8',
-    md: 'w-12 h-12',
-    lg: 'w-16 h-16',
-  };
-
   return (
-    <div className={cn('relative flex items-center justify-center', className)}>
-      <div className={cn('relative', sizeClasses[size])}>
-        <div className='absolute inset-0 animate-ping rounded-full border-2 border-blue-500 dark:border-blue-400'></div>
-        <div className='absolute inset-2 animate-ping rounded-full border-2 border-blue-500 [animation-delay:0.2s] dark:border-blue-400'></div>
-        <div className='absolute inset-4 rounded-full bg-blue-500 dark:bg-blue-400'></div>
-      </div>
+    <div className={cn('flex items-center justify-center', className)}>
+      <span
+        aria-hidden='true'
+        className={cn(
+          'daisy-loading daisy-loading-ring',
+          loadingSizeClasses[size],
+          loadingColorClasses
+        )}
+      />
     </div>
   );
 }
@@ -54,17 +53,16 @@ export function RippleAnimation({ size = 'md', className = '' }: LoadingAnimatio
  * Spinning bars animation
  */
 export function SpinningBars({ size = 'md', className = '' }: LoadingAnimationProps) {
-  const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8',
-  };
-
   return (
     <div className={cn('flex items-center justify-center', className)}>
-      <div className={cn('relative', sizeClasses[size])}>
-        <div className='absolute inset-0 animate-spin rounded-full border-2 border-blue-500 border-t-transparent dark:border-blue-400'></div>
-      </div>
+      <span
+        aria-hidden='true'
+        className={cn(
+          'daisy-loading daisy-loading-spinner',
+          loadingSizeClasses[size],
+          loadingColorClasses
+        )}
+      />
     </div>
   );
 }
@@ -81,15 +79,18 @@ export function ProgressBar({
   animated?: boolean;
   className?: string;
 }) {
+  const value = Math.min(100, Math.max(0, progress));
+
   return (
-    <div className={cn('h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700', className)}>
-      <div
-        className={cn(
-          'h-2 rounded-full bg-blue-500 transition-all duration-300 dark:bg-blue-400',
-          animated && 'animate-pulse'
-        )}
-        style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
-      ></div>
-    </div>
+    <progress
+      className={cn(
+        'daisy-progress daisy-progress-primary h-2 w-full text-blue-500 dark:text-blue-400',
+        animated && 'animate-pulse',
+        className
+      )}
+      value={value}
+      max={100}
+      aria-label='进度'
+    />
   );
 }

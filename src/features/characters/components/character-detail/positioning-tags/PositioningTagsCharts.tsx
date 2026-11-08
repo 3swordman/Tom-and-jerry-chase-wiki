@@ -286,7 +286,7 @@ export default function PositioningTagsChart({
   const titleId = useId();
 
   return (
-    <div className='border-border bg-surface-sunken/60 rounded-lg border p-2'>
+    <div className='daisy-card border-border bg-surface-sunken/60 rounded-lg border p-2'>
       {viewMode === 'bar' ? (
         <BarChart data={data} factionId={factionId} isDetailed={isDetailed} titleId={titleId} />
       ) : (

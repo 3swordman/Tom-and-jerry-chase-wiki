@@ -197,7 +197,7 @@ export default function NotificationSettings() {
                       checked={checked}
                       disabled={!available || preferenceBusyKey !== null}
                       onChange={() => void togglePreference(item.key)}
-                      className='bg-surface-sunken focus:ring-focus mt-1 size-4 rounded border-gray-300 text-blue-600 dark:border-gray-600'
+                      className='daisy-checkbox daisy-checkbox-primary mt-1 size-4'
                     />
                     <span className='min-w-0'>
                       <span className='block text-sm font-medium text-gray-900 dark:text-gray-100'>
@@ -257,7 +257,7 @@ export default function NotificationSettings() {
               <form className='space-y-3' onSubmit={requestVerification}>
                 <label
                   htmlFor='notification-email'
-                  className='block text-sm font-medium text-gray-700 dark:text-gray-200'
+                  className='daisy-label block text-sm font-medium text-gray-700 dark:text-gray-200'
                 >
                   {emailSettings?.email ? '更换通知邮箱' : '添加通知邮箱'}
                 </label>

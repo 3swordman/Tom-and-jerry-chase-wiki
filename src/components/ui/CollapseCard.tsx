@@ -102,7 +102,7 @@ export default function CollapseCard({
         type='button'
         onClick={handleToggle}
         className={cn(
-          'flex w-full cursor-pointer items-center justify-between px-1 py-1 font-bold text-black dark:text-white',
+          'daisy-btn daisy-btn-ghost flex h-auto min-h-0 w-full cursor-pointer items-center justify-between rounded-none border-0 px-1 py-1 font-bold text-black active:translate-none dark:text-white',
           disclosureTriggerFocusClasses,
           color === 'default' ? 'border-b' : 'border-2',
           disclosureToneClasses[color],

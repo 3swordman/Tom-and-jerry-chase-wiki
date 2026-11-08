@@ -107,7 +107,7 @@ const KnowledgeCardGroupSetDisplay = ({
                   onChange={() => {
                     onEditGroupSetMetadata(topIndex, 'defaultFolded', !groupSet.defaultFolded);
                   }}
-                  className='h-3 w-3'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                 />
                 <span className='font-bold'>
                   {groupSet.defaultFolded ? '默认折叠' : '默认展开'}

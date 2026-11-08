@@ -193,9 +193,9 @@ const AdminPanel = () => {
 
   const getTabClassName = (tab: AdminTab) =>
     cn(
-      'border-b-2 px-4 py-2 text-sm font-medium transition-colors',
+      'daisy-tab h-auto border-b-2 px-4 py-2 text-sm font-medium transition-colors',
       activeTab === tab
-        ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300'
+        ? 'daisy-tab-active border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300'
         : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200'
     );
 
@@ -203,7 +203,10 @@ const AdminPanel = () => {
     <div className='mx-auto max-w-7xl p-6 dark:text-slate-200'>
       <h1 className='mb-6 text-3xl font-bold text-gray-900 dark:text-gray-100'>管理面板</h1>
 
-      <div className='border-border mb-6 flex overflow-x-auto border-b'>
+      <div
+        className='daisy-tabs daisy-tabs-border border-border mb-6 flex flex-nowrap overflow-x-auto border-b'
+        role='tablist'
+      >
         {enableUserAccess && (
           <Button
             variant='unstyled'
@@ -212,7 +215,7 @@ const AdminPanel = () => {
           >
             用户管理
             {users.length > 0 && (
-              <span className='ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-100 px-1.5 text-xs font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'>
+              <span className='daisy-badge daisy-badge-info ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-100 px-1.5 text-xs font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'>
                 {users.length}
               </span>
             )}
@@ -244,7 +247,7 @@ const AdminPanel = () => {
           >
             改动审核
             {pendingCount !== null && pendingCount > 0 && (
-              <span className='ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-100 px-1.5 text-xs font-medium text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'>
+              <span className='daisy-badge daisy-badge-warning ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-100 px-1.5 text-xs font-medium text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'>
                 {pendingCount}
               </span>
             )}

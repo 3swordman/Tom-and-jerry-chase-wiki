@@ -122,7 +122,7 @@ export default function CommentsSection({
             variant='unstyled'
             type='button'
             onClick={() => setReplyTo({ id: comment.id, nickname: comment.author.nickname })}
-            className='text-muted-foreground hover:text-gray-800 dark:hover:text-gray-200'
+            className='daisy-btn daisy-btn-ghost daisy-btn-xs text-muted-foreground h-auto min-h-0 border-0 px-1.5 py-1 font-normal hover:text-gray-800 active:translate-none dark:hover:text-gray-200'
           >
             回复
           </Button>
@@ -154,7 +154,7 @@ export default function CommentsSection({
               variant='unstyled'
               type='button'
               onClick={() => setReplyTo(null)}
-              className='text-muted-foreground hover:text-foreground shrink-0'
+              className='daisy-btn daisy-btn-ghost daisy-btn-xs text-muted-foreground hover:text-foreground h-auto min-h-0 shrink-0 border-0 p-1 font-normal active:translate-none'
               aria-label='取消回复'
             >
               ✕

@@ -34,7 +34,10 @@ export default function LoadingSpinner({
   };
 
   return (
-    <div className={cn('flex items-center justify-center space-x-3', className)}>
+    <div
+      role={message ? 'status' : undefined}
+      className={cn('flex items-center justify-center space-x-3', className)}
+    >
       {renderAnimation()}
       {message && (
         <span

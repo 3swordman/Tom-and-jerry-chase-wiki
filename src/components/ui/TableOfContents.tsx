@@ -24,15 +24,21 @@ export default function TableOfContents({
   appearance = 'default',
 }: TableOfContentsProps) {
   return (
-    <nav aria-label={ariaLabel}>
+    <nav
+      aria-label={ariaLabel}
+      className={
+        layout === 'inline' && appearance === 'plain' ? 'daisy-tabs daisy-tabs-border' : undefined
+      }
+    >
       <ul
-        className={
+        className={cn(
           layout === 'inline'
-            ? 'flex scrollbar-none gap-1 overflow-x-auto whitespace-nowrap'
+            ? 'flex scrollbar-none flex-nowrap gap-1 overflow-x-auto whitespace-nowrap'
             : layout === 'wrap'
               ? 'flex flex-wrap gap-x-2'
-              : 'space-y-1'
-        }
+              : 'space-y-1',
+          layout !== 'inline' && 'daisy-menu w-full p-0'
+        )}
       >
         {items.map((item) => (
           <li
@@ -55,6 +61,7 @@ export default function TableOfContents({
               }
               className={cn(
                 'focus-visible:ring-focus block rounded px-2 py-2 text-left text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none motion-reduce:transition-none',
+                layout === 'inline' && appearance === 'plain' && 'daisy-tab',
                 layout === 'inline' && 'flex min-h-10 items-center focus-visible:ring-inset',
                 appearance === 'plain' &&
                   'flex min-h-11 items-center rounded-none px-3 font-medium focus-visible:ring-inset',
@@ -72,7 +79,7 @@ export default function TableOfContents({
                 appearance === 'plain' &&
                   activeId === item.id &&
                   (layout === 'inline'
-                    ? 'border-blue-600 dark:border-blue-400'
+                    ? 'daisy-tab-active border-blue-600 dark:border-blue-400'
                     : 'underline underline-offset-4')
               )}
             >

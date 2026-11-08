@@ -35,7 +35,7 @@ export default function DocsSidebar({ docPages }: DocsSidebarProps) {
       <Button
         variant='unstyled'
         onClick={toggleSidebar}
-        className='border-border bg-surface-raised text-foreground fixed top-4 left-4 z-50 rounded-md border p-2 shadow-md lg:hidden'
+        className='daisy-btn daisy-btn-square daisy-btn-sm border-border bg-surface-raised text-foreground fixed top-4 left-4 z-50 h-auto min-h-0 rounded-md border p-2 font-normal shadow-md active:translate-none lg:hidden'
         aria-label='Toggle sidebar'
       >
         {isOpen ? (
@@ -48,7 +48,7 @@ export default function DocsSidebar({ docPages }: DocsSidebarProps) {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className='bg-opacity-50 fixed inset-0 z-40 bg-black lg:hidden'
+          className='daisy-drawer-overlay bg-opacity-50 fixed inset-0 z-40 bg-black lg:hidden'
           onClick={toggleSidebar}
         />
       )}
@@ -77,7 +77,7 @@ export default function DocsSidebar({ docPages }: DocsSidebarProps) {
               variant='unstyled'
               onClick={toggleCollapse}
               className={cn(
-                'absolute top-6 right-4 hidden rounded-md p-1 text-gray-400 transition-colors hover:text-gray-600 lg:flex dark:hover:text-gray-300',
+                'daisy-btn daisy-btn-ghost daisy-btn-xs hover:bg-control absolute top-6 right-4 hidden h-6 min-h-0 w-6 rounded-md border-0 p-0 font-normal text-gray-400 hover:text-gray-600 active:translate-none lg:flex dark:hover:text-gray-300',
                 isCollapsed && 'right-auto left-4'
               )}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
@@ -97,7 +97,7 @@ export default function DocsSidebar({ docPages }: DocsSidebarProps) {
               <Link
                 href='/docs'
                 className={cn(
-                  'flex items-center rounded-md text-sm font-medium transition-colors',
+                  'daisy-btn daisy-btn-ghost flex h-auto min-h-0 items-center justify-start rounded-md border-0 text-sm font-medium active:translate-none',
                   isCollapsed ? 'justify-center px-2 py-2' : 'px-3 py-2',
                   pathname === '/docs'
                     ? 'border-l-4 border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
@@ -126,7 +126,7 @@ export default function DocsSidebar({ docPages }: DocsSidebarProps) {
                           key={page.slug}
                           href={page.path}
                           className={cn(
-                            'flex items-center rounded-md text-sm font-medium transition-colors',
+                            'daisy-btn daisy-btn-ghost flex h-auto min-h-0 items-center justify-start rounded-md border-0 text-sm font-medium active:translate-none',
                             isCollapsed ? 'justify-center px-2 py-2' : 'px-3 py-2',
                             isActive
                               ? 'border-l-4 border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'

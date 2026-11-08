@@ -49,7 +49,7 @@ export default function ModeAttributesCard({
                 draft.type = event.target.value as ModeTypeList;
               });
             }}
-            className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+            className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
           >
             {MODE_TYPES.map((type) => (
               <option key={type} value={type}>

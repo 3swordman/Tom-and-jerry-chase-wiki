@@ -51,10 +51,10 @@ export type ContributionAnalyticsProps = {
 };
 
 const CATEGORY_BAR_CLASSES = [
-  'bg-blue-500 dark:bg-blue-400',
-  'bg-emerald-500 dark:bg-emerald-400',
-  'bg-rose-500 dark:bg-rose-400',
-  'bg-violet-500 dark:bg-violet-400',
+  'text-blue-500 dark:text-blue-400',
+  'text-emerald-500 dark:text-emerald-400',
+  'text-rose-500 dark:text-rose-400',
+  'text-violet-500 dark:text-violet-400',
 ] as const;
 
 type MetricCard = {
@@ -230,22 +230,18 @@ function CategoryBreakdown({
                     {formatContributionCount(count)} 次 · {percentage}%
                   </span>
                 </div>
-                <div
-                  className='mt-2 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800'
-                  role='progressbar'
+                <progress
+                  className={cn(
+                    'daisy-progress mt-2 block h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800',
+                    CATEGORY_BAR_CLASSES[index % CATEGORY_BAR_CLASSES.length]
+                  )}
                   aria-label={`${category.label || getCategoryKey(category)}占比`}
                   aria-valuemin={0}
                   aria-valuemax={100}
                   aria-valuenow={percentage}
-                >
-                  <div
-                    className={cn(
-                      'h-full rounded-full transition-[width]',
-                      CATEGORY_BAR_CLASSES[index % CATEGORY_BAR_CLASSES.length]
-                    )}
-                    style={{ width: `${percentage}%` }}
-                  />
-                </div>
+                  value={percentage}
+                  max={100}
+                />
               </li>
             );
           })}
@@ -307,15 +303,17 @@ export function ContributionAnalytics({
                 <Card
                   key={metric.label}
                   bordered
-                  className='border-border bg-surface-sunken/70 space-y-1.5 p-3'
+                  className='daisy-stat border-border bg-surface-sunken/70 space-y-1.5 p-3'
                 >
-                  <p className='text-xs font-medium text-gray-500 dark:text-gray-400'>
+                  <p className='daisy-stat-title text-xs font-medium text-gray-500 dark:text-gray-400'>
                     {metric.label}
                   </p>
-                  <p className='text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100'>
+                  <p className='daisy-stat-value text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100'>
                     {metric.value}
                   </p>
-                  <p className='text-[11px] text-gray-500 dark:text-gray-400'>{metric.detail}</p>
+                  <p className='daisy-stat-desc text-[11px] text-gray-500 dark:text-gray-400'>
+                    {metric.detail}
+                  </p>
                 </Card>
               ))}
             </div>

@@ -301,11 +301,11 @@ export default async function PublicUserPage({ params, searchParams }: PublicUse
               {registrationDateFormatter.format(new Date(profile.registeredAt))}注册
             </p>
           </div>
-          <div className='shrink-0 rounded-2xl border border-blue-200/80 bg-blue-50/60 px-6 py-4 text-center shadow-sm sm:min-w-36 dark:border-blue-900/60 dark:bg-blue-950/25'>
-            <div className='text-4xl font-bold tracking-tight text-blue-700 dark:text-blue-300'>
+          <div className='daisy-stat shrink-0 place-items-center rounded-2xl border border-blue-200/80 bg-blue-50/60 px-6 py-4 text-center shadow-sm sm:min-w-36 dark:border-blue-900/60 dark:bg-blue-950/25'>
+            <div className='daisy-stat-value text-4xl font-bold tracking-tight text-blue-700 dark:text-blue-300'>
               {profile.contributionTotals.all}
             </div>
-            <div className='mt-1 text-xs font-semibold tracking-wide text-gray-600 dark:text-gray-300'>
+            <div className='daisy-stat-title mt-1 text-xs font-semibold tracking-wide text-gray-600 dark:text-gray-300'>
               公开贡献
             </div>
           </div>
@@ -340,7 +340,7 @@ export default async function PublicUserPage({ params, searchParams }: PublicUse
               {contributorRoleLabels.map((role) => (
                 <span
                   key={role}
-                  className='rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/45 dark:text-blue-200'
+                  className='daisy-badge rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/45 dark:text-blue-200'
                 >
                   {role}
                 </span>
@@ -366,14 +366,14 @@ export default async function PublicUserPage({ params, searchParams }: PublicUse
       <nav
         aria-label='用户页内容'
         role='tablist'
-        className='border-border flex flex-wrap gap-2 border-b pb-2'
+        className='daisy-tabs border-border flex flex-wrap gap-2 border-b pb-2'
       >
         <Link
           href={activityTabHref}
           role='tab'
           aria-selected={activeTab === 'activity'}
           className={cn(
-            'rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
+            'daisy-tab h-auto rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
             activeTab === 'activity'
               ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/50 dark:text-blue-200'
               : 'hover:bg-control text-gray-600 dark:text-gray-300'

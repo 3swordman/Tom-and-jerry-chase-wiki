@@ -242,7 +242,7 @@ export default function CharacterDetails({
                 />
 
                 {isEditMode ? (
-                  <div className='border-border bg-surface-muted mt-3 space-y-3 rounded-md border p-3 text-sm'>
+                  <div className='daisy-card border-border bg-surface-muted mt-3 space-y-3 rounded-md border p-3 text-sm'>
                     <div>
                       <span className='text-xs text-gray-500 dark:text-gray-400'>角色别名</span>
                       <EditableStringList

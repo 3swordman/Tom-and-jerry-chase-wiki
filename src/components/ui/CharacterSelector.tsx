@@ -65,7 +65,7 @@ export function CharacterSelector({
   }
 
   return (
-    <div className='relative inline-block'>
+    <div className={cn('daisy-dropdown daisy-dropdown-end', isOpen && 'daisy-dropdown-open')}>
       <IconButton
         type='button'
         onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -78,14 +78,14 @@ export function CharacterSelector({
       </IconButton>
 
       {isOpen && (
-        <div className='border-border bg-surface-raised text-foreground absolute top-full right-0 z-50 mt-1 max-h-60 w-56 overflow-y-auto rounded-lg border shadow-lg ring-1 ring-black/5 dark:ring-white/10'>
+        <div className='daisy-dropdown-content border-border bg-surface-raised text-foreground absolute top-full right-0 z-50 mt-1 max-h-60 w-56 overflow-y-auto rounded-lg border shadow-lg ring-1 ring-black/5 dark:ring-white/10'>
           {availableCharacters.map((char) => (
             <Button
               variant='unstyled'
               key={char.id}
               type='button'
               onClick={() => handleSelect(char.id)}
-              className='hover:bg-control focus-visible:bg-control flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm text-gray-800 focus:outline-none dark:text-slate-100'
+              className='daisy-btn daisy-btn-ghost hover:bg-control focus-visible:bg-control h-auto min-h-0 w-full justify-start gap-3 rounded-none border-0 px-3 py-2.5 text-left text-sm font-normal text-gray-800 focus:outline-none active:translate-none dark:text-slate-100'
               aria-label={`选择${char.id}`}
             >
               <Image
@@ -99,7 +99,7 @@ export function CharacterSelector({
                 alt={char.id}
                 width={28}
                 height={28}
-                className='h-7 w-7 rounded-full object-cover'
+                className='daisy-mask daisy-mask-circle h-7 w-7 rounded-full object-cover'
               />
               <span className='text-gray-700 dark:text-slate-200'>{char.id}</span>
             </Button>
@@ -294,14 +294,14 @@ export function ArticleCharacterSelector({
   };
 
   return (
-    <div className='relative'>
+    <div className={cn('daisy-dropdown daisy-dropdown-open w-full')}>
       <Button
         variant='unstyled'
         type='button'
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          'flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left text-lg transition-all duration-200',
+          'daisy-btn daisy-btn-outline flex h-auto min-h-0 w-full items-center justify-between rounded-lg px-4 py-3 text-left text-lg font-normal transition-all duration-200 active:translate-none',
           disabled
             ? 'border-border bg-control cursor-not-allowed text-gray-400 dark:text-gray-500'
             : 'bg-surface focus:ring-focus cursor-pointer border-gray-300 text-gray-900 hover:border-gray-400 focus:ring-2 focus:outline-none dark:border-gray-600 dark:text-gray-100',
@@ -321,7 +321,7 @@ export function ArticleCharacterSelector({
               alt={selectedCharacter.id}
               width={32}
               height={32}
-              className='h-8 w-8 rounded-full object-cover'
+              className='daisy-mask daisy-mask-circle h-8 w-8 rounded-full object-cover'
             />
             <span>{selectedCharacter.id}</span>
           </div>
@@ -341,7 +341,7 @@ export function ArticleCharacterSelector({
           variant='unstyled'
           type='button'
           onClick={handleClear}
-          className='hover:bg-control focus-visible:ring-focus absolute top-1/2 right-9 -translate-y-1/2 rounded p-1 text-gray-400 hover:text-gray-600 focus:outline-none focus-visible:ring-2 dark:hover:text-gray-300'
+          className='daisy-btn daisy-btn-ghost daisy-btn-xs hover:bg-control absolute top-1/2 right-9 h-6 min-h-0 w-6 -translate-y-1/2 rounded border-0 p-0 font-normal text-gray-400 hover:text-gray-600 focus:outline-none focus-visible:ring-2 active:translate-none dark:hover:text-gray-300'
           aria-label='清除选择'
         >
           <CloseIcon className='h-4 w-4' />
@@ -351,7 +351,7 @@ export function ArticleCharacterSelector({
       {isOpen && (
         <>
           <div className='fixed inset-0 z-40' onClick={() => setIsOpen(false)} />
-          <div className='border-border bg-surface-raised text-foreground absolute top-full left-0 z-50 mt-1 w-full rounded-lg border shadow-lg'>
+          <div className='daisy-dropdown-content border-border bg-surface-raised text-foreground absolute top-full left-0 z-50 mt-1 w-full rounded-lg border shadow-lg'>
             <div className='border-border border-b p-2'>
               <FormInput
                 type='text'
@@ -376,7 +376,7 @@ export function ArticleCharacterSelector({
                     type='button'
                     onClick={() => handleSelect(char.id)}
                     className={cn(
-                      'hover:bg-control focus:bg-control flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors focus:outline-none',
+                      'daisy-btn daisy-btn-ghost hover:bg-control focus:bg-control flex h-auto min-h-0 w-full items-center justify-start gap-3 rounded-none border-0 px-4 py-2.5 text-left text-sm font-normal transition-colors focus:outline-none active:translate-none',
                       selectedCharacterId === char.id
                         ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
                         : 'text-gray-800 dark:text-slate-100'
@@ -387,12 +387,12 @@ export function ArticleCharacterSelector({
                       alt={char.id}
                       width={28}
                       height={28}
-                      className='h-7 w-7 rounded-full object-cover'
+                      className='daisy-mask daisy-mask-circle h-7 w-7 rounded-full object-cover'
                     />
                     <span>{char.id}</span>
                     <span
                       className={cn(
-                        'ml-auto rounded px-1.5 py-0.5 text-xs',
+                        'daisy-badge ml-auto rounded px-1.5 py-0.5 text-xs',
                         char.factionId === 'cat'
                           ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
                           : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'

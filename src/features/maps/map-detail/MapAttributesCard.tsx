@@ -75,7 +75,7 @@ export default function MapAttributesCard({
                       draft.type = event.target.value as mapTypes;
                     });
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {MAP_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -253,7 +253,7 @@ export default function MapAttributesCard({
                           draft.randomizedRoom = e.target.checked;
                         });
                       }}
-                      className='h-3 w-3'
+                      className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                     />
                     <span className='font-bold text-fuchsia-600 dark:text-fuchsia-400'>
                       该地图的部分地形会随机发生变化
@@ -268,7 +268,7 @@ export default function MapAttributesCard({
                           draft.changeWithStudyLevel = e.target.checked;
                         });
                       }}
-                      className='h-3 w-3'
+                      className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                     />
                     <span className='font-bold text-fuchsia-600 dark:text-fuchsia-400'>
                       该地图的部分地形会随学业等级提升而变化
@@ -283,7 +283,7 @@ export default function MapAttributesCard({
                           draft.changeWithMode = e.target.checked;
                         });
                       }}
-                      className='h-3 w-3'
+                      className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                     />
                     <span className='font-bold text-fuchsia-600 dark:text-fuchsia-400'>
                       该地图的部分地形在部分模式中会发生变化
@@ -334,7 +334,7 @@ export default function MapAttributesCard({
                             else draft.supportedModes = values;
                           });
                         }}
-                        className='h-3 w-3'
+                        className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                       />
                       <span className='font-bold'>{opt}</span>
                     </label>

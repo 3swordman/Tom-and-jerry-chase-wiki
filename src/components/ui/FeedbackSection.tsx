@@ -136,7 +136,7 @@ const FeedbackSection =
                       variant='unstyled'
                       type='button'
                       onClick={() => setIsFeedbackOpen(false)}
-                      className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                      className='daisy-btn daisy-btn-ghost daisy-btn-xs daisy-btn-circle hover:bg-control h-7 min-h-0 w-7 border-0 p-0 font-normal text-gray-500 hover:text-gray-700 active:translate-none dark:text-gray-400 dark:hover:text-gray-200'
                       aria-label='关闭反馈窗口'
                     >
                       ✕
@@ -144,7 +144,7 @@ const FeedbackSection =
                   </div>
 
                   {/* QQ Group Info */}
-                  <div className='mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-700 dark:bg-blue-900/20'>
+                  <div className='daisy-alert daisy-alert-info daisy-alert-soft mb-4 block rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-700 dark:bg-blue-900/20'>
                     <div className='flex items-center justify-between'>
                       <div className='flex items-center space-x-2'>
                         <span className='text-lg'>💬</span>
@@ -164,7 +164,7 @@ const FeedbackSection =
                   </div>
                   <div className='space-y-4'>
                     <div>
-                      <label className='mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'>
+                      <label className='daisy-label mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'>
                         反馈类型
                       </label>
                       <FormSelect
@@ -183,7 +183,7 @@ const FeedbackSection =
                     </div>
 
                     <div>
-                      <label className='mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'>
+                      <label className='daisy-label mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'>
                         详细描述
                       </label>
                       <FormTextarea
@@ -208,7 +208,7 @@ const FeedbackSection =
                         </label>
                         <label
                           htmlFor='anonymous'
-                          className='inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300'
+                          className='daisy-label inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300'
                         >
                           <input
                             id='anonymous'
@@ -219,7 +219,7 @@ const FeedbackSection =
                               setIsAnonymous(checked);
                               // Preserve contact value so users can toggle back without losing input
                             }}
-                            className='focus:ring-focus h-4 w-4 rounded border-gray-300 text-blue-600'
+                            className='daisy-checkbox daisy-checkbox-primary h-4 w-4'
                             aria-controls='contact'
                             aria-label='匿名提交'
                           />

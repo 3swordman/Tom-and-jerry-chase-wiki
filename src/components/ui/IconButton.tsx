@@ -15,16 +15,16 @@ type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label
 };
 
 const variantClasses: Record<IconButtonVariant, string> = {
-  add: 'bg-action-success-subtle text-action-success-subtle-foreground hover:bg-action-success-subtle-hover',
+  add: 'daisy-btn-success bg-action-success-subtle text-action-success-subtle-foreground hover:bg-action-success-subtle-hover',
   delete:
-    'bg-action-danger-subtle text-action-danger-subtle-foreground hover:bg-action-danger-subtle-hover',
-  edit: 'bg-action-primary-subtle text-action-primary-subtle-foreground hover:bg-action-primary-subtle-hover',
+    'daisy-btn-error bg-action-danger-subtle text-action-danger-subtle-foreground hover:bg-action-danger-subtle-hover',
+  edit: 'daisy-btn-primary bg-action-primary-subtle text-action-primary-subtle-foreground hover:bg-action-primary-subtle-hover',
 };
 
 const sizeClasses: Record<IconButtonSize, string> = {
-  xs: 'h-6 w-6 text-xs',
-  sm: 'h-7 w-7 text-xs',
-  md: 'h-8 w-8 text-sm',
+  xs: 'daisy-btn-xs h-6 w-6 min-h-0 px-0 text-xs',
+  sm: 'daisy-btn-sm h-7 w-7 min-h-0 px-0 text-xs',
+  md: 'daisy-btn-md h-8 w-8 min-h-0 px-0 text-sm',
 };
 
 const iconSizeClasses: Record<IconButtonSize, string> = {
@@ -45,7 +45,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       type={type}
       disabled={disabled}
       className={cn(
-        'inline-flex shrink-0 items-center justify-center rounded-md border-none font-semibold transition-colors',
+        'daisy-btn inline-flex shrink-0 items-center justify-center rounded-md border-none font-semibold transition-colors active:translate-none',
         'focus-visible:outline-focus focus-visible:outline-2 focus-visible:outline-offset-2',
         'disabled:cursor-not-allowed disabled:opacity-60',
         variantClasses[variant],

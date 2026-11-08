@@ -85,7 +85,7 @@ export default function CollapsibleItems({
               variant='unstyled'
               onClick={() => setExpanded((current) => !current)}
               className={cn(
-                'hover:bg-control ml-1 flex items-center justify-center rounded-full p-1.5 transition-all duration-300',
+                'daisy-btn daisy-btn-ghost daisy-btn-xs daisy-btn-circle hover:bg-control ml-1 flex h-6 min-h-0 w-6 items-center justify-center rounded-full border-0 p-0 font-normal transition-all duration-300 active:translate-none',
                 disclosureTriggerFocusClasses
               )}
               aria-label={expanded ? `折叠${label}列表` : `展开${label}列表`}

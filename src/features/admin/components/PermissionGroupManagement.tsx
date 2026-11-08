@@ -312,7 +312,7 @@ export default function PermissionGroupManagement({
                   </p>
                 </div>
                 {selected.isDefault && (
-                  <span className='inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'>
+                  <span className='daisy-badge inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'>
                     <CheckCircleIcon size={14} />
                     注册默认组
                   </span>
@@ -339,13 +339,13 @@ export default function PermissionGroupManagement({
                       onChange={(e) => setName(e.target.value)}
                     />
                   </label>
-                  <label className='border-border bg-surface-sunken flex min-h-11 cursor-pointer items-center gap-3 self-end rounded-lg border px-3 py-2.5'>
+                  <label className='daisy-card border-border bg-surface-sunken flex min-h-11 cursor-pointer items-center gap-3 self-end rounded-lg border px-3 py-2.5'>
                     <input
                       type='checkbox'
                       checked={isDefault}
                       disabled={!canManage}
                       onChange={(e) => setIsDefault(e.target.checked)}
-                      className='size-4 accent-blue-600'
+                      className='daisy-checkbox daisy-checkbox-primary size-4'
                     />
                     <span>
                       <span className='block text-sm font-medium text-slate-700 dark:text-slate-200'>
@@ -463,7 +463,7 @@ export default function PermissionGroupManagement({
                     return (
                       <div
                         key={`${grant.permission}-${index}`}
-                        className='border-border bg-surface-sunken/70 rounded-xl border p-3 sm:p-4'
+                        className='daisy-card border-border bg-surface-sunken/70 rounded-xl border p-3 sm:p-4'
                       >
                         <div className='mb-3 flex items-center justify-between gap-3'>
                           <span className='inline-flex size-7 items-center justify-center rounded-lg bg-blue-100 text-xs font-bold text-blue-700 dark:bg-blue-950/60 dark:text-blue-300'>

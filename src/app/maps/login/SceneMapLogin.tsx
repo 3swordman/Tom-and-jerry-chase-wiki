@@ -20,7 +20,10 @@ export default function SceneMapLogin() {
       </p>
       <p className='mb-4'>登录后返回原地图窗口，点击“刷新已发布版本”更新登录状态。</p>
       {!nickname && (
-        <button className='rounded border px-4 py-2' onClick={() => setOpen(true)}>
+        <button
+          className='daisy-btn daisy-btn-primary rounded border px-4 py-2'
+          onClick={() => setOpen(true)}
+        >
           登录 / 注册
         </button>
       )}

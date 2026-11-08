@@ -260,7 +260,7 @@ export default function MapDetailClient({
       {isFullScreen && (
         <div
           ref={modalBackgroundRef}
-          className='fixed inset-0 z-50 flex items-center justify-center'
+          className='daisy-modal daisy-modal-open fixed inset-0 z-50 flex items-center justify-center p-0'
           role='dialog'
           aria-modal='true'
           aria-label='全屏图片预览'
@@ -280,7 +280,7 @@ export default function MapDetailClient({
           {/* 关闭按钮 */}
           <Button
             variant='unstyled'
-            className='absolute top-4 right-4 z-60 flex items-center justify-center rounded-full bg-black/60 text-2xl text-white hover:bg-black/80'
+            className='daisy-btn daisy-btn-circle daisy-btn-ghost absolute top-4 right-4 z-60 flex min-h-0 items-center justify-center border-0 bg-black/60 p-0 text-2xl font-normal text-white hover:bg-black/80 active:translate-none'
             style={{
               width: isMobile ? '50px' : '48px',
               height: isMobile ? '50px' : '48px',

@@ -48,13 +48,15 @@ export default function GameOverDialog({
       <div className='flex flex-col items-center gap-4 text-center'>
         <h2 className='text-2xl font-bold text-gray-900 dark:text-white'>游戏结束</h2>
 
-        <div className='space-y-1'>
-          <p className='text-4xl font-bold text-blue-600 dark:text-blue-400'>{score}</p>
-          <p className='text-sm text-gray-500 dark:text-gray-400'>得分</p>
+        <div className='daisy-stat place-items-center gap-0'>
+          <p className='daisy-stat-value text-4xl font-bold text-blue-600 dark:text-blue-400'>
+            {score}
+          </p>
+          <p className='daisy-stat-title text-sm text-gray-500 dark:text-gray-400'>得分</p>
         </div>
 
         {isNewHigh && (
-          <p className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'>
+          <p className='daisy-badge daisy-badge-warning inline-flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'>
             <SparklesIcon className='h-4 w-4' />
             新纪录！
           </p>
@@ -62,7 +64,7 @@ export default function GameOverDialog({
 
         <p className='text-sm text-gray-500 dark:text-gray-400'>最高纪录: {highScore}</p>
 
-        <div className='flex flex-wrap justify-center gap-3'>
+        <div className='daisy-modal-action flex flex-wrap justify-center gap-3'>
           <ShareButton
             getShareText={() =>
               [

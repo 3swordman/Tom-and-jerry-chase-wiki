@@ -252,18 +252,18 @@ export default function EditModeToolbar({
                     setAgreedToLicense(false);
                     setAcknowledgedPendingOverlap(false);
                   }}
-                  className='hover:bg-control-hover absolute top-1 right-1 rounded p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                  className='daisy-btn daisy-btn-ghost daisy-btn-xs daisy-btn-circle hover:bg-control-hover absolute top-1 right-1 h-6 min-h-0 w-6 border-0 p-0 font-normal text-gray-400 hover:text-gray-600 active:translate-none dark:hover:text-gray-300'
                   aria-label='取消'
                 >
                   <CloseIcon className='h-4 w-4' />
                 </button>
               </div>
               {pendingAwarenessUnavailable ? (
-                <div className='mt-2 rounded-md border border-amber-300 bg-amber-50 px-2.5 py-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200'>
+                <div className='daisy-alert daisy-alert-warning daisy-alert-soft mt-2 block rounded-md border border-amber-300 bg-amber-50 px-2.5 py-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200'>
                   暂时无法检查待审核改动，仍可继续提交。
                 </div>
               ) : pendingOverlap ? (
-                <div className='mt-2 rounded-md border border-amber-400 bg-amber-50 px-2.5 py-2 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/50 dark:text-amber-100'>
+                <div className='daisy-alert daisy-alert-warning daisy-alert-soft mt-2 block rounded-md border border-amber-400 bg-amber-50 px-2.5 py-2 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/50 dark:text-amber-100'>
                   <p className='font-medium'>提交内容与待审核改动存在重叠</p>
                   <p className='mt-1'>
                     涉及 {pendingOverlap.affectedPathCount} 个字段；自己的待审核改动{' '}
@@ -286,13 +286,13 @@ export default function EditModeToolbar({
                         setAcknowledgedPendingOverlap(event.currentTarget.checked)
                       }
                       disabled={isPublishing}
-                      className='mt-0.5 shrink-0 rounded border-amber-400 text-amber-600 focus:ring-amber-500'
+                      className='daisy-checkbox daisy-checkbox-warning daisy-checkbox-xs mt-0.5 shrink-0'
                     />
                     <span>我了解继续提交可能导致覆盖或审核冲突</span>
                   </label>
                 </div>
               ) : pendingDraftSummary ? (
-                <div className='mt-2 rounded-md border border-amber-300 bg-amber-50 px-2.5 py-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200'>
+                <div className='daisy-alert daisy-alert-warning daisy-alert-soft mt-2 block rounded-md border border-amber-300 bg-amber-50 px-2.5 py-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200'>
                   当前草稿可能影响 {pendingDraftSummary.affectedPathCount}{' '}
                   个有待审核改动的字段，提交时将再次检查。
                 </div>
@@ -303,7 +303,7 @@ export default function EditModeToolbar({
                   id='toolbar-license-agreement'
                   checked={agreedToLicense}
                   onChange={(e) => setAgreedToLicense(e.target.checked)}
-                  className='bg-control focus:ring-focus mt-0.5 shrink-0 rounded border-gray-300 text-blue-600 disabled:opacity-50 dark:border-gray-600'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs mt-0.5 shrink-0 disabled:opacity-50'
                   disabled={isPublishing}
                 />
                 <label
@@ -324,7 +324,7 @@ export default function EditModeToolbar({
                 </label>
               </div>
               {advancedSubmit?.available && advancedSubmitDescription && (
-                <div className='mt-2 rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-900 dark:bg-blue-900/30 dark:text-blue-100'>
+                <div className='daisy-alert daisy-alert-info daisy-alert-soft mt-2 block rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-900 dark:bg-blue-900/30 dark:text-blue-100'>
                   <div>{advancedSubmitDescription}</div>
                   <div className='mt-2 flex flex-wrap gap-2'>
                     {advancedSubmit.modes.map((mode) => {
@@ -336,7 +336,7 @@ export default function EditModeToolbar({
                           onClick={() => setSubmitMode(mode)}
                           disabled={isPublishing || isActive}
                           className={cn(
-                            'rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors',
+                            'daisy-btn daisy-btn-xs h-auto min-h-0 rounded-full border px-2.5 py-1 text-[11px] font-medium active:translate-none',
                             isActive
                               ? 'border-blue-700 bg-blue-700 text-white dark:border-blue-400 dark:bg-blue-400 dark:text-slate-950'
                               : 'bg-surface/80 border-blue-200 text-blue-900 hover:bg-blue-100 dark:border-blue-500/40 dark:text-blue-100 dark:hover:bg-blue-950/40',
@@ -378,14 +378,20 @@ export default function EditModeToolbar({
           </Button>
 
           {/* Drafts dropdown */}
-          <div className='relative' data-drafts-dropdown-root>
+          <div
+            className={cn(
+              'daisy-dropdown daisy-dropdown-top daisy-dropdown-start',
+              isDraftsOpen && 'daisy-dropdown-open'
+            )}
+            data-drafts-dropdown-root
+          >
             <button
               data-tutorial-id='edit-mode-toolbar-drafts'
               type='button'
               onClick={() => setIsDraftsOpen((prev) => !prev)}
               disabled={draftsSummary.length === 0}
               className={cn(
-                'flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'daisy-btn daisy-btn-sm h-auto min-h-0 items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium active:translate-none',
                 draftsSummary.length > 0
                   ? 'bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/40'
                   : 'bg-control cursor-not-allowed text-gray-400 dark:text-gray-500'
@@ -402,7 +408,7 @@ export default function EditModeToolbar({
               {isDraftsOpen && draftsSummary.length > 0 && (
                 <m.div
                   key='drafts-dropdown'
-                  className='bg-surface-raised text-foreground absolute bottom-full left-0 z-50 mb-2 w-56 overflow-hidden rounded-lg border border-amber-100 shadow-lg dark:border-amber-900/50'
+                  className='daisy-dropdown-content bg-surface-raised text-foreground absolute bottom-full left-0 z-50 mb-2 w-56 overflow-hidden rounded-lg border border-amber-100 shadow-lg dark:border-amber-900/50'
                   initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 6, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.98 }}
@@ -413,11 +419,11 @@ export default function EditModeToolbar({
                   <div className='border-b border-amber-100 px-3 py-2 text-xs font-semibold text-amber-700 dark:border-amber-900/50 dark:text-amber-300'>
                     当前草稿
                   </div>
-                  <ul className='py-1'>
+                  <ul className='daisy-menu w-full p-0 py-1'>
                     {draftsSummary.map((item) => (
                       <li
                         key={`${item.entityType}:${item.factionId ?? 'default'}:${item.entityId}`}
-                        className='px-3 py-2 text-sm text-gray-700 dark:text-gray-200'
+                        className='daisy-menu-title block px-3 py-2 text-sm text-gray-700 dark:text-gray-200'
                       >
                         <div className='flex items-center justify-between'>
                           <span>

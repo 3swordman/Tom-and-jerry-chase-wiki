@@ -159,7 +159,7 @@ export default function EntitySkillCard({ skill, skillIndex }: SkillCardProps) {
                       draft.type = event.target.value as SkillType;
                     });
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {SKILL_TYPES.map((type) => (
                     <option key={type} value={type}>

@@ -48,7 +48,7 @@ export default function PhysicalAttributesSection({
                       draft.move = e.target.checked;
                     });
                   }}
-                  className='h-3 w-3'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                 />
                 <span className='font-bold'>
                   {(attributes.move ?? false) ? '可移动' : '不可移动'}
@@ -66,7 +66,7 @@ export default function PhysicalAttributesSection({
                       draft.gravity = e.target.checked;
                     });
                   }}
-                  className='h-3 w-3'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                 />
                 <span className='font-bold'>
                   {(attributes.gravity ?? false) ? '会受重力影响' : '不受重力影响'}
@@ -90,7 +90,7 @@ export default function PhysicalAttributesSection({
                         else draft.collision = values;
                       });
                     }}
-                    className='h-3 w-3'
+                    className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                   />
                   <span className='font-bold'>{opt}</span>
                 </label>

@@ -75,7 +75,7 @@ export default function GuessInput({
         placeholder={disabled ? '游戏已结束' : '输入角色名称后回车...'}
         disabled={disabled}
         className={cn(
-          'bg-surface-sunken w-full rounded-lg border-2 px-4 py-3 text-lg',
+          'daisy-input bg-surface-sunken w-full rounded-lg border-2 px-4 py-3 text-lg text-inherit',
           'transition-colors duration-150',
           'placeholder:text-gray-400',
           'focus:border-focus focus:ring-focus/30 focus:ring-2 focus:outline-none',

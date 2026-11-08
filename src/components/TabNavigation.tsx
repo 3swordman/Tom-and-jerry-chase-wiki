@@ -300,7 +300,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
   const dropdownAlignmentClass = shouldAlignLeft ? 'left-0' : 'right-0';
   return (
     <div className='bg-surface-raised fixed top-0 right-0 left-0 z-50 w-full py-2 shadow-md dark:shadow-lg'>
-      <div className='mx-auto flex max-w-7xl items-center justify-between gap-1 px-2 sm:gap-4 sm:px-4'>
+      <div className='daisy-navbar static mx-auto flex min-h-0 max-w-7xl items-center justify-between gap-1 p-0 px-2 sm:gap-4 sm:px-4'>
         {/* Left-aligned navigation buttons */}
         <div className={cn('relative flex flex-nowrap gap-1 md:gap-2 lg:gap-2.5')}>
           <Tooltip content='首页' className='border-none' disabled={isLg}>
@@ -335,7 +335,11 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
               const image =
                 entry.children.find((child) => isTabActive(child.href)) || entry.children[0];
               return (
-                <div key={entry.id} className='relative' data-group-dropdown-root>
+                <div
+                  key={entry.id}
+                  className={cn('daisy-dropdown', isGroupOpen && 'daisy-dropdown-open')}
+                  data-group-dropdown-root
+                >
                   <Tooltip content={entry.label} className='border-none' disabled={isMd}>
                     <MotionButton
                       variant='unstyled'
@@ -373,7 +377,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                       <m.div
                         key={`group-${entry.id}-dropdown`}
                         className={cn(
-                          'bg-surface-raised absolute z-9999 mt-2 min-w-35 rounded-md shadow-lg',
+                          'daisy-dropdown-content bg-surface-raised absolute z-9999 mt-2 min-w-35 rounded-md shadow-lg',
                           dropdownAlignmentClass
                         )}
                         initial={
@@ -386,7 +390,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                         transition={{ duration: 0.14, ease: 'easeOut' }}
                         style={{ transformOrigin: 'top' }}
                       >
-                        <ul className='py-1'>
+                        <ul className='daisy-menu w-full p-0 py-1'>
                           {entry.children.filter(shouldShowNavItem).map((child) => (
                             <li key={child.id}>
                               <DropdownNavLink
@@ -448,7 +452,10 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
             );
           })}
           {!!overflowTabs.length && (
-            <div className='relative' data-overflow-root>
+            <div
+              className={cn('daisy-dropdown', overflowOpen && 'daisy-dropdown-open')}
+              data-overflow-root
+            >
               <MotionButton
                 variant='unstyled'
                 type='button'
@@ -468,7 +475,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                   <m.div
                     key='tab-overflow-menu'
                     className={cn(
-                      'bg-surface-raised absolute z-9999 mt-2 min-w-35 rounded-md shadow-lg',
+                      'daisy-dropdown-content bg-surface-raised absolute z-9999 mt-2 min-w-35 rounded-md shadow-lg',
                       dropdownAlignmentClass
                     )}
                     initial={
@@ -479,12 +486,12 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                     transition={{ duration: 0.14, ease: 'easeOut' }}
                     style={{ transformOrigin: 'top' }}
                   >
-                    <ul className='py-1'>
+                    <ul className='daisy-menu w-full p-0 py-1'>
                       {overflowTabs.map((entry) => {
                         if (isNavGroup(entry)) {
                           return (
                             <li key={entry.id}>
-                              <div className='px-4 py-1 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400'>
+                              <div className='daisy-menu-title px-4 py-1 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400'>
                                 {entry.label}
                               </div>
                               {entry.children.filter(shouldShowNavItem).map((child) => (
@@ -526,7 +533,13 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
           {showDetailToggle ? <DetailViewToggle /> : null}
           {/* User menu (deferred until mounted to avoid hydration mismatch) */}
           {mounted && !!nickname && hasSupabasePublicConfig() && (
-            <div className='relative' data-user-dropdown-root>
+            <div
+              className={cn(
+                'daisy-dropdown daisy-dropdown-end',
+                userDropdownOpen && 'daisy-dropdown-open'
+              )}
+              data-user-dropdown-root
+            >
               <Tooltip
                 content={hasActiveBlock ? '账号受限：点击查看详情' : '用户菜单'}
                 className='border-none'
@@ -544,24 +557,26 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {hasUnreadNotifications && (
-                    <span
-                      aria-hidden='true'
-                      className='absolute -top-1 -right-1 z-10 flex min-w-4.5 items-center justify-center rounded-full bg-red-500 px-1 py-0.5 text-[10px] leading-none font-semibold text-white ring-2 ring-white dark:ring-slate-800'
-                    >
-                      {unreadNotificationBadgeLabel}
-                    </span>
-                  )}
-                  <span className='relative'>
-                    <UserCircleIcon className='size-6' strokeWidth={1.5} />
-                    {hasActiveBlock && (
+                  <span className='daisy-indicator'>
+                    {hasUnreadNotifications && (
                       <span
                         aria-hidden='true'
-                        className='absolute -right-1 -bottom-1 flex size-3.5 items-center justify-center rounded-full bg-amber-500 text-[10px] leading-none font-bold text-white'
+                        className='daisy-indicator-item daisy-badge daisy-badge-error absolute -top-1 -right-1 z-10 flex min-w-4.5 translate-none items-center justify-center rounded-full bg-red-500 px-1 py-0.5 text-[10px] leading-none font-semibold text-white ring-2 ring-white dark:ring-slate-800'
                       >
-                        !
+                        {unreadNotificationBadgeLabel}
                       </span>
                     )}
+                    <span className='relative'>
+                      <UserCircleIcon className='size-6' strokeWidth={1.5} />
+                      {hasActiveBlock && (
+                        <span
+                          aria-hidden='true'
+                          className='daisy-indicator-item daisy-indicator-bottom daisy-badge daisy-badge-warning absolute -right-1 -bottom-1 flex size-3.5 translate-none items-center justify-center rounded-full bg-amber-500 text-[10px] leading-none font-bold text-white'
+                        >
+                          !
+                        </span>
+                      )}
+                    </span>
                   </span>
                 </MotionButton>
               </Tooltip>
@@ -569,7 +584,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                 {userDropdownOpen && (
                   <m.div
                     key='user-settings-dropdown'
-                    className='bg-surface-raised absolute right-0 z-99999 mt-2 w-64 rounded-md shadow-lg'
+                    className='daisy-dropdown-content bg-surface-raised absolute right-0 z-99999 mt-2 w-64 rounded-md shadow-lg'
                     initial={
                       shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.98 }
                     }
@@ -578,7 +593,7 @@ export default function TabNavigation({ showDetailToggle = false }: TabNavigatio
                     transition={{ duration: 0.14, ease: 'easeOut' }}
                     style={{ transformOrigin: 'top right' }}
                   >
-                    <ul className='py-1'>
+                    <ul className='daisy-menu w-full p-0 py-1'>
                       {hasActiveBlock && (
                         <li
                           role='status'

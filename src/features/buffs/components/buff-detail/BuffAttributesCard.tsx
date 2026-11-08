@@ -82,7 +82,7 @@ export default function BuffAttributesCard({ buff }: { buff: DeepReadonly<Buff> 
                       draft.type = event.target.value as buffTypelist;
                     });
                   }}
-                  className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+                  className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
                 >
                   {BUFF_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -123,7 +123,7 @@ export default function BuffAttributesCard({ buff }: { buff: DeepReadonly<Buff> 
                           else delete draft.range;
                         });
                       }}
-                      className='h-3 w-3'
+                      className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                     />
                     <span className='font-bold'>启用取值范围</span>
                   </label>

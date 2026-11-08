@@ -73,7 +73,7 @@ export default function GameDataActionRow({
               disabled={isModerating}
               onChange={onToggleSelected}
               aria-label={`选择改动 ${submission.action_id}`}
-              className='bg-surface-sunken h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-slate-600 dark:focus:ring-green-400'
+              className='daisy-checkbox daisy-checkbox-success h-4 w-4'
             />
           ) : (
             <span aria-hidden='true' className='block h-4 w-4' />
@@ -360,7 +360,7 @@ function GameDataActionDetails({
       </div>
 
       {submission.status === 'rejected' && submission.rejection_reason && (
-        <div className='rounded border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900/60 dark:bg-red-900/30 dark:text-red-200'>
+        <div className='daisy-alert daisy-alert-error daisy-alert-soft block rounded border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900/60 dark:bg-red-900/30 dark:text-red-200'>
           拒绝原因：{submission.rejection_reason}
         </div>
       )}

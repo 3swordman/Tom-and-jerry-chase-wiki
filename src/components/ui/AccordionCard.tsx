@@ -72,7 +72,7 @@ export default function AccordionCard({
     <div className={className}>
       <div
         className={cn(
-          'flex scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 overflow-x-auto',
+          'daisy-tabs flex scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 flex-nowrap overflow-x-auto',
           'dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800',
           titleClassName
         )}
@@ -89,7 +89,7 @@ export default function AccordionCard({
               type='button'
               onClick={() => toggleItem(item.id)}
               className={cn(
-                'flex flex-1 cursor-pointer items-center justify-center px-1 py-1 font-bold text-black dark:text-white',
+                'daisy-tab flex h-auto min-h-0 flex-1 cursor-pointer items-center justify-center px-1 py-1 font-bold text-black active:translate-none dark:text-white',
                 disclosureTriggerFocusClasses,
                 'whitespace-nowrap transition-[background-color,border-color,box-shadow] duration-200',
                 useDefaultButtonColors && 'border-2',
@@ -98,7 +98,7 @@ export default function AccordionCard({
                   isExpanded &&
                   colorToUse === 'default' &&
                   'bg-control-hover',
-                useDefaultButtonColors && isExpanded && 'shadow-inner',
+                useDefaultButtonColors && isExpanded && 'daisy-tab-active shadow-inner',
                 buttonClassName,
                 isExpanded && activeButtonClassName
               )}

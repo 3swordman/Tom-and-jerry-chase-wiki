@@ -72,13 +72,13 @@ export default function NotificationsClient() {
         <div className='border-border border-b px-4 py-4 sm:px-5'>
           <SectionHeader title='通知记录'>
             {unreadCount > 0 ? (
-              <span className='rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300'>
+              <span className='daisy-badge daisy-badge-info rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300'>
                 {unreadCount} 条未读
               </span>
             ) : null}
           </SectionHeader>
           <div className='flex flex-wrap items-center justify-between gap-3'>
-            <div className='bg-surface-sunken inline-flex rounded-lg border border-gray-200 p-1 dark:border-gray-600'>
+            <div className='daisy-join bg-surface-sunken inline-flex rounded-lg border border-gray-200 p-1 dark:border-gray-600'>
               {(['all', 'unread'] as const).map((value) => (
                 <Button
                   variant='unstyled'
@@ -86,7 +86,7 @@ export default function NotificationsClient() {
                   type='button'
                   aria-pressed={filter === value}
                   className={cn(
-                    'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                    'daisy-join-item daisy-btn daisy-btn-sm h-auto min-h-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors active:translate-none',
                     filter === value
                       ? 'bg-surface text-blue-700 shadow-sm dark:text-blue-300'
                       : 'text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100'

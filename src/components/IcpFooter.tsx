@@ -10,12 +10,12 @@ export default function IcpFooter() {
   }
 
   return (
-    <footer className='border-border text-muted-foreground border-t px-4 py-3 text-center text-xs'>
+    <footer className='daisy-footer daisy-footer-center border-border text-muted-foreground block border-t px-4 py-3 text-center text-xs'>
       <a
         href={ICP_FILING_SYSTEM_URL}
         target='_blank'
         rel='noopener noreferrer'
-        className='underline underline-offset-2 hover:text-blue-600 dark:hover:text-blue-400'
+        className='inline underline underline-offset-2 hover:text-blue-600 dark:hover:text-blue-400'
       >
         {recordNumber}
       </a>

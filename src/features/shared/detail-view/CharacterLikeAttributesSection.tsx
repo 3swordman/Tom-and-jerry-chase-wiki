@@ -120,7 +120,7 @@ export default function CharacterLikeAttributesSection({
                 event.target.checked ? { type: 'special', factionBelong: 'other' } : undefined
               );
             }}
-            className='h-3 w-3'
+            className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
           />
           <span className='font-bold'>启用角色类属性</span>
         </label>
@@ -200,7 +200,7 @@ export default function CharacterLikeAttributesSection({
                             else delete next.maxHp;
                           })
                         }
-                        className='h-3 w-3'
+                        className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs h-3 w-3 p-0'
                       />
                       <span>一击即溃</span>
                     </label>

@@ -213,7 +213,7 @@ export default function ChatComposer({
                       inputRef.current?.focus();
                     }}
                     className={cn(
-                      'min-h-8 shrink-0 rounded-md px-2 py-1 text-xs',
+                      'daisy-btn daisy-btn-ghost daisy-btn-xs h-auto min-h-8 shrink-0 rounded-md border-0 px-2 py-1 text-xs font-normal active:translate-none',
                       (label === '全部' ? !filter : filter === label)
                         ? 'bg-black/5 text-stone-900 dark:bg-white/10 dark:text-neutral-100'
                         : 'text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5'
@@ -233,7 +233,14 @@ export default function ChatComposer({
             >
               {triggerType === 'reference' ? (
                 searching ? (
-                  <p role='status' className='text-muted-foreground px-3 py-5 text-sm'>
+                  <p
+                    role='status'
+                    className='text-muted-foreground flex items-center gap-2 px-3 py-5 text-sm'
+                  >
+                    <span
+                      className='daisy-loading daisy-loading-spinner daisy-loading-xs'
+                      aria-hidden='true'
+                    />
                     正在查找资料…
                   </p>
                 ) : references.length === 0 ? (
@@ -254,7 +261,7 @@ export default function ChatComposer({
                       onMouseDown={(event) => event.preventDefault()}
                       onClick={() => selectOption(index)}
                       className={cn(
-                        'flex min-h-10 w-full items-center gap-2 rounded-md px-2 py-1.5 text-left',
+                        'daisy-btn daisy-btn-ghost flex h-auto min-h-10 w-full items-center justify-start gap-2 rounded-md border-0 px-2 py-1.5 text-left font-normal shadow-none active:translate-none',
                         activeIndex === index
                           ? 'bg-black/5 dark:bg-white/10'
                           : 'hover:bg-black/5 dark:hover:bg-white/5'
@@ -287,7 +294,7 @@ export default function ChatComposer({
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={() => selectOption(index)}
                     className={cn(
-                      'flex w-full items-center gap-2 rounded-md px-2 py-2 text-left aria-disabled:opacity-40',
+                      'daisy-btn daisy-btn-ghost flex h-auto min-h-0 w-full items-center justify-start gap-2 rounded-md border-0 px-2 py-2 text-left font-normal shadow-none active:translate-none aria-disabled:opacity-40',
                       activeIndex === index
                         ? 'bg-black/5 dark:bg-white/10'
                         : 'hover:bg-black/5 dark:hover:bg-white/5'
@@ -388,7 +395,7 @@ export default function ChatComposer({
                   position + 1
                 );
               }}
-              className='text-muted-foreground hover:text-foreground flex size-8 items-center justify-center rounded-lg text-base font-medium hover:bg-black/5 dark:hover:bg-white/5'
+              className='daisy-btn daisy-btn-ghost daisy-btn-sm text-muted-foreground hover:text-foreground flex size-8 min-h-0 items-center justify-center rounded-lg border-0 p-0 text-base font-medium hover:bg-black/5 active:translate-none dark:hover:bg-white/5'
             >
               @
             </Button>
@@ -402,7 +409,7 @@ export default function ChatComposer({
                 setSelected(0);
                 inputRef.current?.focus();
               }}
-              className='text-muted-foreground hover:text-foreground flex size-8 items-center justify-center rounded-lg font-mono text-base hover:bg-black/5 dark:hover:bg-white/5'
+              className='daisy-btn daisy-btn-ghost daisy-btn-sm text-muted-foreground hover:text-foreground flex size-8 min-h-0 items-center justify-center rounded-lg border-0 p-0 font-mono text-base font-normal hover:bg-black/5 active:translate-none dark:hover:bg-white/5'
             >
               /
             </Button>
@@ -419,7 +426,7 @@ export default function ChatComposer({
                 aria-label='停止回答'
                 title='停止回答'
                 onClick={onStop}
-                className='bg-foreground text-background flex size-9 items-center justify-center rounded-xl'
+                className='daisy-btn daisy-btn-neutral bg-foreground text-background flex size-9 min-h-0 items-center justify-center rounded-xl border-0 p-0 active:translate-none'
               >
                 <span className='size-3 rounded-sm bg-current' />
               </Button>
@@ -430,7 +437,7 @@ export default function ChatComposer({
                 aria-label='发送'
                 title='发送'
                 disabled={!question.trim()}
-                className='flex size-9 items-center justify-center rounded-full bg-neutral-800 text-white transition-colors hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-white'
+                className='daisy-btn daisy-btn-circle flex size-9 min-h-0 items-center justify-center rounded-full border-0 bg-neutral-800 p-0 text-white transition-colors hover:bg-neutral-700 active:translate-none disabled:cursor-not-allowed disabled:opacity-30 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-white'
               >
                 <ChevronUpIcon className='size-5' strokeWidth={2.5} />
               </Button>

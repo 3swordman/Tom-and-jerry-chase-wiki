@@ -210,71 +210,79 @@ export function BaseDialog({
   }, [open, lockScroll, ancestors]);
 
   const content = (
-    <AnimatePresence>
-      {open && (
-        <>
-          <m.div
-            key='backdrop'
-            className={cn('fixed inset-0 z-40 bg-gray-900/30 backdrop-blur-sm', backdropClassName)}
-            aria-hidden='true'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={backdropTransition}
-            onMouseDown={(e) => {
-              if (!closeOnOutsideClick || openDialogs.at(-1)?.panel !== panelRef.current) return;
-              if (e.target === e.currentTarget) {
-                onOpenChange(false, 'backdrop');
-              }
-            }}
-          />
+    <div
+      id={`modal-${fallbackTitleId}`}
+      className='daisy-modal daisy-modal-open contents opacity-100 transition-none'
+    >
+      <AnimatePresence>
+        {open && (
+          <>
+            <m.div
+              key='backdrop'
+              className={cn(
+                'fixed inset-0 z-40 bg-gray-900/30 backdrop-blur-sm',
+                backdropClassName
+              )}
+              aria-hidden='true'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={backdropTransition}
+              onMouseDown={(e) => {
+                if (!closeOnOutsideClick || openDialogs.at(-1)?.panel !== panelRef.current) return;
+                if (e.target === e.currentTarget) {
+                  onOpenChange(false, 'backdrop');
+                }
+              }}
+            />
 
-          <m.div
-            key='panel'
-            ref={panelRef}
-            tabIndex={-1}
-            role={role}
-            aria-modal='true'
-            aria-label={ariaLabel}
-            aria-labelledby={effectiveLabelledBy}
-            aria-describedby={ariaDescribedBy}
-            className={cn(
-              'bg-surface-raised text-foreground fixed z-10000 overflow-y-auto rounded-xl shadow-xl',
-              fullScreen
-                ? 'inset-0 h-dvh w-full rounded-none'
-                : cn(
-                    'inset-auto top-1/2 left-1/2 max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2',
-                    dialogSizes[size]
-                  ),
-              panelClassName
-            )}
-            initial={panelInitial}
-            animate={panelAnimate}
-            exit={panelExit}
-            transition={panelTransition}
-            onMouseDown={(e) => e.stopPropagation()}
-            onFocusCapture={(event) => {
-              if (
-                !openDialogs.some(({ panel }) => panel === event.currentTarget) &&
-                event.relatedTarget instanceof HTMLElement &&
-                // Replacing a dialog can briefly leave focus on the body before cleanup restores it.
-                event.relatedTarget !== document.body &&
-                !event.currentTarget.contains(event.relatedTarget)
-              ) {
-                activeElementBeforeOpenRef.current = event.relatedTarget;
-              }
-            }}
-          >
-            {!ariaLabel && !ariaLabelledBy ? (
-              <span id={fallbackTitleId} className='sr-only'>
-                对话框
-              </span>
-            ) : null}
-            <DialogAncestors value={descendantAncestors}>{children}</DialogAncestors>
-          </m.div>
-        </>
-      )}
-    </AnimatePresence>
+            <m.div
+              key='panel'
+              ref={panelRef}
+              tabIndex={-1}
+              role={role}
+              aria-modal='true'
+              aria-label={ariaLabel}
+              aria-labelledby={effectiveLabelledBy}
+              aria-describedby={ariaDescribedBy}
+              className={cn(
+                'daisy-modal-box bg-surface-raised text-foreground fixed z-10000 max-w-none scale-none overflow-y-auto overscroll-auto rounded-xl p-0 shadow-xl',
+                fullScreen
+                  ? 'inset-0 h-dvh max-h-none w-full translate-none rounded-none'
+                  : cn(
+                      'inset-auto top-1/2 left-1/2 max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2',
+                      dialogSizes[size]
+                    ),
+                panelClassName
+              )}
+              initial={panelInitial}
+              animate={panelAnimate}
+              exit={panelExit}
+              transition={panelTransition}
+              onMouseDown={(e) => e.stopPropagation()}
+              onFocusCapture={(event) => {
+                if (
+                  !openDialogs.some(({ panel }) => panel === event.currentTarget) &&
+                  event.relatedTarget instanceof HTMLElement &&
+                  // Replacing a dialog can briefly leave focus on the body before cleanup restores it.
+                  event.relatedTarget !== document.body &&
+                  !event.currentTarget.contains(event.relatedTarget)
+                ) {
+                  activeElementBeforeOpenRef.current = event.relatedTarget;
+                }
+              }}
+            >
+              {!ariaLabel && !ariaLabelledBy ? (
+                <span id={fallbackTitleId} className='sr-only'>
+                  对话框
+                </span>
+              ) : null}
+              <DialogAncestors value={descendantAncestors}>{children}</DialogAncestors>
+            </m.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
   );
 
   if (!portal) return content;

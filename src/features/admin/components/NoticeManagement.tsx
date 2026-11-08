@@ -181,7 +181,7 @@ export default function NoticeManagement({ notices, mutateNotices }: Props) {
 
         {message && <Notice variant={message.error ? 'error' : 'success'}>{message.text}</Notice>}
 
-        <label className='block space-y-1.5 text-sm font-medium'>
+        <label className='daisy-label block space-y-1.5 text-sm font-medium'>
           <span>标题</span>
           <FormInput
             value={form.title}
@@ -192,7 +192,7 @@ export default function NoticeManagement({ notices, mutateNotices }: Props) {
         </label>
 
         <div className='grid gap-3 sm:grid-cols-2'>
-          <label className='block space-y-1.5 text-sm font-medium'>
+          <label className='daisy-label block space-y-1.5 text-sm font-medium'>
             <span>开始时间</span>
             <FormInput
               type='datetime-local'
@@ -202,7 +202,7 @@ export default function NoticeManagement({ notices, mutateNotices }: Props) {
               }
             />
           </label>
-          <label className='block space-y-1.5 text-sm font-medium'>
+          <label className='daisy-label block space-y-1.5 text-sm font-medium'>
             <span>结束时间（可选）</span>
             <FormInput
               type='datetime-local'
@@ -225,7 +225,7 @@ export default function NoticeManagement({ notices, mutateNotices }: Props) {
         </div>
 
         {form.contentHtml && (
-          <div className='rounded-lg border border-blue-200 bg-blue-50/60 p-4 dark:border-blue-900/60 dark:bg-blue-950/20'>
+          <div className='daisy-alert daisy-alert-info daisy-alert-soft block rounded-lg border border-blue-200 bg-blue-50/60 p-4 dark:border-blue-900/60 dark:bg-blue-950/20'>
             <p className='mb-2 text-xs font-semibold tracking-wide text-blue-600 uppercase dark:text-blue-300'>
               首页预览
             </p>

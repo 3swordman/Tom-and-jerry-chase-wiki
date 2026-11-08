@@ -31,7 +31,7 @@ import Link from '@/components/Link';
 const CHAT_GREETINGS = ['今天想了解什么？', '有什么想问的？', '一起研究新玩法吧。'] as const;
 
 const toolButtonClass =
-  'flex size-9 shrink-0 items-center justify-center rounded-md text-stone-500 transition-colors hover:bg-black/5 hover:text-stone-900 disabled:opacity-35 dark:text-neutral-400 dark:hover:bg-white/5 dark:hover:text-neutral-100';
+  'daisy-btn daisy-btn-ghost daisy-btn-sm flex size-9 min-h-0 shrink-0 items-center justify-center rounded-md border-0 p-0 font-normal text-stone-500 transition-colors hover:bg-black/5 hover:text-stone-900 active:translate-none disabled:opacity-35 dark:text-neutral-400 dark:hover:bg-white/5 dark:hover:text-neutral-100';
 
 function Conversation({ userId, onUnauthorized }: { userId: string; onUnauthorized: () => void }) {
   const chat = useChat(userId, onUnauthorized);
@@ -306,7 +306,10 @@ function Conversation({ userId, onUnauthorized }: { userId: string; onUnauthoriz
                   role='status'
                   className='mx-auto mt-5 flex max-w-3xl items-center gap-2 text-xs text-stone-500 dark:text-neutral-400'
                 >
-                  <span className='size-3 rounded-full border border-current border-t-transparent motion-safe:animate-spin' />
+                  <span
+                    className='daisy-loading daisy-loading-spinner daisy-loading-xs'
+                    aria-hidden='true'
+                  />
                   {activity}
                 </div>
               ) : chat.stopped ? (

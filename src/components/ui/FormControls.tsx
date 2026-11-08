@@ -2,7 +2,7 @@
 
 import React, { forwardRef } from 'react';
 
-import { getFormControlClasses, type FormControlSize } from '@/lib/design';
+import { cn, getFormControlClasses, type FormControlSize } from '@/lib/design';
 
 type SharedFormControlProps = {
   size?: FormControlSize;
@@ -32,7 +32,15 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ) => (
     <input
       ref={ref}
-      className={getFormControlClasses({ size, invalid, fullWidth, className })}
+      className={getFormControlClasses({
+        size,
+        invalid,
+        fullWidth,
+        className: cn(
+          (!rest.type || ['text', 'search', 'password'].includes(rest.type)) && 'daisy-input',
+          className
+        ),
+      })}
       aria-invalid={ariaInvalid ?? (invalid ? true : undefined)}
       {...rest}
     />
@@ -55,7 +63,12 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   ) => (
     <select
       ref={ref}
-      className={getFormControlClasses({ size, invalid, fullWidth, className })}
+      className={getFormControlClasses({
+        size,
+        invalid,
+        fullWidth,
+        className: cn(!rest.multiple && 'daisy-select', className),
+      })}
       aria-invalid={ariaInvalid ?? (invalid ? true : undefined)}
       {...rest}
     />
@@ -78,7 +91,12 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
   ) => (
     <textarea
       ref={ref}
-      className={getFormControlClasses({ size, invalid, fullWidth, className })}
+      className={getFormControlClasses({
+        size,
+        invalid,
+        fullWidth,
+        className: cn('daisy-textarea', className),
+      })}
       aria-invalid={ariaInvalid ?? (invalid ? true : undefined)}
       {...rest}
     />

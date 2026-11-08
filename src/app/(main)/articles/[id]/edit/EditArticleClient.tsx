@@ -21,7 +21,6 @@ import Notice from '@/components/ui/Notice';
 import PageHeader from '@/components/ui/PageHeader';
 import PageShell from '@/components/ui/PageShell';
 import ArticleForm, { CategoryOption } from '@/components/articles/ArticleForm';
-import { ChevronRightSolidIcon } from '@/components/icons/CommonIcons';
 import Link from '@/components/Link';
 
 type Category = CategoryOption;
@@ -122,24 +121,32 @@ const EditArticleClient: React.FC<EditArticleClientProps> = ({ characterOptions 
     <PageShell width='narrow' className='space-y-8 dark:text-slate-200'>
       {/* Header */}
       <PageHeader title='编辑文章' description='修改和完善您的文章内容' className='mb-8'>
-        {/* Navigation Breadcrumb */}
-        <div className='text-muted-foreground flex items-center justify-center gap-2 text-sm'>
-          <Link
-            href='/articles'
-            className='transition-colors hover:text-blue-600 dark:hover:text-blue-400'
-          >
-            文章列表
-          </Link>
-          <ChevronRightSolidIcon className='size-4' />
-          <Link
-            href={`/articles/${id}`}
-            className='transition-colors hover:text-blue-600 dark:hover:text-blue-400'
-          >
-            文章详情
-          </Link>
-          <ChevronRightSolidIcon className='size-4' />
-          <span className='text-gray-900 dark:text-gray-100'>编辑文章</span>
-        </div>
+        <nav
+          aria-label='面包屑导航'
+          className='daisy-breadcrumbs text-muted-foreground flex justify-center text-sm'
+        >
+          <ul>
+            <li>
+              <Link
+                href='/articles'
+                className='transition-colors hover:text-blue-600 dark:hover:text-blue-400'
+              >
+                文章列表
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/articles/${id}`}
+                className='transition-colors hover:text-blue-600 dark:hover:text-blue-400'
+              >
+                文章详情
+              </Link>
+            </li>
+            <li className='text-gray-900 dark:text-gray-100'>
+              <span aria-current='page'>编辑文章</span>
+            </li>
+          </ul>
+        </nav>
       </PageHeader>
 
       {showSourcePicker && approvedSource && pendingSource && (

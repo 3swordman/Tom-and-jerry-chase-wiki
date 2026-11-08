@@ -120,7 +120,7 @@ export default function BuffClient({ description, data = buffs, publishedRevisio
       }
     >
       {/* 提示栏：界面迭代信息 */}
-      <div className='border-border bg-surface-sunken mb-4 rounded-md border p-3 text-sm text-gray-700 dark:text-gray-300'>
+      <div className='daisy-alert daisy-alert-info daisy-alert-soft border-border bg-surface-sunken mb-4 block rounded-md border p-3 text-sm text-gray-700 dark:text-gray-300'>
         <span>该界面部分内容已迭代，具体可查阅 </span>
         <Link
           href='/mechanics/buff/'

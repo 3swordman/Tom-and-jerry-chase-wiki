@@ -8,7 +8,7 @@ type CardProps<E extends ElementType = 'div'> = {
   interactive?: boolean;
 } & ComponentPropsWithoutRef<E>;
 
-const baseClasses = 'bg-surface rounded-lg p-4';
+const baseClasses = 'daisy-card bg-surface rounded-lg p-4';
 const borderedClasses = 'border-border border';
 const interactiveClasses = 'shadow-sm transition-shadow duration-200 hover:shadow-md';
 const interactiveBorderClasses =

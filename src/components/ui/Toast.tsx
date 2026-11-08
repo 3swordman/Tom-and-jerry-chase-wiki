@@ -12,7 +12,7 @@ import {
 export type ToastType = 'success' | 'info' | 'warning' | 'error';
 
 const baseToastClass =
-  'pointer-events-auto flex w-full max-w-sm cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg';
+  'daisy-alert daisy-alert-soft pointer-events-auto flex w-full max-w-sm cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg';
 const iconClass = 'h-5 w-5 text-white';
 
 const icons = {
@@ -43,11 +43,11 @@ export function ToastViewport() {
           content: 'flex-1',
           icon: iconClass,
           actionButton:
-            'shrink-0 rounded-md bg-white/20 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-white/30 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none',
-          success: 'bg-green-700 dark:bg-green-800',
-          info: 'bg-blue-600 dark:bg-blue-700',
-          warning: 'bg-amber-700 dark:bg-amber-800',
-          error: 'bg-red-600 dark:bg-red-700',
+            'daisy-btn daisy-btn-xs h-auto min-h-0 shrink-0 rounded-md border-0 bg-white/20 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-white/30 active:translate-none focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none',
+          success: 'daisy-alert-success bg-green-700 dark:bg-green-800',
+          info: 'daisy-alert-info bg-blue-600 dark:bg-blue-700',
+          warning: 'daisy-alert-warning bg-amber-700 dark:bg-amber-800',
+          error: 'daisy-alert-error bg-red-600 dark:bg-red-700',
         },
       }}
     />

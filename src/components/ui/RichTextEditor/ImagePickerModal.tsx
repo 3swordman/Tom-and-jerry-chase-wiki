@@ -8,8 +8,6 @@ import Button from '@/components/ui/Button';
 import { FormInput } from '@/components/ui/FormControls';
 import { Img } from '@/components/Image';
 
-import { LoadingSpinnerIcon } from '../RichTextEditorIcons';
-
 const TABS = [
   { id: 'upload', label: '上传新图片' },
   { id: 'library', label: '文章图库' },
@@ -220,6 +218,7 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
       variant={activeTab === id ? 'primary' : 'secondary'}
       size='sm'
       aria-pressed={activeTab === id}
+      className={activeTab === id ? 'daisy-tab daisy-tab-active' : 'daisy-tab'}
     >
       {label}
     </Button>
@@ -227,15 +226,19 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
 
   const renderUploadTab = () => (
     <div className='space-y-4'>
-      <div className='bg-surface-sunken border-border rounded-lg border border-dashed p-6 text-center'>
+      <div className='daisy-card bg-surface-sunken border-border rounded-lg border border-dashed p-6 text-center'>
         <p className='mb-2 text-base font-semibold text-gray-900 dark:text-gray-100'>上传新图片</p>
         <p className='text-muted-foreground mb-4 text-sm'>
           {IMAGE_EXT_HINT}，单张不超过 {formatBytesForDisplay(RTE_IMAGE_MAX_BYTES)}。
         </p>
-        <label className='inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60'>
+        <label className='daisy-btn daisy-btn-primary inline-flex h-auto min-h-0 items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-sm active:translate-none disabled:cursor-not-allowed disabled:opacity-60'>
           {isUploading ? (
             <>
-              <LoadingSpinnerIcon className='mr-2 size-4 animate-spin' /> 上传中...
+              <span
+                className='daisy-loading daisy-loading-spinner daisy-loading-xs mr-2'
+                aria-hidden='true'
+              />{' '}
+              上传中...
             </>
           ) : (
             '选择文件上传'
@@ -250,7 +253,7 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
         </label>
         {uploadError && <p className='text-status-error-foreground mt-3 text-sm'>{uploadError}</p>}
       </div>
-      <div className='border-border bg-surface-sunken rounded-lg border p-4'>
+      <div className='daisy-card border-border bg-surface-sunken rounded-lg border p-4'>
         <p className='text-sm text-gray-700 dark:text-gray-300'>
           若已知图片 URL，可直接粘贴（仅支持站内/网站数据库的 URL）：
         </p>
@@ -293,7 +296,11 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
       {libraryError && <p className='text-status-error-foreground text-sm'>{libraryError}</p>}
       {libraryLoading ? (
         <div className='flex items-center justify-center py-10 text-gray-500 dark:text-gray-400'>
-          <LoadingSpinnerIcon className='mr-2 size-5 animate-spin' /> 加载中...
+          <span
+            className='daisy-loading daisy-loading-spinner daisy-loading-sm mr-2'
+            aria-hidden='true'
+          />{' '}
+          加载中...
         </div>
       ) : filteredLibraryItems.length === 0 ? (
         <div className='py-10 text-center text-sm text-gray-500 dark:text-gray-400'>
@@ -363,7 +370,11 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
       {siteError && <p className='text-status-error-foreground text-sm'>{siteError}</p>}
       {siteLoading ? (
         <div className='flex items-center justify-center py-10 text-gray-500 dark:text-gray-400'>
-          <LoadingSpinnerIcon className='mr-2 size-5 animate-spin' /> 加载中...
+          <span
+            className='daisy-loading daisy-loading-spinner daisy-loading-sm mr-2'
+            aria-hidden='true'
+          />{' '}
+          加载中...
         </div>
       ) : siteEntries.length === 0 ? (
         <div className='py-10 text-center text-sm text-gray-500 dark:text-gray-400'>
@@ -438,14 +449,14 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
           variant='unstyled'
           type='button'
           onClick={onClose}
-          className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+          className='daisy-btn daisy-btn-ghost daisy-btn-sm daisy-btn-circle hover:bg-control h-8 min-h-0 w-8 border-0 p-0 font-normal text-gray-500 hover:text-gray-700 active:translate-none dark:text-gray-400 dark:hover:text-gray-200'
           aria-label='关闭图片选择器'
         >
           ✕
         </Button>
       </div>
       <div className='space-y-4 px-6 py-4'>
-        <div className='flex flex-wrap gap-2'>
+        <div className='daisy-tabs flex flex-wrap gap-2'>
           {TABS.map((tab) => (
             <TabButton key={tab.id} id={tab.id} label={tab.label} />
           ))}
@@ -454,7 +465,7 @@ const ImagePickerModal: React.FC<ImagePickerModalProps> = ({
         {activeTab === 'library' && renderLibraryTab()}
         {activeTab === 'site' && renderSiteTab()}
       </div>
-      <div className='border-border flex justify-end border-t px-6 py-3'>
+      <div className='daisy-modal-action border-border flex justify-end border-t px-6 py-3'>
         <Button onClick={onClose} variant='secondary'>
           关闭
         </Button>

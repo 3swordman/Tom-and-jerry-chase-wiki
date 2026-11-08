@@ -113,7 +113,7 @@ export default function ChatMessage({
               aria-label={copied ? '已复制回答' : '复制回答'}
               title={copied ? '已复制回答' : '复制回答'}
               onClick={() => void copy(text).then((success) => setFailed(!success))}
-              className='flex min-h-8 items-center gap-1.5 rounded-md px-1 text-xs text-stone-500 transition-colors hover:text-stone-800 dark:text-neutral-400 dark:hover:text-neutral-100'
+              className='daisy-btn daisy-btn-ghost daisy-btn-xs flex h-auto min-h-8 items-center gap-1.5 rounded-md border-0 px-1 text-xs font-normal text-stone-500 hover:text-stone-800 active:translate-none dark:text-neutral-400 dark:hover:text-neutral-100'
             >
               {copied ? (
                 <CheckIcon className='size-3.5' />
@@ -127,7 +127,7 @@ export default function ChatMessage({
                 aria-label='重试回答'
                 title='重新生成回答'
                 onClick={onRetry}
-                className='flex size-8 items-center justify-center rounded-md text-stone-500 transition-colors hover:text-stone-800 dark:text-neutral-400 dark:hover:text-neutral-100'
+                className='daisy-btn daisy-btn-ghost daisy-btn-sm flex size-8 min-h-0 items-center justify-center rounded-md border-0 p-0 font-normal text-stone-500 hover:text-stone-800 active:translate-none dark:text-neutral-400 dark:hover:text-neutral-100'
               >
                 <ArrowPathIcon className='size-3.5' />
               </Button>

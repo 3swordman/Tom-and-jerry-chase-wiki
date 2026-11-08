@@ -22,12 +22,12 @@ interface EditableTreeNodeProps {
 }
 
 const andBadgeClass =
-  'text-xs font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300';
+  'daisy-badge daisy-badge-info text-xs font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300';
 const orBadgeClass =
-  'text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300';
+  'daisy-badge daisy-badge-warning text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300';
 
 const smallButtonClass =
-  'hover:bg-control-hover rounded px-1.5 py-0.5 text-xs text-muted-foreground transition-colors';
+  'daisy-btn daisy-btn-ghost daisy-btn-xs hover:bg-control-hover h-auto min-h-0 rounded border-0 px-1.5 py-0.5 text-xs font-normal text-muted-foreground transition-colors active:translate-none';
 
 /** Renders a single group-tuple header with edit controls. */
 const GroupHeader = memo(

@@ -10,9 +10,16 @@
 @source '../../public/entity-maker.html';
 @source '../../public/clear-cache.html';
 @plugin '@tailwindcss/typography';
+@plugin 'daisyui' {
+  themes: false;
+  prefix: 'daisy-';
+  exclude: rootcolor, rootscrolllock, rootscrollgutter;
+  logs: false;
+}
 @custom-variant dark (&:where(.dark, .dark *));
 
 @import '../styles/theme.css';
+@import '../styles/daisy-theme.css';
 @import '../styles/game-colors.css';
 @import '../styles/base.css';
 @import '../styles/typography.css';

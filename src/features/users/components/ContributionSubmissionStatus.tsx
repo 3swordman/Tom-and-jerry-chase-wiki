@@ -115,9 +115,11 @@ export default function ContributionSubmissionStatus() {
               { label: '已公开', value: summary.public },
               { label: '未通过', value: summary.rejected },
             ].map(({ label, value }) => (
-              <Card key={label} className='text-center'>
-                <div className='text-2xl font-bold'>{value}</div>
-                <div className='mt-1 text-sm text-gray-500 dark:text-gray-400'>{label}</div>
+              <Card key={label} className='daisy-stat place-items-center text-center'>
+                <div className='daisy-stat-value text-2xl font-bold'>{value}</div>
+                <div className='daisy-stat-title mt-1 text-sm text-gray-500 dark:text-gray-400'>
+                  {label}
+                </div>
               </Card>
             ))}
           </section>
@@ -218,19 +220,19 @@ export default function ContributionSubmissionStatus() {
                             </span>
                             <span
                               className={cn(
-                                'rounded-full px-2.5 py-1 text-xs font-medium',
+                                'daisy-badge rounded-full px-2.5 py-1 text-xs font-medium',
                                 statusMeta.badgeClassName
                               )}
                             >
                               {statusMeta.label}
                             </span>
                             {contribution.status === 'pending' && contribution.isPublic && (
-                              <span className='rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/35 dark:text-emerald-200'>
+                              <span className='daisy-badge rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/35 dark:text-emerald-200'>
                                 审核中但已公开
                               </span>
                             )}
                             {contribution.thanked && (
-                              <span className='rounded-full bg-pink-100 px-2.5 py-1 text-xs font-medium text-pink-800 dark:bg-pink-900/35 dark:text-pink-200'>
+                              <span className='daisy-badge rounded-full bg-pink-100 px-2.5 py-1 text-xs font-medium text-pink-800 dark:bg-pink-900/35 dark:text-pink-200'>
                                 已获感谢
                               </span>
                             )}

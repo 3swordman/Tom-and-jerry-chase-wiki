@@ -9,10 +9,13 @@ type NoticeProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 const noticeStyles: Record<NoticeVariant, string> = {
-  error: 'border-status-error-border bg-status-error text-status-error-foreground',
-  warning: 'border-status-warning-border bg-status-warning text-status-warning-foreground',
-  info: 'border-status-info-border bg-status-info text-status-info-foreground',
-  success: 'border-status-success-border bg-status-success text-status-success-foreground',
+  error:
+    'daisy-alert-error daisy-alert-soft border-status-error-border bg-status-error text-status-error-foreground',
+  warning:
+    'daisy-alert-warning daisy-alert-soft border-status-warning-border bg-status-warning text-status-warning-foreground',
+  info: 'daisy-alert-info daisy-alert-soft border-status-info-border bg-status-info text-status-info-foreground',
+  success:
+    'daisy-alert-success daisy-alert-soft border-status-success-border bg-status-success text-status-success-foreground',
 };
 
 const getDefaultAriaProps = (variant: NoticeVariant) =>
@@ -33,7 +36,11 @@ export default function Notice({
     <div
       role={role ?? defaultAriaProps.role}
       aria-live={ariaLive ?? defaultAriaProps['aria-live']}
-      className={cn('rounded-lg border px-4 py-3 text-sm', noticeStyles[variant], className)}
+      className={cn(
+        'daisy-alert daisy-alert-soft block rounded-lg border bg-none px-4 py-3 [text-align:inherit] text-sm shadow-none',
+        noticeStyles[variant],
+        className
+      )}
       {...rest}
     />
   );

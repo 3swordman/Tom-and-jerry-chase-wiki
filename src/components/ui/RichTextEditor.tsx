@@ -19,7 +19,6 @@ import { useToast } from '@/context/ToastContext';
 import ImagePickerModal from './RichTextEditor/ImagePickerModal';
 import LinkDialog from './RichTextEditor/LinkDialog';
 import Toolbar, { ToolbarCommands } from './RichTextEditor/Toolbar';
-import { LoadingSpinnerIcon } from './RichTextEditorIcons';
 
 interface RichTextEditorProps {
   content?: string;
@@ -273,7 +272,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     return (
       <div className='border-border rounded-lg border'>
         <div className='flex items-center justify-center p-6 text-gray-500 dark:text-gray-400'>
-          <LoadingSpinnerIcon />
+          <span
+            className='daisy-loading daisy-loading-spinner daisy-loading-md mr-2'
+            aria-hidden='true'
+          />
           加载编辑器...
         </div>
       </div>
@@ -327,6 +329,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               }
             }}
             className={cn(
+              'daisy-textarea rounded-none border-0 border-current p-0',
               'bg-surface-sunken h-full min-h-100 w-full p-6 text-gray-900 dark:text-gray-100',
               'resize-none font-mono text-sm focus:outline-none',
               className

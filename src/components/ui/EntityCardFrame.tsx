@@ -55,7 +55,7 @@ export default function EntityCardFrame({
   const content = (
     <div
       className={cn(
-        'bg-surface text-foreground group flex-1 rounded-lg [&_img]:select-none',
+        'daisy-card bg-surface text-foreground group flex-1 rounded-lg [&_img]:select-none',
         variant === 'detail' && 'border-border border',
         variantClasses[variant],
         isInteractive &&

@@ -232,7 +232,7 @@ export default function ArticleDiffViewer({
 
       <Card bordered className='overflow-hidden p-0'>
         <div className='overflow-x-auto' data-testid='article-diff-table-scroll'>
-          <table className='w-full min-w-200 table-fixed border-collapse'>
+          <table className='daisy-table w-full min-w-200 table-fixed border-collapse'>
             <colgroup>
               <col className='w-9' />
               <col className='w-6' />

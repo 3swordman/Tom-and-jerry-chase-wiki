@@ -403,7 +403,7 @@ export default function CharacterRelationsMatrix({
     <div className='border-border bg-surface-sunken mx-auto max-h-[calc(100vh-15rem)] w-fit max-w-full overflow-auto border'>
       <table
         aria-label='角色关系矩阵'
-        className='w-max border-separate border-spacing-0 text-xs text-gray-700 dark:text-gray-200'
+        className='daisy-table w-max border-separate border-spacing-0 text-xs text-gray-700 dark:text-gray-200'
       >
         <thead>
           <tr>

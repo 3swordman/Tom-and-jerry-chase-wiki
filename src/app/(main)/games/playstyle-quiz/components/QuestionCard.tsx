@@ -45,8 +45,8 @@ export default function QuestionCard({
               onClick={() => onToggleAnswer(index)}
               disabled={isSubmitting}
               className={cn(
-                'flex items-center gap-3 rounded-lg border-2 px-5 py-4 text-left transition-all duration-150',
-                'min-h-11 touch-manipulation', // Mobile touch target
+                'daisy-btn daisy-btn-ghost flex h-auto min-h-11 items-center justify-start gap-3 rounded-lg border-2 px-5 py-4 text-left font-normal transition-all duration-150 active:translate-none',
+                'touch-manipulation', // Mobile touch target
                 'focus:ring-focus focus:ring-2 focus:outline-none',
                 isSelected
                   ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/30'

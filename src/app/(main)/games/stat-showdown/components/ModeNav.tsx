@@ -31,13 +31,13 @@ type ModeNavProps = {
 export default function ModeNav({ currentMode }: ModeNavProps) {
   return (
     <nav className='flex justify-center'>
-      <div className='border-border bg-surface-sunken inline-flex rounded-lg border p-1'>
+      <div className='daisy-join border-border bg-surface-sunken inline-flex rounded-lg border p-1'>
         {MODES.map((m) => (
           <Link
             key={m.id}
             href={MODE_HREF[m.id]}
             className={cn(
-              'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+              'daisy-join-item daisy-btn daisy-btn-sm h-auto min-h-0 rounded-md border-0 px-3 py-1.5 text-sm font-medium active:translate-none',
               currentMode === m.id
                 ? 'bg-surface text-blue-600 shadow-sm dark:text-blue-400'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'

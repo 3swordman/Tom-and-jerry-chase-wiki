@@ -601,6 +601,7 @@ function ActionDiffCard({
           <label className='flex min-h-9 cursor-pointer items-center gap-2'>
             <input
               type='checkbox'
+              className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs'
               checked={showRawStructure}
               onChange={(event) => setShowRawStructure(event.target.checked)}
             />

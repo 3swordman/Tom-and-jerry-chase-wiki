@@ -461,7 +461,7 @@ function useInlineEditableContent(opts: {
     ? createPortal(
         <div
           ref={autocompleteListRef}
-          className='border-border bg-surface-raised text-foreground z-20000 max-h-64 min-w-0 overflow-y-auto rounded-md border p-1 shadow-xl ring-1 ring-black/5 dark:ring-white/10'
+          className='daisy-menu border-border bg-surface-raised text-foreground z-20000 max-h-64 min-w-0 overflow-y-auto rounded-md border p-1 shadow-xl ring-1 ring-black/5 dark:ring-white/10'
           style={{
             position: 'fixed',
             top: autocompletePosition.top,
@@ -481,7 +481,7 @@ function useInlineEditableContent(opts: {
                 }}
                 type='button'
                 className={cn(
-                  'flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm',
+                  'daisy-btn daisy-btn-ghost flex h-auto min-h-0 w-full items-center justify-between rounded border-0 px-2 py-1.5 text-left text-sm font-normal active:translate-none',
                   isActive
                     ? 'bg-blue-100 text-blue-900 dark:bg-blue-900/40 dark:text-blue-100'
                     : 'hover:bg-control'

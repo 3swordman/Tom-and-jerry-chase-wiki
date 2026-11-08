@@ -143,7 +143,7 @@ function MatrixSizeSlider({
           step={MATRIX_SIZE_STEP}
           value={value}
           onChange={(event) => onChange(Number(event.currentTarget.value))}
-          className='h-8 w-full cursor-pointer accent-blue-500 dark:accent-blue-400'
+          className='daisy-range daisy-range-primary h-8 w-full cursor-pointer text-blue-500 dark:text-blue-400'
           aria-labelledby={labelId}
         />
       </div>
@@ -259,7 +259,7 @@ export default function RelationsClient({
       descriptionVisibility='desktop'
       actions={mounted && canEditRelations && !isEditMode ? <EditButton /> : undefined}
       filters={
-        <div className='border-border bg-surface-sunken flex flex-col gap-3 rounded-md border p-3'>
+        <div className='daisy-card border-border bg-surface-sunken flex flex-col gap-3 rounded-md border p-3'>
           <RowFactionSelector selected={rowFaction} onSelect={handleRowFactionSelect} />
           <ColumnCategorySelector
             options={columnCategoryOptions}

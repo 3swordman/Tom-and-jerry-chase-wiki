@@ -22,7 +22,7 @@ export default function DetailViewToggle() {
         aria-pressed={isDetailedView}
         aria-label={toggleLabel}
         className={cn(
-          'bg-control relative flex min-h-10 cursor-pointer rounded-lg border-none p-1 transition-all duration-200',
+          'daisy-btn daisy-btn-ghost daisy-btn-sm bg-control relative flex h-auto min-h-10 cursor-pointer rounded-lg border-0 p-1 font-normal transition-all duration-200 active:translate-none',
           'focus-visible:outline-focus focus-visible:outline focus-visible:outline-offset-2',
           'md:min-h-11'
         )}

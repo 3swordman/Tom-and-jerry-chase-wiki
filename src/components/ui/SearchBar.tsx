@@ -64,7 +64,15 @@ const SearchBar: React.FC<object> = () => {
 
   return (
     <div>
-      <Tooltip content='搜索 (快捷键：/ )' className='border-none' asChild>
+      <Tooltip
+        content={
+          <span className='inline-flex items-center gap-1'>
+            搜索 <kbd className='daisy-kbd daisy-kbd-xs'>/</kbd>
+          </span>
+        }
+        className='border-none'
+        asChild
+      >
         <MotionButton
           variant='unstyled'
           type='button'

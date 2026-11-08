@@ -19,7 +19,7 @@ export default function StatLabel({ statName }: StatLabelProps) {
 
   return (
     <div className='space-y-1 text-center'>
-      <span className='inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300'>
+      <span className='daisy-badge inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300'>
         <ChartLineIcon className='h-4 w-4' />
         比较: {stat.label}
       </span>

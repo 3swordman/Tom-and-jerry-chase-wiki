@@ -140,11 +140,11 @@ export default function CharacterRankingTable({
 
   return (
     <div className='mx-auto w-full max-w-6xl space-y-4 px-4'>
-      <details className='border-border bg-surface-sunken rounded-lg border p-4'>
-        <summary className='cursor-pointer font-medium text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100'>
+      <details className='daisy-collapse daisy-collapse-arrow border-border bg-surface-sunken rounded-lg border p-4'>
+        <summary className='daisy-collapse-title min-h-0 cursor-pointer p-0 font-medium text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100'>
           自定义显示属性
         </summary>
-        <div className='mt-4'>
+        <div className='daisy-collapse-content mt-4 p-0'>
           <p className='text-sm font-medium'>显示列</p>
           <div className='mt-2 overflow-x-auto py-3'>
             <Reorder.Group
@@ -182,7 +182,7 @@ export default function CharacterRankingTable({
                         moveColumn(key, event.key === 'ArrowLeft' ? -1 : 1);
                       }
                     }}
-                    className='flex min-h-11 cursor-grab items-center gap-2 rounded-l-lg px-3 focus-visible:outline-2 focus-visible:outline-offset-2 active:cursor-grabbing'
+                    className='daisy-btn daisy-btn-ghost daisy-btn-sm flex h-auto min-h-11 cursor-grab items-center gap-2 rounded-l-lg border-0 px-3 font-normal focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-none active:cursor-grabbing'
                   >
                     <span aria-hidden='true' className='text-muted-foreground text-base'>
                       ⠿
@@ -194,7 +194,7 @@ export default function CharacterRankingTable({
                     aria-label={`隐藏${labels.get(key)}列`}
                     onPointerDown={(event) => event.stopPropagation()}
                     onClick={() => toggleColumn(key, false)}
-                    className='hover:bg-control flex min-h-11 w-8 items-center justify-center rounded-r-lg text-base focus-visible:outline-2 focus-visible:outline-offset-2'
+                    className='daisy-btn daisy-btn-ghost daisy-btn-sm hover:bg-control flex h-auto min-h-11 w-8 items-center justify-center rounded-r-lg border-0 px-0 font-normal focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-none'
                   >
                     <span aria-hidden='true'>×</span>
                   </button>
@@ -215,7 +215,7 @@ export default function CharacterRankingTable({
                   type='button'
                   aria-label={`显示${option.label}列`}
                   onClick={() => toggleColumn(option.key, true)}
-                  className='border-border hover:bg-control flex min-h-11 items-center gap-2 rounded-lg border px-3 text-sm focus-visible:outline-2 focus-visible:outline-offset-2'
+                  className='daisy-btn daisy-btn-outline daisy-btn-sm border-border hover:bg-control flex h-auto min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-normal focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-none'
                 >
                   <span aria-hidden='true'>＋</span>
                   {option.label}
@@ -242,7 +242,7 @@ export default function CharacterRankingTable({
         tabIndex={0}
       >
         {columns.length > 0 ? (
-          <table className='w-full border-collapse text-left text-sm'>
+          <table className='daisy-table w-full border-collapse text-left text-sm'>
             <caption className='sr-only'>角色属性排行榜</caption>
             <thead className='bg-surface-sunken'>
               <tr>

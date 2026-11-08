@@ -16,7 +16,6 @@ import {
   ImageIcon,
   ItalicIcon,
   LinkIcon,
-  LoadingSpinnerIcon,
   OrderedListIcon,
   RedoIcon,
   StrikethroughIcon,
@@ -103,12 +102,12 @@ const ToolbarButton = React.memo(function ToolbarButton({
       onClick={onClick}
       disabled={disabled || mode !== 'rich'}
       className={cn(
-        'inline-flex h-8 items-center justify-center rounded-md border p-2 text-sm font-medium transition-all duration-200',
+        'daisy-btn daisy-btn-sm inline-flex h-8 min-h-0 items-center justify-center rounded-md border px-2 py-2 text-sm font-medium transition-all duration-200 active:translate-none',
         'hover:bg-control',
         'focus:ring-focus focus:ring-2 focus:ring-offset-1 focus:outline-none',
         'disabled:cursor-not-allowed disabled:opacity-50',
         isActive
-          ? 'border-blue-300 bg-blue-100 text-blue-700 dark:border-blue-600 dark:bg-blue-900/30 dark:text-blue-300'
+          ? 'daisy-btn-active border-blue-300 bg-blue-100 text-blue-700 dark:border-blue-600 dark:bg-blue-900/30 dark:text-blue-300'
           : 'bg-surface border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300'
       )}
     >
@@ -364,7 +363,10 @@ const Toolbar = React.memo(function Toolbar({
               disabled={!!isUploadingImage}
             >
               {isUploadingImage ? (
-                <LoadingSpinnerIcon className='size-4 animate-spin' />
+                <span
+                  className='daisy-loading daisy-loading-spinner daisy-loading-xs'
+                  aria-hidden='true'
+                />
               ) : (
                 <ImageIcon />
               )}

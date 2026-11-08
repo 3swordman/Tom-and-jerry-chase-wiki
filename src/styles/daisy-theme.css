@@ -1,0 +1,170 @@
+:root,
+.dark {
+  /* daisyUI shares the existing theme, which is switched by the .dark class. */
+  --color-base-100: var(--wiki-surface);
+  --color-base-200: var(--wiki-surface-muted);
+  --color-base-300: var(--wiki-border);
+  --color-base-content: var(--wiki-foreground);
+  --color-primary: var(--wiki-action-primary);
+  --color-primary-content: var(--wiki-action-primary-foreground);
+  --color-secondary: var(--wiki-control);
+  --color-secondary-content: var(--wiki-foreground);
+  --color-accent: var(--wiki-action-primary);
+  --color-accent-content: var(--wiki-action-primary-foreground);
+  --color-neutral: var(--wiki-control);
+  --color-neutral-content: var(--wiki-foreground);
+  --color-info: var(--wiki-status-info);
+  --color-info-content: var(--wiki-status-info-foreground);
+  --color-success: var(--wiki-action-success);
+  --color-success-content: var(--wiki-action-success-foreground);
+  --color-warning: var(--wiki-action-warning);
+  --color-warning-content: var(--wiki-action-warning-foreground);
+  --color-error: var(--wiki-action-danger);
+  --color-error-content: var(--wiki-action-danger-foreground);
+  --radius-selector: 0.375rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* daisyUI supplies the component structure, behavior, and accessibility hooks.
+   These baselines keep the wiki's established presentation for the shared
+   primitives, so callers can use the plain daisyUI class names. */
+@layer utilities {
+  :where(.daisy-input, .daisy-select, .daisy-textarea) {
+    appearance: auto;
+    align-items: baseline;
+    box-shadow: none;
+    vertical-align: baseline;
+  }
+
+  /* Let native focus outlines and caller-supplied focus utilities take precedence. */
+  :where(.daisy-input:focus, .daisy-select:focus, .daisy-textarea:focus) {
+    outline: revert;
+    outline-offset: revert;
+  }
+
+  :where(.daisy-input) {
+    position: static;
+    display: inline-block;
+    height: auto;
+    touch-action: auto;
+    white-space: normal;
+  }
+
+  :where(.daisy-select) {
+    position: static;
+    display: inline-block;
+    height: auto;
+    touch-action: auto;
+    overflow: visible;
+    background-image: none;
+    white-space: normal;
+  }
+
+  :where(.daisy-textarea) {
+    min-height: 0;
+    touch-action: auto;
+  }
+
+  :where(.daisy-input, .daisy-select, .daisy-textarea):disabled::placeholder {
+    opacity: 1;
+  }
+
+  /* Shared cards may contain ordinary controls and figures. Keep their existing
+     presentation instead of opting them into daisyUI's selectable-card layout. */
+  :where(.daisy-card) {
+    display: revert;
+    position: revert;
+    flex-direction: revert;
+    cursor: revert;
+    user-select: revert;
+    outline: revert;
+    outline-offset: revert;
+    transition: revert;
+  }
+
+  :where(.daisy-card > input:is([type='checkbox'], [type='radio'])) {
+    appearance: revert;
+  }
+
+  :where(.daisy-card figure) {
+    display: revert;
+    align-items: revert;
+    justify-content: revert;
+  }
+
+  :where(.daisy-card figure:first-child, .daisy-card figure:last-child) {
+    overflow: revert;
+    border-start-start-radius: revert;
+    border-start-end-radius: revert;
+    border-end-start-radius: revert;
+    border-end-end-radius: revert;
+  }
+
+  /* Existing tables specify their own cell spacing, borders, and headings. */
+  :where(.daisy-table) {
+    width: revert;
+    border-collapse: collapse;
+    border-spacing: revert;
+    border-radius: revert;
+    text-align: revert;
+    font-size: revert;
+    position: revert;
+  }
+
+  :where(.daisy-table :is(th, td)) {
+    vertical-align: revert;
+    padding: 0;
+    border-bottom-width: 0;
+    border-bottom-color: currentColor;
+  }
+
+  :where(.daisy-table :is(thead, tfoot)) {
+    white-space: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  :where(.daisy-table tfoot tr:first-child :is(th, td)) {
+    border-top-width: 0;
+    border-top-color: currentColor;
+  }
+
+  /* Badges retain their surrounding text's metrics and existing spacing. */
+  :where(.daisy-badge) {
+    display: revert;
+    width: revert;
+    height: revert;
+    flex-shrink: revert;
+    vertical-align: revert;
+    align-items: revert;
+    justify-content: revert;
+    gap: revert;
+    border: 0 solid;
+    border-radius: revert;
+    background-color: transparent;
+    background-image: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* Pagination keeps its existing separated, individually rounded buttons. */
+  :where(.pagination) > .daisy-join-item {
+    --join-ss: var(--radius-lg);
+    --join-se: var(--radius-lg);
+    --join-es: var(--radius-lg);
+    --join-ee: var(--radius-lg);
+    --join-ml: 0px;
+    --join-mt: 0px;
+    border-width: 0;
+    margin-block-start: 0;
+    margin-inline-start: 0;
+  }
+}

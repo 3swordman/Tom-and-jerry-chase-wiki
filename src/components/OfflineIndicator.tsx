@@ -66,7 +66,10 @@ export const OfflineIndicator: React.FC = () => {
           transition={{ duration: 0.18, ease: 'easeOut' }}
         >
           <div className='flex items-center justify-center space-x-2'>
-            <div className='h-2 w-2 animate-pulse rounded-full bg-gray-300'></div>
+            <span
+              className='daisy-status h-2 w-2 animate-pulse rounded-full bg-gray-300'
+              aria-hidden='true'
+            />
             <span>您正在离线浏览 - 仅显示已缓存的内容</span>
           </div>
         </m.div>

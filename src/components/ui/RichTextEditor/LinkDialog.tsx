@@ -59,7 +59,7 @@ export default function LinkDialog({
         <div className='mb-4'>
           <label
             htmlFor='link-url'
-            className='mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'
+            className='daisy-label mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300'
           >
             链接地址
           </label>

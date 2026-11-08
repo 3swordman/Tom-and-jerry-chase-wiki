@@ -268,7 +268,7 @@ export default function ArticleHistoryClient() {
                             }))
                           }
                           disabled={selectedNewIndex !== undefined && index <= selectedNewIndex}
-                          className='bg-control size-4 border-gray-300 text-orange-600 focus:ring-orange-500 dark:border-gray-600'
+                          className='daisy-radio daisy-radio-warning size-4'
                           aria-label={`选择版本 #${data.versions.length - index} 作为旧版本`}
                         />
                         旧
@@ -285,7 +285,7 @@ export default function ArticleHistoryClient() {
                             }))
                           }
                           disabled={selectedOldIndex !== undefined && index >= selectedOldIndex}
-                          className='bg-control focus:ring-focus size-4 border-gray-300 text-blue-600 dark:border-gray-600'
+                          className='daisy-radio daisy-radio-primary size-4'
                           aria-label={`选择版本 #${data.versions.length - index} 作为新版本`}
                         />
                         新
@@ -296,7 +296,7 @@ export default function ArticleHistoryClient() {
                   {getStatusBadge(version.status)}
 
                   {index === 0 && version.status === 'approved' && (
-                    <span className='inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'>
+                    <span className='daisy-badge daisy-badge-info inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'>
                       当前版本
                     </span>
                   )}
@@ -318,7 +318,7 @@ export default function ArticleHistoryClient() {
                   </div>
 
                   {version.commit_message && (
-                    <div className='rounded-md bg-blue-50 px-3 py-2 text-sm text-blue-900 dark:bg-blue-900/20 dark:text-blue-300'>
+                    <div className='daisy-alert daisy-alert-info daisy-alert-soft block rounded-md bg-blue-50 px-3 py-2 text-sm text-blue-900 dark:bg-blue-900/20 dark:text-blue-300'>
                       <span className='font-medium'>提交说明: </span>
                       {version.commit_message}
                     </div>

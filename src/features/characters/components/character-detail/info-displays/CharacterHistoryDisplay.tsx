@@ -51,7 +51,7 @@ export default function CharacterHistoryDisplay({ history }: { history: readonly
         variant='unstyled'
         type='button'
         onClick={() => setIsExpanded(!isExpanded)}
-        className='flex items-center gap-1 transition-colors hover:text-gray-600 dark:hover:text-gray-300'
+        className='daisy-btn daisy-btn-ghost daisy-btn-xs flex h-auto min-h-0 items-center gap-1 border-0 p-0.5 font-normal transition-colors hover:bg-transparent hover:text-gray-600 active:translate-none dark:hover:text-gray-300'
         aria-expanded={isExpanded}
       >
         <span>角色历史记录</span>

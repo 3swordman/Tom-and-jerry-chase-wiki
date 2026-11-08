@@ -56,7 +56,7 @@ function TagNameDropdown({
     <select
       value={currentValue}
       onChange={(e) => onSelect(e.target.value)}
-      className='font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
+      className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-inherit outline-none'
       aria-label='选择标签名称'
     >
       {availableTags.map((tagName) => (
@@ -87,7 +87,7 @@ function TagLevelDropdown({
     <select
       value={currentValue ?? 0}
       onChange={(event) => onSelect(Number(event.target.value) as PositioningTagLevel)}
-      className='font-inherit cursor-pointer border-none bg-transparent text-xs text-inherit outline-none'
+      className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-xs text-inherit outline-none'
       aria-label='选择标签等级'
     >
       {([0, 1, 2, 3, 4] as const).map((level) => (
@@ -144,7 +144,7 @@ function WeaponDropdown({
           onSelect(parseInt(value) as 1 | 2);
         }
       }}
-      className='font-inherit cursor-pointer border-none bg-transparent text-xs text-inherit outline-none'
+      className='daisy-select font-inherit cursor-pointer border-none bg-transparent text-xs text-inherit outline-none'
       aria-label='选择武器'
     >
       <option value='' disabled={isUnavailable(undefined)}>

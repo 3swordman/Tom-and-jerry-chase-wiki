@@ -57,7 +57,7 @@ export const CacheDebugPanel: React.FC = () => {
         <button
           type='button'
           onClick={() => setIsVisible(false)}
-          className='text-white hover:text-gray-300'
+          className='daisy-btn daisy-btn-ghost daisy-btn-xs h-auto min-h-0 border-0 px-1 py-0 font-normal text-white hover:bg-white/10 hover:text-gray-300 active:translate-none'
         >
           ✕
         </button>

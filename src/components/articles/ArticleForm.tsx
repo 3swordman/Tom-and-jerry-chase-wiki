@@ -262,7 +262,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
               id='license-agreement'
               checked={agreedToLicense}
               onChange={(e) => setAgreedToLicense(e.target.checked)}
-              className='bg-control focus:ring-focus mt-1 shrink-0 rounded border-gray-300 text-blue-600 disabled:opacity-50 dark:border-gray-600'
+              className='daisy-checkbox daisy-checkbox-primary mt-1 shrink-0 disabled:opacity-50'
               disabled={isSubmitting}
             />
             <label

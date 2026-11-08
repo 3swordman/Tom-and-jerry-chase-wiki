@@ -12,6 +12,7 @@ import { USER_API_KEY } from '@/hooks/useUser';
 import { BaseDialog } from '@/components/ui/BaseDialog';
 import Button from '@/components/ui/Button';
 import { FormInput } from '@/components/ui/FormControls';
+import Notice from '@/components/ui/Notice';
 import { CloseIcon } from '@/components/icons/CommonIcons';
 
 import CaptchaComponent from './CaptchaComponent';
@@ -347,27 +348,21 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, isMobile }) =>
             {password && passwordStrength && (
               <div className='mt-2'>
                 <div className='flex items-center gap-2'>
-                  <div
+                  <progress
                     role='meter'
                     aria-label='密码强度'
                     aria-valuemin={0}
                     aria-valuemax={4}
                     aria-valuenow={passwordStrength.strength}
                     aria-valuetext={strengthLabel}
-                    className='bg-surface-muted h-2 flex-1 overflow-hidden rounded-full'
-                  >
-                    <div
-                      className={cn(
-                        'h-full transition-all duration-300 motion-reduce:transition-none',
-                        {
-                          'bg-status-error-foreground': passwordStrength.strength <= 1,
-                          'bg-status-warning-foreground': passwordStrength.strength === 2,
-                          'bg-status-success-foreground': passwordStrength.strength >= 3,
-                        }
-                      )}
-                      style={{ width: `${(passwordStrength.strength / 4) * 100}%` }}
-                    />
-                  </div>
+                    value={passwordStrength.strength}
+                    max={4}
+                    className={cn('daisy-progress bg-surface-muted h-2 flex-1', {
+                      'text-status-error-foreground': passwordStrength.strength <= 1,
+                      'text-status-warning-foreground': passwordStrength.strength === 2,
+                      'text-status-success-foreground': passwordStrength.strength >= 3,
+                    })}
+                  />
                   <span
                     className={cn('text-xs font-medium', {
                       'text-status-error-foreground': passwordStrength.strength <= 1,
@@ -453,7 +448,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, isMobile }) =>
         variant='unstyled'
         type='button'
         onClick={onClose}
-        className='absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+        className='daisy-btn daisy-btn-ghost daisy-btn-sm daisy-btn-circle hover:bg-control absolute top-3 right-3 h-9 min-h-0 w-9 border-0 p-0 font-normal text-gray-500 hover:text-gray-700 active:translate-none dark:text-gray-400 dark:hover:text-gray-200'
         aria-label='关闭对话框'
       >
         <CloseIcon className='h-6 w-6' />
@@ -475,9 +470,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, isMobile }) =>
         </div>
 
         {error && (
-          <p role='alert' className='text-status-error-foreground mb-4 text-sm'>
+          <Notice variant='error' className='mb-4 text-sm'>
             {error}
-          </p>
+          </Notice>
         )}
 
         <Button

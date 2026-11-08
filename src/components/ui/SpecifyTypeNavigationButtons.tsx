@@ -31,7 +31,8 @@ export default function SpecifyTypeNavigationButtons({
   const { previousTarget, nextTarget, navigateToPrevious, navigateToNext, currentIndex, totals } =
     useSpecifyTypeNavigation(currentId, specifyType, factionId);
 
-  const baseButtonClasses = 'flex items-center gap-1 rounded-lg px-3 py-2 transition-colors border';
+  const baseButtonClasses =
+    'daisy-btn daisy-btn-sm flex h-auto min-h-0 items-center gap-1 rounded-lg border px-3 py-2 font-normal transition-colors active:translate-none';
   const enabledButtonClasses =
     'bg-control text-gray-900 border-gray-300 hover:bg-control-hover dark:text-gray-100 dark:border-gray-700';
   const disabledButtonClasses =

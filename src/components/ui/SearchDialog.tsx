@@ -230,7 +230,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({ open, onClose, isMobile }) 
         variant='unstyled'
         type='button'
         onClick={onClose}
-        className='absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+        className='daisy-btn daisy-btn-ghost daisy-btn-sm daisy-btn-circle hover:bg-control absolute top-2 right-2 h-8 min-h-0 w-8 border-0 p-0 font-normal text-gray-500 hover:text-gray-700 active:translate-none dark:text-gray-400 dark:hover:text-gray-200'
         aria-label='关闭搜索对话框'
       >
         <CloseIcon className='h-6 w-6' />
@@ -277,7 +277,12 @@ const SearchDialog: React.FC<SearchDialogProps> = ({ open, onClose, isMobile }) 
             }}
             className='border-border min-h-0 flex-1 overflow-y-auto rounded-md border [overflow-anchor:none]'
           >
-            <m.ul ref={resultsListRef} initial='hidden' animate='visible'>
+            <m.ul
+              ref={resultsListRef}
+              initial='hidden'
+              animate='visible'
+              className='daisy-menu w-full p-0'
+            >
               {/* Regular search results */}
               {searchResults.slice(0, shownCount).map((result, index) => (
                 <m.li
@@ -294,8 +299,8 @@ const SearchDialog: React.FC<SearchDialogProps> = ({ open, onClose, isMobile }) 
                     type='button'
                     onClick={() => handleResultClick(result)}
                     className={cn(
-                      'hover:bg-control flex w-full items-center gap-2 p-2 text-left',
-                      highlightedIndex === index && 'bg-control'
+                      'daisy-btn daisy-btn-ghost h-auto min-h-0 w-full justify-start gap-2 rounded-none border-0 p-2 text-left font-normal shadow-none active:translate-none',
+                      highlightedIndex === index ? 'bg-control' : 'hover:bg-control'
                     )}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     onFocus={() => setHighlightedIndex(index)}

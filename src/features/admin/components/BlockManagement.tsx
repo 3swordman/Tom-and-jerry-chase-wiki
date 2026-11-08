@@ -262,6 +262,7 @@ export default function BlockManagement({
                 <label key={action} className='flex items-center gap-2'>
                   <input
                     type='checkbox'
+                    className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs'
                     checked={actions.includes(action)}
                     onChange={() => toggleAction(action)}
                   />
@@ -301,6 +302,7 @@ export default function BlockManagement({
               <label className='flex items-center gap-2 text-sm'>
                 <input
                   type='checkbox'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs'
                   checked={hardBlock}
                   onChange={(event) => setHardBlock(event.target.checked)}
                 />{' '}
@@ -311,6 +313,7 @@ export default function BlockManagement({
               <label className='flex items-center gap-2 text-sm'>
                 <input
                   type='checkbox'
+                  className='daisy-checkbox daisy-checkbox-primary daisy-checkbox-xs'
                   checked={autoblock}
                   onChange={(event) => setAutoblock(event.target.checked)}
                 />{' '}

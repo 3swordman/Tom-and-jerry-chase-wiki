@@ -161,11 +161,14 @@ function Pagination({
 
   const buttonClasses = cn(
     getActionButtonClasses('secondary', 'sm'),
-    'rounded-lg border-0 px-4 font-normal'
+    'daisy-join-item rounded-lg border-0 px-4 font-normal'
   );
 
   return (
-    <nav aria-label='最近更改分页' className='flex items-center justify-center gap-3'>
+    <nav
+      aria-label='最近更改分页'
+      className='daisy-join pagination flex items-center justify-center gap-3'
+    >
       {currentPage > 1 ? (
         <Link href={recentChangesHref(filter, currentPage - 1)} className={buttonClasses}>
           上一页

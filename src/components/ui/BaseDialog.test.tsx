@@ -180,6 +180,26 @@ describe('BaseDialog', () => {
     expect(onParentChange).not.toHaveBeenCalled();
   });
 
+  it('keeps an inline child dialog above its parent and dismisses only the child', async () => {
+    const onParentChange = jest.fn();
+    const onChildChange = jest.fn();
+    render(
+      <BaseDialog open onOpenChange={onParentChange} ariaLabel='父窗口' portal={false}>
+        <BaseDialog open onOpenChange={onChildChange} ariaLabel='子窗口' portal={false}>
+          内容
+        </BaseDialog>
+      </BaseDialog>
+    );
+
+    const parent = screen.getByRole('dialog', { name: '父窗口' });
+    const child = screen.getByRole('dialog', { name: '子窗口' });
+    await waitFor(() => expect(child).toHaveFocus());
+    expect(Number(child.style.zIndex)).toBeGreaterThan(Number(parent.style.zIndex));
+    fireEvent.keyDown(child, { key: 'Escape' });
+    expect(onChildChange).toHaveBeenCalledWith(false, 'escape');
+    expect(onParentChange).not.toHaveBeenCalled();
+  });
+
   it('cycles Tab from the panel and both edges while preserving external portal focus', async () => {
     // JSDOM has no layout; give visible controls a box for tabbable's visibility check.
     const rectangles = jest

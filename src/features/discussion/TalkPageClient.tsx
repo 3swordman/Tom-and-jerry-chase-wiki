@@ -112,7 +112,7 @@ function Discussion({
   // Error state
   if (pages.error && !pages.hasData) {
     return (
-      <div className='rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950'>
+      <div className='daisy-alert daisy-alert-error daisy-alert-soft block rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950'>
         <p className='text-red-600 dark:text-red-400'>讨论加载失败</p>
         <Button variant='danger' size='sm' className='mt-3' onClick={() => void mutate()}>
           重试

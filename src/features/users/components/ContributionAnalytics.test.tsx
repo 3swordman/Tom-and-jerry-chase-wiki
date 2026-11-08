@@ -48,3 +48,18 @@ it('keeps analytics loading ahead of both errors', () => {
   expect(screen.getByLabelText('正在加载贡献分析')).toHaveAttribute('aria-busy', 'true');
   expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 });
+
+it('exposes each contribution share as a determinate progress value', () => {
+  render(
+    <ContributionAnalytics
+      {...props}
+      categories={[
+        { key: 'articles', label: '文章', count: 1 },
+        { key: 'game-data', label: '游戏数据', count: 3 },
+      ]}
+    />
+  );
+
+  expect(screen.getByRole('progressbar', { name: '文章占比' })).toHaveAttribute('value', '25');
+  expect(screen.getByRole('progressbar', { name: '游戏数据占比' })).toHaveAttribute('value', '75');
+});

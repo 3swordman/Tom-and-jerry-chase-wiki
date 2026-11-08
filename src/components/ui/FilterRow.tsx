@@ -67,7 +67,7 @@ export default function FilterRow<T extends string | number>(props: FilterRowPro
       </div> */}
       <div className='flex'>
         <div
-          className={cn('flex flex-wrap gap-1 md:gap-2', innerClassName)}
+          className={cn('daisy-filter flex flex-wrap gap-1 md:gap-2', innerClassName)}
           aria-label={ariaLabel || label}
         >
           {options.map((opt) => {
@@ -92,7 +92,7 @@ export default function FilterRow<T extends string | number>(props: FilterRowPro
                 aria-pressed={active}
                 onClick={() => onToggle(opt)}
                 className={cn(
-                  'filter-button cursor-pointer rounded-lg border-none px-3 py-2 text-sm font-medium ease-in-out',
+                  'daisy-btn daisy-btn-sm filter-button h-auto min-h-0 cursor-pointer rounded-lg border-0 px-3 py-2 text-sm font-medium ease-in-out active:translate-none',
                   active
                     ? getFilterButtonActiveToneClasses(resolvedActiveTone)
                     : cn(
